@@ -1,0 +1,37 @@
+{
+    "conditions": [
+        {
+            "type": "minecraft:item_exists",
+            "item": "packagedexcrafting:ultimate_crafter"
+        }
+    ],
+    "type": "forge:ore_shaped",
+    "result": {
+        "item": "packagedexcrafting:ultimate_crafter",
+        "count": 1
+    },
+    "pattern": [
+        "CIC",
+        "STS",
+        "CPC"
+    ],
+    "key": {
+        "P": {
+            "item": "#machine_package_component"
+        },
+        "T": {
+            "item": "extendedcrafting:table_ultimate"
+        },
+        "I": {
+            "item": "extendedcrafting:interface"
+        },
+        "C": {
+            "item": "extendedcrafting:material",
+            "data": 17
+        },
+        "S": {
+            "item": "extendedcrafting:material",
+            "data": 2
+        }
+    }
+}

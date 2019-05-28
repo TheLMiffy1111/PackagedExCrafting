@@ -1,0 +1,14 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "side": "packagedexcrafting:blocks/ultimate_crafter_side",
+            "top": "packagedexcrafting:blocks/ultimate_crafter_top",
+            "bottom": "packagedexcrafting:blocks/ultimate_crafter_bottom"
+        },
+        "model": "cube_bottom_top"
+    },
+    "variants": {
+        "normal": [{}]
+    }
+}
