@@ -2,6 +2,9 @@ package thelm.packagedexcrafting.tile;
 
 import java.util.List;
 
+import com.blakebr0.extendedcrafting.block.BlockEnderAlternator;
+import com.google.common.collect.Streams;
+
 import appeng.api.AEApi;
 import appeng.api.networking.IGridHost;
 import appeng.api.networking.IGridNode;
@@ -17,6 +20,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.common.Loader;
@@ -33,40 +37,44 @@ import thelm.packagedauto.api.RecipeTypeRegistry;
 import thelm.packagedauto.energy.EnergyStorage;
 import thelm.packagedauto.tile.TileBase;
 import thelm.packagedauto.tile.TileUnpackager;
-import thelm.packagedexcrafting.client.gui.GuiAdvancedCrafter;
-import thelm.packagedexcrafting.container.ContainerAdvancedCrafter;
-import thelm.packagedexcrafting.integration.appeng.networking.HostHelperTileAdvancedCrafter;
-import thelm.packagedexcrafting.inventory.InventoryAdvancedCrafter;
-import thelm.packagedexcrafting.recipe.IRecipeInfoTiered;
+import thelm.packagedexcrafting.client.gui.GuiEnderCrafter;
+import thelm.packagedexcrafting.container.ContainerEnderCrafter;
+import thelm.packagedexcrafting.integration.appeng.networking.HostHelperTileEnderCrafter;
+import thelm.packagedexcrafting.inventory.InventoryEnderCrafter;
+import thelm.packagedexcrafting.recipe.IRecipeInfoEnder;
 
 @Optional.InterfaceList({
 	@Optional.Interface(iface="appeng.api.networking.IGridHost", modid="appliedenergistics2"),
 	@Optional.Interface(iface="appeng.api.networking.security.IActionHost", modid="appliedenergistics2"),
 })
-public class TileAdvancedCrafter extends TileBase implements ITickable, IPackageCraftingMachine, IGridHost, IActionHost {
+public class TileEnderCrafter extends TileBase implements ITickable, IPackageCraftingMachine, IGridHost, IActionHost {
 
 	public static boolean enabled = true;
 
 	public static int energyCapacity = 5000;
-	public static int energyReq = 1000;
-	public static int energyUsage = 125;
+	public static int progressReq = 600;
+	public static double alternatorEff = 0.02;
+	public static int energyReq = 500;
+	public static int energyUsage = 100;
 	public static boolean drawMEEnergy = true;
 
 	public boolean isWorking = false;
+	public int progress = 0;
+	public int actualProgressReq = 0;
 	public int remainingProgress = 0;
-	public IRecipeInfoTiered currentRecipe;
+	public IRecipeInfoEnder currentRecipe;
 
-	public TileAdvancedCrafter() {
-		setInventory(new InventoryAdvancedCrafter(this));
+	public TileEnderCrafter() {
+		setInventory(new InventoryEnderCrafter(this));
 		setEnergyStorage(new EnergyStorage(this, energyCapacity));
 		if(Loader.isModLoaded("appliedenergistics2")) {
-			hostHelper = new HostHelperTileAdvancedCrafter(this);
+			hostHelper = new HostHelperTileEnderCrafter(this);
 		}
 	}
 
 	@Override
 	protected String getLocalizedName() {
-		return I18n.translateToLocal("tile.packagedexcrafting.advanced_crafter.name");
+		return I18n.translateToLocal("tile.packagedexcrafting.ender_crafter.name");
 	}
 
 	@Override
@@ -103,21 +111,19 @@ public class TileAdvancedCrafter extends TileBase implements ITickable, IPackage
 
 	@Override
 	public boolean acceptPackage(IRecipeInfo recipeInfo, List<ItemStack> stacks, EnumFacing facing) {
-		if(!isBusy() && recipeInfo instanceof IRecipeInfoTiered) {
-			IRecipeInfoTiered recipe = (IRecipeInfoTiered)recipeInfo;
-			if(recipe.getTier() == 2) {
-				ItemStack slotStack = inventory.getStackInSlot(25);
-				ItemStack outputStack = recipe.getOutput();
-				if(slotStack.isEmpty() || slotStack.getItem() == outputStack.getItem() && slotStack.getItemDamage() == outputStack.getItemDamage() && ItemStack.areItemStackShareTagsEqual(slotStack, outputStack) && slotStack.getCount()+outputStack.getCount() <= outputStack.getMaxStackSize()) {
-					currentRecipe = recipe;
-					isWorking = true;
-					remainingProgress = energyReq;
-					for(int i = 0; i < 25; ++i) {
-						inventory.setInventorySlotContents(i, recipe.getMatrix().getStackInSlot(i).copy());
-					}
-					markDirty();
-					return true;
+		if(!isBusy() && recipeInfo instanceof IRecipeInfoEnder) {
+			IRecipeInfoEnder recipe = (IRecipeInfoEnder)recipeInfo;
+			ItemStack slotStack = inventory.getStackInSlot(9);
+			ItemStack outputStack = recipe.getOutput();
+			if(slotStack.isEmpty() || slotStack.getItem() == outputStack.getItem() && slotStack.getItemDamage() == outputStack.getItemDamage() && ItemStack.areItemStackShareTagsEqual(slotStack, outputStack) && slotStack.getCount()+outputStack.getCount() <= outputStack.getMaxStackSize()) {
+				currentRecipe = recipe;
+				isWorking = true;
+				remainingProgress = energyReq;
+				for(int i = 0; i < 9; ++i) {
+					inventory.setInventorySlotContents(i, recipe.getMatrix().getStackInSlot(i).copy());
 				}
+				markDirty();
+				return true;
 			}
 		}
 		return false;
@@ -125,12 +131,19 @@ public class TileAdvancedCrafter extends TileBase implements ITickable, IPackage
 
 	@Override
 	public boolean isBusy() {
-		return isWorking || !inventory.stacks.subList(0, 25).stream().allMatch(ItemStack::isEmpty);
+		return isWorking || !inventory.stacks.subList(0, 9).stream().allMatch(ItemStack::isEmpty);
 	}
 
 	protected void tickProcess() {
-		int energy = energyStorage.extractEnergy(energyUsage, false);
-		remainingProgress -= energy;
+		int alternatorCount = getAlternatorCount();
+		if(alternatorCount > 0) {
+			progress++;
+			actualProgressReq = (int)Math.max(progressReq*(1-alternatorEff*alternatorCount), 0);
+		}
+		if(progress >= actualProgressReq) {
+			int energy = energyStorage.extractEnergy(energyUsage, false);
+			remainingProgress -= energy;
+		}
 	}
 
 	protected void finishProcess() {
@@ -138,33 +151,40 @@ public class TileAdvancedCrafter extends TileBase implements ITickable, IPackage
 			endProcess();
 			return;
 		}
-		if(inventory.getStackInSlot(25).isEmpty()) {
-			inventory.setInventorySlotContents(25, currentRecipe.getOutput());
+		if(inventory.getStackInSlot(9).isEmpty()) {
+			inventory.setInventorySlotContents(9, currentRecipe.getOutput());
 		}
 		else {
-			inventory.getStackInSlot(25).grow(currentRecipe.getOutput().getCount());
+			inventory.getStackInSlot(9).grow(currentRecipe.getOutput().getCount());
 		}
-		for(int i = 0; i < 25; ++i) {
+		for(int i = 0; i < 9; ++i) {
 			inventory.setInventorySlotContents(i, MiscUtil.getContainerItem(inventory.getStackInSlot(i)));
 		}
 		endProcess();
 	}
 
 	public void endProcess() {
+		progress = 0;
 		remainingProgress = 0;
 		isWorking = false;
 		currentRecipe = null;
 		markDirty();
 	}
 
+	protected int getAlternatorCount() {
+		return (int)Streams.stream(BlockPos.getAllInBox(pos.add(-3, -3, -3), pos.add(3, 3, 3))).
+				map(pos->world.getBlockState(pos).getBlock()).
+				filter(block->block instanceof BlockEnderAlternator).count();
+	}
+
 	protected void ejectItems() {
-		int endIndex = isWorking ? 25 : 0;
+		int endIndex = isWorking ? 9 : 0;
 		for(EnumFacing facing : EnumFacing.VALUES) {
 			TileEntity tile = world.getTileEntity(pos.offset(facing));
 			if(tile != null && !(tile instanceof TileUnpackager) && tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing.getOpposite())) {
 				IItemHandler itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing.getOpposite());
 				boolean flag = true;
-				for(int i = 25; i >= endIndex; --i) {
+				for(int i = 9; i >= endIndex; --i) {
 					ItemStack stack = inventory.getStackInSlot(i);
 					if(stack.isEmpty()) {
 						continue;
@@ -190,17 +210,17 @@ public class TileAdvancedCrafter extends TileBase implements ITickable, IPackage
 
 	protected void chargeEnergy() {
 		int prevStored = energyStorage.getEnergyStored();
-		ItemStack energyStack = inventory.getStackInSlot(26);
+		ItemStack energyStack = inventory.getStackInSlot(10);
 		if(energyStack.hasCapability(CapabilityEnergy.ENERGY, null)) {
 			int energyRequest = Math.min(energyStorage.getMaxReceive(), energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored());
 			energyStorage.receiveEnergy(energyStack.getCapability(CapabilityEnergy.ENERGY, null).extractEnergy(energyRequest, false), false);
 			if(energyStack.getCount() <= 0) {
-				inventory.setInventorySlotContents(26, ItemStack.EMPTY);
+				inventory.setInventorySlotContents(10, ItemStack.EMPTY);
 			}
 		}
 	}
 
-	public HostHelperTileAdvancedCrafter hostHelper;
+	public HostHelperTileEnderCrafter hostHelper;
 
 	@Override
 	public void invalidate() {
@@ -248,10 +268,10 @@ public class TileAdvancedCrafter extends TileBase implements ITickable, IPackage
 			IRecipeType recipeType = RecipeTypeRegistry.getRecipeType(new ResourceLocation(tag.getString("RecipeType")));
 			if(recipeType != null) {
 				IRecipeInfo recipe = recipeType.getNewRecipeInfo();
-				if(recipe instanceof IRecipeInfoTiered) {
+				if(recipe instanceof IRecipeInfoEnder) {
 					recipe.readFromNBT(tag);
-					if(recipe.isValid() && ((IRecipeInfoTiered)recipe).getTier() == 2) {
-						currentRecipe = (IRecipeInfoTiered)recipe;
+					if(recipe.isValid()) {
+						currentRecipe = (IRecipeInfoEnder)recipe;
 					}
 				}
 			}
@@ -279,14 +299,16 @@ public class TileAdvancedCrafter extends TileBase implements ITickable, IPackage
 	public void readSyncNBT(NBTTagCompound nbt) {
 		super.readSyncNBT(nbt);
 		isWorking = nbt.getBoolean("Working");
-		remainingProgress = nbt.getInteger("Progress");
+		progress = nbt.getInteger("Progress");
+		remainingProgress = nbt.getInteger("EnergyProgress");
 	}
 
 	@Override
 	public NBTTagCompound writeSyncNBT(NBTTagCompound nbt) {
 		super.writeSyncNBT(nbt);
 		nbt.setBoolean("Working", isWorking);
-		nbt.setInteger("Progress", remainingProgress);
+		nbt.setInteger("Progress", progress);
+		nbt.setInteger("EnergyProgress", remainingProgress);
 		return nbt;
 	}
 
@@ -298,20 +320,20 @@ public class TileAdvancedCrafter extends TileBase implements ITickable, IPackage
 	}
 
 	public int getScaledProgress(int scale) {
-		if(remainingProgress <= 0) {
+		if(progress <= 0) {
 			return 0;
 		}
-		return scale * (energyReq-remainingProgress) / energyReq;
+		return scale * progress / actualProgressReq;
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
 	public GuiContainer getClientGuiElement(EntityPlayer player, Object... args) {
-		return new GuiAdvancedCrafter(new ContainerAdvancedCrafter(player.inventory, this));
+		return new GuiEnderCrafter(new ContainerEnderCrafter(player.inventory, this));
 	}
 
 	@Override
 	public Container getServerGuiElement(EntityPlayer player, Object... args) {
-		return new ContainerAdvancedCrafter(player.inventory, this);
+		return new ContainerEnderCrafter(player.inventory, this);
 	}
 }

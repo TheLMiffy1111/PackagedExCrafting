@@ -8,7 +8,9 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent.OnConfigChangedEve
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import thelm.packagedexcrafting.tile.TileAdvancedCrafter;
 import thelm.packagedexcrafting.tile.TileBasicCrafter;
+import thelm.packagedexcrafting.tile.TileCombinationCrafter;
 import thelm.packagedexcrafting.tile.TileEliteCrafter;
+import thelm.packagedexcrafting.tile.TileEnderCrafter;
 import thelm.packagedexcrafting.tile.TileUltimateCrafter;
 
 public class PackagedExCraftingConfig {
@@ -50,6 +52,18 @@ public class PackagedExCraftingConfig {
 		TileUltimateCrafter.energyReq = config.get(category, "energy_req", TileUltimateCrafter.energyReq, "How much FE the Ultimate Package Crafter should use.", 0, Integer.MAX_VALUE).getInt();
 		TileUltimateCrafter.energyUsage = config.get(category, "energy_usage", TileUltimateCrafter.energyUsage, "How much FE/t maximum the Ultimate Package Crafter should use.", 0, Integer.MAX_VALUE).getInt();
 		TileUltimateCrafter.drawMEEnergy = config.get(category, "draw_me_energy", TileUltimateCrafter.drawMEEnergy, "Should the Ultimate Packager Crafter draw energy from ME systems.").getBoolean();
+		category = "blocks.ender_crafter";
+		TileEnderCrafter.enabled = config.get(category, "enabled", TileEnderCrafter.enabled, "Should the Ender Package Crafter be enabled.").setRequiresMcRestart(true).getBoolean();
+		TileEnderCrafter.energyCapacity = config.get(category, "energy_capacity", TileEnderCrafter.energyCapacity, "How much FE the Ender Package Crafter should hold.", 0, Integer.MAX_VALUE).getInt();
+		TileEnderCrafter.progressReq = config.get(category, "progress_req", TileEnderCrafter.progressReq, "How many ticks should the Ender Package Crafter wait before using energy.", 0, Integer.MAX_VALUE).getInt();
+		TileEnderCrafter.alternatorEff = config.get(category, "alternator_eff", TileEnderCrafter.alternatorEff, "How much each alternator should reduce the waiting time of the Ender Package Crafter.", 0, Double.MAX_VALUE).getDouble();
+		TileEnderCrafter.energyReq = config.get(category, "energy_req", TileEnderCrafter.energyReq, "How much FE the Ender Package Crafter should use.", 0, Integer.MAX_VALUE).getInt();
+		TileEnderCrafter.energyUsage = config.get(category, "energy_usage", TileEnderCrafter.energyUsage, "How much FE/t maximum the Ender Package Crafter should use.", 0, Integer.MAX_VALUE).getInt();
+		TileEnderCrafter.drawMEEnergy = config.get(category, "draw_me_energy", TileEnderCrafter.drawMEEnergy, "Should the Ender Packager Crafter draw energy from ME systems.").getBoolean();
+		category = "blocks.combination_crafter";
+		TileCombinationCrafter.enabled = config.get(category, "enabled", TileCombinationCrafter.enabled, "Should the Combination Package Crafter be enabled.").setRequiresMcRestart(true).getBoolean();
+		TileCombinationCrafter.energyCapacity = config.get(category, "energy_capacity", TileCombinationCrafter.energyCapacity, "How much FE the Combination Package Crafter should hold.", 0, Integer.MAX_VALUE).getInt();
+		TileCombinationCrafter.drawMEEnergy = config.get(category, "draw_me_energy", TileCombinationCrafter.drawMEEnergy, "Should the Combination Packager Crafter draw energy from ME systems.").getBoolean();
 		if(config.hasChanged()) {
 			config.save();
 		}

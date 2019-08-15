@@ -4,20 +4,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.energy.CapabilityEnergy;
 import thelm.packagedauto.inventory.InventoryTileBase;
-import thelm.packagedexcrafting.tile.TileUltimateCrafter;
+import thelm.packagedexcrafting.tile.TileCombinationCrafter;
 
-public class InventoryUltimateCrafter extends InventoryTileBase {
+public class InventoryCombinationCrafter extends InventoryTileBase {
 
-	public final TileUltimateCrafter tile;
+	public final TileCombinationCrafter tile;
 
-	public InventoryUltimateCrafter(TileUltimateCrafter tile) {
-		super(tile, 83);
+	public InventoryCombinationCrafter(TileCombinationCrafter tile) {
+		super(tile, 3);
 		this.tile = tile;
 	}
 
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		if(index == 82) {
+		if(index == 2) {
 			return stack.hasCapability(CapabilityEnergy.ENERGY, null);
 		}
 		return false;
@@ -26,8 +26,9 @@ public class InventoryUltimateCrafter extends InventoryTileBase {
 	@Override
 	public int getField(int id) {
 		switch(id) {
-		case 0: return tile.remainingProgress;
-		case 1: return tile.isWorking ? 1 : 0;
+		case 0: return tile.energyReq;
+		case 1: return tile.remainingProgress;
+		case 2: return tile.isWorking ? 1 : 0;
 		default: return 0;
 		}
 	}
@@ -36,9 +37,12 @@ public class InventoryUltimateCrafter extends InventoryTileBase {
 	public void setField(int id, int value) {
 		switch(id) {
 		case 0:
-			tile.remainingProgress = value;
+			tile.energyReq = value;
 			break;
 		case 1:
+			tile.remainingProgress = value;
+			break;
+		case 2:
 			tile.isWorking = value != 0;
 			break;
 		}
@@ -46,7 +50,7 @@ public class InventoryUltimateCrafter extends InventoryTileBase {
 
 	@Override
 	public int getFieldCount() {
-		return 2;
+		return 3;
 	}
 
 	@Override
@@ -56,6 +60,6 @@ public class InventoryUltimateCrafter extends InventoryTileBase {
 
 	@Override
 	public boolean canExtractItem(int index, ItemStack stack, EnumFacing direction) {
-		return tile.isWorking ? index == 81 : index != 82;
+		return tile.isWorking ? index == 1 : index != 2;
 	}
 }

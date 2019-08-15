@@ -31,7 +31,7 @@ repositories {
     }
 }
 
-version = "1.12.2-1.0.0.0"
+version = "1.12.2-1.0.1.1"
 group= "thelm.packagedexcrafting"
 archivesBaseName = "PackagedExCrafting"
 
@@ -72,7 +72,7 @@ dependencies {
         transitive = false
     }
 
-    deobfCompile "packagedauto:PackagedAuto:1.12.2:1.0.2.6"
+    deobfCompile "packagedauto:PackagedAuto:1.12.2:1.0.2.7"
 
 	deobfCompile "cucumber:Cucumber:1.12.2:1.1.3"
 	deobfCompile "extended-crafting:ExtendedCrafting:1.12.2:1.5.2"

@@ -49,7 +49,7 @@ public class RecipeInfoElite implements IRecipeInfoTiered {
 			}
 		}
 		if(recipe != null) {
-			MiscUtil.loadAllItems(nbt.getTagList("Input", 10), input);
+			input.addAll(MiscUtil.condenseStacks(matrix));
 			output = recipe.getCraftingResult(matrix).copy();
 			for(int i = 0; i*9 < input.size(); ++i) {
 				patterns.add(new PatternHelper(this, i));
@@ -59,8 +59,6 @@ public class RecipeInfoElite implements IRecipeInfoTiered {
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
-		NBTTagList inputTag = MiscUtil.saveAllItems(new NBTTagList(), input);
-		nbt.setTag("Input", inputTag);
 		List<ItemStack> matrixList = new ArrayList<>();
 		for(int i = 0; i < 49; ++i) {
 			matrixList.add(matrix.getStackInSlot(i));
@@ -126,7 +124,7 @@ public class RecipeInfoElite implements IRecipeInfoTiered {
 				IRecipe recipe = (IRecipe)obj;
 				if(recipe.matches(matrix, world)) {
 					this.recipe = recipe;
-					this.input.addAll(MiscUtil.condenseStacks(input));
+					this.input.addAll(MiscUtil.condenseStacks(matrix));
 					this.output = recipe.getCraftingResult(matrix).copy();
 					for(int i = 0; i*9 < this.input.size(); ++i) {
 						patterns.add(new PatternHelper(this, i));
@@ -141,7 +139,7 @@ public class RecipeInfoElite implements IRecipeInfoTiered {
 	@Override
 	public Int2ObjectMap<ItemStack> getEncoderStacks() {
 		Int2ObjectMap<ItemStack> map = new Int2ObjectOpenHashMap<>();
-		int[] slotArray = RecipeTypeBasic.SLOTS.toIntArray();
+		int[] slotArray = RecipeTypeElite.SLOTS.toIntArray();
 		for(int i = 0; i < 49; ++i) {
 			map.put(slotArray[i], matrix.getStackInSlot(i));
 		}

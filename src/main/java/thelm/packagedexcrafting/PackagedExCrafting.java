@@ -12,12 +12,16 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import thelm.packagedexcrafting.block.BlockAdvancedCrafter;
 import thelm.packagedexcrafting.block.BlockBasicCrafter;
+import thelm.packagedexcrafting.block.BlockCombinationCrafter;
 import thelm.packagedexcrafting.block.BlockEliteCrafter;
+import thelm.packagedexcrafting.block.BlockEnderCrafter;
 import thelm.packagedexcrafting.block.BlockUltimateCrafter;
 import thelm.packagedexcrafting.proxy.CommonProxy;
 import thelm.packagedexcrafting.tile.TileAdvancedCrafter;
 import thelm.packagedexcrafting.tile.TileBasicCrafter;
+import thelm.packagedexcrafting.tile.TileCombinationCrafter;
 import thelm.packagedexcrafting.tile.TileEliteCrafter;
+import thelm.packagedexcrafting.tile.TileEnderCrafter;
 import thelm.packagedexcrafting.tile.TileUltimateCrafter;
 
 @Mod(
@@ -31,8 +35,8 @@ public class PackagedExCrafting {
 
 	public static final String MOD_ID = "packagedexcrafting";
 	public static final String NAME = "PackagedExCrafting";
-	public static final String VERSION = "1.12.2-1.0.0.0";
-	public static final String DEPENDENCIES = "required-after:packagedauto@[1.12.2-1.0.1.3,1.12.2-2.0.0.0);required-after:extendedcrafting;";
+	public static final String VERSION = "1.12.2-1.0.1.1";
+	public static final String DEPENDENCIES = "required-after:packagedauto@[1.12.2-1.0.2.7,1.12.2-2.0.0.0);required-after:extendedcrafting;";
 	public static final String GUI_FACTORY = "thelm.packagedexcrafting.client.gui.GuiPackagedExCraftingConfigFactory";
 	public static final CreativeTabs CREATIVE_TAB = new CreativeTabs("packagedexcrafting") {
 		@SideOnly(Side.CLIENT)
@@ -41,11 +45,17 @@ public class PackagedExCrafting {
 			if(TileUltimateCrafter.enabled) {
 				return new ItemStack(BlockUltimateCrafter.INSTANCE);
 			}
+			if(TileCombinationCrafter.enabled) {
+				return new ItemStack(BlockCombinationCrafter.INSTANCE);
+			}
 			if(TileEliteCrafter.enabled) {
 				return new ItemStack(BlockEliteCrafter.INSTANCE);
 			}
 			if(TileAdvancedCrafter.enabled) {
 				return new ItemStack(BlockAdvancedCrafter.INSTANCE);
+			}
+			if(TileEnderCrafter.enabled) {
+				return new ItemStack(BlockEnderCrafter.INSTANCE);
 			}
 			if(TileBasicCrafter.enabled) {
 				return new ItemStack(BlockBasicCrafter.INSTANCE);

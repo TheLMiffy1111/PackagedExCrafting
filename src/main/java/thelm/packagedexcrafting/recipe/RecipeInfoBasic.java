@@ -49,7 +49,7 @@ public class RecipeInfoBasic implements IRecipeInfoTiered {
 			}
 		}
 		if(recipe != null) {
-			MiscUtil.loadAllItems(nbt.getTagList("Input", 10), input);
+			input.addAll(MiscUtil.condenseStacks(matrix));
 			output = recipe.getCraftingResult(matrix).copy();
 			for(int i = 0; i*9 < input.size(); ++i) {
 				patterns.add(new PatternHelper(this, i));
@@ -59,8 +59,6 @@ public class RecipeInfoBasic implements IRecipeInfoTiered {
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
-		NBTTagList inputTag = MiscUtil.saveAllItems(new NBTTagList(), input);
-		nbt.setTag("Input", inputTag);
 		List<ItemStack> matrixList = new ArrayList<>();
 		for(int i = 0; i < 9; ++i) {
 			matrixList.add(matrix.getStackInSlot(i));
@@ -72,7 +70,7 @@ public class RecipeInfoBasic implements IRecipeInfoTiered {
 
 	@Override
 	public IRecipeType getRecipeType() {
-		return RecipeTypeAdvanced.INSTANCE;
+		return RecipeTypeBasic.INSTANCE;
 	}
 
 	@Override
@@ -126,7 +124,7 @@ public class RecipeInfoBasic implements IRecipeInfoTiered {
 				IRecipe recipe = (IRecipe)obj;
 				if(recipe.matches(matrix, world)) {
 					this.recipe = recipe;
-					this.input.addAll(MiscUtil.condenseStacks(input));
+					this.input.addAll(MiscUtil.condenseStacks(matrix));
 					this.output = recipe.getCraftingResult(matrix).copy();
 					for(int i = 0; i*9 < this.input.size(); ++i) {
 						patterns.add(new PatternHelper(this, i));

@@ -32,6 +32,7 @@ import thelm.packagedauto.api.MiscUtil;
 import thelm.packagedauto.api.RecipeTypeRegistry;
 import thelm.packagedauto.energy.EnergyStorage;
 import thelm.packagedauto.tile.TileBase;
+import thelm.packagedauto.tile.TileUnpackager;
 import thelm.packagedexcrafting.client.gui.GuiUltimateCrafter;
 import thelm.packagedexcrafting.container.ContainerUltimateCrafter;
 import thelm.packagedexcrafting.integration.appeng.networking.HostHelperTileUltimateCrafter;
@@ -114,6 +115,7 @@ public class TileUltimateCrafter extends TileBase implements ITickable, IPackage
 					for(int i = 0; i < 81; ++i) {
 						inventory.setInventorySlotContents(i, recipe.getMatrix().getStackInSlot(i).copy());
 					}
+					markDirty();
 					return true;
 				}
 			}
@@ -152,7 +154,6 @@ public class TileUltimateCrafter extends TileBase implements ITickable, IPackage
 		remainingProgress = 0;
 		isWorking = false;
 		currentRecipe = null;
-		syncTile(false);
 		markDirty();
 	}
 
@@ -160,7 +161,7 @@ public class TileUltimateCrafter extends TileBase implements ITickable, IPackage
 		int endIndex = isWorking ? 81 : 0;
 		for(EnumFacing facing : EnumFacing.VALUES) {
 			TileEntity tile = world.getTileEntity(pos.offset(facing));
-			if(tile != null && tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing.getOpposite())) {
+			if(tile != null && !(tile instanceof TileUnpackager) && tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing.getOpposite())) {
 				IItemHandler itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing.getOpposite());
 				boolean flag = true;
 				for(int i = 81; i >= endIndex; --i) {
@@ -239,10 +240,9 @@ public class TileUltimateCrafter extends TileBase implements ITickable, IPackage
 	}
 
 	@Override
-	public void readSyncNBT(NBTTagCompound nbt) {
-		super.readSyncNBT(nbt);
-		isWorking = nbt.getBoolean("Working");
-		remainingProgress = nbt.getInteger("Progress");
+	public void readFromNBT(NBTTagCompound nbt) {
+		super.readFromNBT(nbt);
+		currentRecipe = null;
 		if(nbt.hasKey("Recipe")) {
 			NBTTagCompound tag = nbt.getCompoundTag("Recipe");
 			IRecipeType recipeType = RecipeTypeRegistry.getRecipeType(new ResourceLocation(tag.getString("RecipeType")));
@@ -256,11 +256,6 @@ public class TileUltimateCrafter extends TileBase implements ITickable, IPackage
 				}
 			}
 		}
-	}
-
-	@Override
-	public void readFromNBT(NBTTagCompound nbt) {
-		super.readFromNBT(nbt);
 		if(hostHelper != null) {
 			hostHelper.readFromNBT(nbt);
 		}
@@ -269,6 +264,11 @@ public class TileUltimateCrafter extends TileBase implements ITickable, IPackage
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
+		if(currentRecipe != null) {
+			NBTTagCompound tag = currentRecipe.writeToNBT(new NBTTagCompound());
+			tag.setString("RecipeType", currentRecipe.getRecipeType().getName().toString());
+			nbt.setTag("Recipe", tag);
+		}
 		if(hostHelper != null) {
 			hostHelper.writeToNBT(nbt);
 		}
@@ -276,15 +276,17 @@ public class TileUltimateCrafter extends TileBase implements ITickable, IPackage
 	}
 
 	@Override
+	public void readSyncNBT(NBTTagCompound nbt) {
+		super.readSyncNBT(nbt);
+		isWorking = nbt.getBoolean("Working");
+		remainingProgress = nbt.getInteger("Progress");
+	}
+
+	@Override
 	public NBTTagCompound writeSyncNBT(NBTTagCompound nbt) {
 		super.writeSyncNBT(nbt);
 		nbt.setBoolean("Working", isWorking);
 		nbt.setInteger("Progress", remainingProgress);
-		if(currentRecipe != null) {
-			NBTTagCompound tag = currentRecipe.writeToNBT(new NBTTagCompound());
-			tag.setString("RecipeType", currentRecipe.getRecipeType().getName().toString());
-			nbt.setTag("Recipe", tag);
-		}
 		return nbt;
 	}
 

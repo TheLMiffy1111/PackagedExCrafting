@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import com.blakebr0.extendedcrafting.crafting.table.TableRecipeManager;
+import com.blakebr0.extendedcrafting.crafting.endercrafter.EnderCrafterRecipeManager;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -21,11 +21,11 @@ import thelm.packagedauto.api.MiscUtil;
 import thelm.packagedauto.container.ContainerEmpty;
 import thelm.packagedauto.util.PatternHelper;
 
-public class RecipeInfoAdvanced implements IRecipeInfoTiered {
+public class RecipeInfoEnder implements IRecipeInfoEnder {
 
 	IRecipe recipe;
 	List<ItemStack> input = new ArrayList<>();
-	InventoryCrafting matrix = new InventoryCrafting(new ContainerEmpty(), 5, 5);
+	InventoryCrafting matrix = new InventoryCrafting(new ContainerEmpty(), 3, 3);
 	ItemStack output;
 	List<IPackagePattern> patterns = new ArrayList<>();
 
@@ -36,10 +36,10 @@ public class RecipeInfoAdvanced implements IRecipeInfoTiered {
 		patterns.clear();
 		List<ItemStack> matrixList = new ArrayList<>();
 		MiscUtil.loadAllItems(nbt.getTagList("Matrix", 10), matrixList);
-		for(int i = 0; i < 25 && i < matrixList.size(); ++i) {
+		for(int i = 0; i < 9 && i < matrixList.size(); ++i) {
 			matrix.setInventorySlotContents(i, matrixList.get(i));
 		}
-		for(Object obj : TableRecipeManager.getInstance().getRecipes(5)) {
+		for(Object obj : EnderCrafterRecipeManager.getInstance().getRecipes(3)) {
 			if(obj instanceof IRecipe) {
 				IRecipe recipe = (IRecipe)obj;
 				if(recipe.matches(matrix, null)) {
@@ -59,8 +59,10 @@ public class RecipeInfoAdvanced implements IRecipeInfoTiered {
 
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+		NBTTagList inputTag = MiscUtil.saveAllItems(new NBTTagList(), input);
+		nbt.setTag("Input", inputTag);
 		List<ItemStack> matrixList = new ArrayList<>();
-		for(int i = 0; i < 25; ++i) {
+		for(int i = 0; i < 9; ++i) {
 			matrixList.add(matrix.getStackInSlot(i));
 		}
 		NBTTagList matrixTag = MiscUtil.saveAllItems(new NBTTagList(), matrixList);
@@ -70,12 +72,7 @@ public class RecipeInfoAdvanced implements IRecipeInfoTiered {
 
 	@Override
 	public IRecipeType getRecipeType() {
-		return RecipeTypeAdvanced.INSTANCE;
-	}
-
-	@Override
-	public int getTier() {
-		return 2;
+		return RecipeTypeEnder.INSTANCE;
 	}
 
 	@Override
@@ -113,13 +110,13 @@ public class RecipeInfoAdvanced implements IRecipeInfoTiered {
 		recipe = null;
 		this.input.clear();
 		patterns.clear();
-		int[] slotArray = RecipeTypeAdvanced.SLOTS.toIntArray();
-		for(int i = 0; i < 25; ++i) {
+		int[] slotArray = RecipeTypeBasic.SLOTS.toIntArray();
+		for(int i = 0; i < 9; ++i) {
 			ItemStack toSet = input.get(slotArray[i]);
 			toSet.setCount(1);
 			matrix.setInventorySlotContents(i, toSet.copy());
 		}
-		for(Object obj : TableRecipeManager.getInstance().getRecipes(5)) {
+		for(Object obj : EnderCrafterRecipeManager.getInstance().getRecipes()) {
 			if(obj instanceof IRecipe) {
 				IRecipe recipe = (IRecipe)obj;
 				if(recipe.matches(matrix, world)) {
@@ -139,8 +136,8 @@ public class RecipeInfoAdvanced implements IRecipeInfoTiered {
 	@Override
 	public Int2ObjectMap<ItemStack> getEncoderStacks() {
 		Int2ObjectMap<ItemStack> map = new Int2ObjectOpenHashMap<>();
-		int[] slotArray = RecipeTypeAdvanced.SLOTS.toIntArray();
-		for(int i = 0; i < 25; ++i) {
+		int[] slotArray = RecipeTypeEnder.SLOTS.toIntArray();
+		for(int i = 0; i < 9; ++i) {
 			map.put(slotArray[i], matrix.getStackInSlot(i));
 		}
 		return map;
@@ -148,8 +145,8 @@ public class RecipeInfoAdvanced implements IRecipeInfoTiered {
 
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof RecipeInfoAdvanced) {
-			RecipeInfoAdvanced other = (RecipeInfoAdvanced)obj;
+		if(obj instanceof RecipeInfoEnder) {
+			RecipeInfoEnder other = (RecipeInfoEnder)obj;
 			for(int i = 0; i < input.size(); ++i) {
 				if(!ItemStack.areItemStacksEqualUsingNBTShareTag(input.get(i), other.input.get(i))) {
 					return false;

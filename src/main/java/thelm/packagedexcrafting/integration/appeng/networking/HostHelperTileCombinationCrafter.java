@@ -12,11 +12,11 @@ import appeng.api.storage.channels.IItemStorageChannel;
 import appeng.api.storage.data.IAEItemStack;
 import net.minecraft.item.ItemStack;
 import thelm.packagedauto.integration.appeng.networking.HostHelperTile;
-import thelm.packagedexcrafting.tile.TileBasicCrafter;
+import thelm.packagedexcrafting.tile.TileCombinationCrafter;
 
-public class HostHelperTileBasicCrafter extends HostHelperTile<TileBasicCrafter> {
+public class HostHelperTileCombinationCrafter extends HostHelperTile<TileCombinationCrafter> {
 
-	public HostHelperTileBasicCrafter(TileBasicCrafter tile) {
+	public HostHelperTileCombinationCrafter(TileCombinationCrafter tile) {
 		super(tile);
 		gridBlock.flags.remove(GridFlags.REQUIRE_CHANNEL);
 	}
@@ -32,8 +32,8 @@ public class HostHelperTileBasicCrafter extends HostHelperTile<TileBasicCrafter>
 		}
 		IItemStorageChannel storageChannel = AEApi.instance().storage().getStorageChannel(IItemStorageChannel.class);
 		IMEMonitor<IAEItemStack> inventory = storageGrid.getInventory(storageChannel);
-		int endIndex = tile.isWorking ? 9 : 0;
-		for(int i = 9; i >= endIndex; --i) {
+		int endIndex = tile.isWorking ? 1 : 0;
+		for(int i = 1; i >= endIndex; --i) {
 			ItemStack is = tile.getInventory().getStackInSlot(i);
 			if(is.isEmpty()) {
 				continue;
