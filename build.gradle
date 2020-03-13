@@ -17,7 +17,9 @@ buildscript {
 		//classpath "com.github.Wyn-Price:CurseMaven:f0d58155e6"
     }
 }
+
 apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: "com.wynprice.cursemaven"
 
 repositories {
     jcenter()
