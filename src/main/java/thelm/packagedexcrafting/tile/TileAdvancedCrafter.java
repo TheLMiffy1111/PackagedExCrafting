@@ -245,15 +245,9 @@ public class TileAdvancedCrafter extends TileBase implements ITickable, IPackage
 		currentRecipe = null;
 		if(nbt.hasKey("Recipe")) {
 			NBTTagCompound tag = nbt.getCompoundTag("Recipe");
-			IRecipeType recipeType = RecipeTypeRegistry.getRecipeType(new ResourceLocation(tag.getString("RecipeType")));
-			if(recipeType != null) {
-				IRecipeInfo recipe = recipeType.getNewRecipeInfo();
-				if(recipe instanceof IRecipeInfoTiered) {
-					recipe.readFromNBT(tag);
-					if(recipe.isValid() && ((IRecipeInfoTiered)recipe).getTier() == 2) {
-						currentRecipe = (IRecipeInfoTiered)recipe;
-					}
-				}
+			IRecipeInfo recipe = MiscUtil.readRecipeFromNBT(tag);
+			if(recipe instanceof IRecipeInfoTiered && ((IRecipeInfoTiered)recipe).getTier() == 2) {
+				currentRecipe = (IRecipeInfoTiered)recipe;
 			}
 		}
 		if(hostHelper != null) {
@@ -265,8 +259,7 @@ public class TileAdvancedCrafter extends TileBase implements ITickable, IPackage
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		if(currentRecipe != null) {
-			NBTTagCompound tag = currentRecipe.writeToNBT(new NBTTagCompound());
-			tag.setString("RecipeType", currentRecipe.getRecipeType().getName().toString());
+			NBTTagCompound tag = MiscUtil.writeRecipeToNBT(new NBTTagCompound(), currentRecipe);
 			nbt.setTag("Recipe", tag);
 		}
 		if(hostHelper != null) {

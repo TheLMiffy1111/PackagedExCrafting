@@ -265,15 +265,9 @@ public class TileEnderCrafter extends TileBase implements ITickable, IPackageCra
 		currentRecipe = null;
 		if(nbt.hasKey("Recipe")) {
 			NBTTagCompound tag = nbt.getCompoundTag("Recipe");
-			IRecipeType recipeType = RecipeTypeRegistry.getRecipeType(new ResourceLocation(tag.getString("RecipeType")));
-			if(recipeType != null) {
-				IRecipeInfo recipe = recipeType.getNewRecipeInfo();
-				if(recipe instanceof IRecipeInfoEnder) {
-					recipe.readFromNBT(tag);
-					if(recipe.isValid()) {
-						currentRecipe = (IRecipeInfoEnder)recipe;
-					}
-				}
+			IRecipeInfo recipe = MiscUtil.readRecipeFromNBT(tag);
+			if(recipe instanceof IRecipeInfoEnder) {
+				currentRecipe = (IRecipeInfoEnder)recipe;
 			}
 		}
 		if(hostHelper != null) {
@@ -285,8 +279,7 @@ public class TileEnderCrafter extends TileBase implements ITickable, IPackageCra
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		if(currentRecipe != null) {
-			NBTTagCompound tag = currentRecipe.writeToNBT(new NBTTagCompound());
-			tag.setString("RecipeType", currentRecipe.getRecipeType().getName().toString());
+			NBTTagCompound tag = MiscUtil.writeRecipeToNBT(new NBTTagCompound(), currentRecipe);
 			nbt.setTag("Recipe", tag);
 		}
 		if(hostHelper != null) {

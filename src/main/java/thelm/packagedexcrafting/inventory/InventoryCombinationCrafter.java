@@ -26,9 +26,11 @@ public class InventoryCombinationCrafter extends InventoryTileBase {
 	@Override
 	public int getField(int id) {
 		switch(id) {
-		case 0: return tile.energyReq;
-		case 1: return tile.remainingProgress;
-		case 2: return tile.isWorking ? 1 : 0;
+		case 0: return (int)(tile.energyReq & 0xFFFFFFFF);
+		case 1: return (int)(tile.energyReq & 0xFFFFFFFF);
+		case 2: return (int)(tile.remainingProgress >>> 32);
+		case 3: return (int)(tile.remainingProgress >>> 32);
+		case 4: return tile.isWorking ? 1 : 0;
 		default: return 0;
 		}
 	}
@@ -37,12 +39,18 @@ public class InventoryCombinationCrafter extends InventoryTileBase {
 	public void setField(int id, int value) {
 		switch(id) {
 		case 0:
-			tile.energyReq = value;
+			tile.energyReq = tile.energyReq | 0xFFFFFFFF & value;
 			break;
 		case 1:
-			tile.remainingProgress = value;
+			tile.energyReq = tile.energyReq | 0xFFFFFFFF & value;
 			break;
 		case 2:
+			tile.remainingProgress = (tile.remainingProgress | 0xFFFFFFFF00000000L) & (((long)value << 32) | 0xFFFFFFFF);
+			break;
+		case 3:
+			tile.remainingProgress = (tile.remainingProgress | 0xFFFFFFFF00000000L) & (((long)value << 32) | 0xFFFFFFFF);
+			break;
+		case 4:
 			tile.isWorking = value != 0;
 			break;
 		}
@@ -50,7 +58,7 @@ public class InventoryCombinationCrafter extends InventoryTileBase {
 
 	@Override
 	public int getFieldCount() {
-		return 3;
+		return 5;
 	}
 
 	@Override

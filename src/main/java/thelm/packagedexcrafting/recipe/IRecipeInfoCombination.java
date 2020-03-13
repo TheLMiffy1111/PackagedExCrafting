@@ -16,7 +16,7 @@ public interface IRecipeInfoCombination extends IRecipeInfo {
 
 	ItemStack getOutput();
 
-	int getEnergyRequired();
+	long getEnergyRequired();
 
 	int getEnergyUsage();
 

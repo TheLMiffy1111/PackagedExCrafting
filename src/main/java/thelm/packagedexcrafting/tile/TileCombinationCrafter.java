@@ -37,6 +37,7 @@ import net.minecraftforge.items.IItemHandler;
 import thelm.packagedauto.api.IPackageCraftingMachine;
 import thelm.packagedauto.api.IRecipeInfo;
 import thelm.packagedauto.api.IRecipeType;
+import thelm.packagedauto.api.MiscUtil;
 import thelm.packagedauto.api.RecipeTypeRegistry;
 import thelm.packagedauto.energy.EnergyStorage;
 import thelm.packagedauto.tile.TileBase;
@@ -59,8 +60,8 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 	public static boolean drawMEEnergy = false;
 
 	public boolean isWorking = false;
-	public int energyReq = 0;
-	public int remainingProgress = 0;
+	public long energyReq = 0;
+	public long remainingProgress = 0;
 	public int energyUsage = 0;
 	public IRecipeInfoCombination currentRecipe;
 	public List<BlockPos> pedestals = new ArrayList<>();
@@ -84,7 +85,7 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 			if(isWorking) {
 				tickProcess();
 				if(remainingProgress <= 0) {
-					energyStorage.receiveEnergy(Math.abs(remainingProgress), false);
+					energyStorage.receiveEnergy((int)Math.abs(remainingProgress), false);
 					finishProcess();
 					if(hostHelper != null && hostHelper.isActive()) {
 						hostHelper.ejectItem();
@@ -292,15 +293,9 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 		currentRecipe = null;
 		if(nbt.hasKey("Recipe")) {
 			NBTTagCompound tag = nbt.getCompoundTag("Recipe");
-			IRecipeType recipeType = RecipeTypeRegistry.getRecipeType(new ResourceLocation(tag.getString("RecipeType")));
-			if(recipeType != null) {
-				IRecipeInfo recipe = recipeType.getNewRecipeInfo();
-				if(recipe instanceof IRecipeInfoCombination) {
-					recipe.readFromNBT(tag);
-					if(recipe.isValid()) {
-						currentRecipe = (IRecipeInfoCombination)recipe;
-					}
-				}
+			IRecipeInfo recipe = MiscUtil.readRecipeFromNBT(tag);
+			if(recipe instanceof IRecipeInfoCombination) {
+				currentRecipe = (IRecipeInfoCombination)recipe;
 			}
 			pedestals.clear();
 			NBTTagList pedestalsTag = nbt.getTagList("Pedestals", 11);
@@ -319,8 +314,7 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		if(currentRecipe != null) {
-			NBTTagCompound tag = currentRecipe.writeToNBT(new NBTTagCompound());
-			tag.setString("RecipeType", currentRecipe.getRecipeType().getName().toString());
+			NBTTagCompound tag = MiscUtil.writeRecipeToNBT(new NBTTagCompound(), currentRecipe);
 			nbt.setTag("Recipe", tag);
 			NBTTagList pedestalsTag = new NBTTagList();
 			pedestals.stream().map(pos->new int[] {pos.getX(), pos.getY(), pos.getZ()}).
@@ -337,8 +331,8 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 	public void readSyncNBT(NBTTagCompound nbt) {
 		super.readSyncNBT(nbt);
 		isWorking = nbt.getBoolean("Working");
-		remainingProgress = nbt.getInteger("Progress");
-		energyReq = nbt.getInteger("EnergyReq");
+		remainingProgress = nbt.getLong("Progress");
+		energyReq = nbt.getLong("EnergyReq");
 		energyUsage = nbt.getInteger("EnergyUsage");
 		inventory.readFromNBT(nbt);
 	}
@@ -347,8 +341,8 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 	public NBTTagCompound writeSyncNBT(NBTTagCompound nbt) {
 		super.writeSyncNBT(nbt);
 		nbt.setBoolean("Working", isWorking);
-		nbt.setInteger("Progress", remainingProgress);
-		nbt.setInteger("EnergyReq", energyReq);
+		nbt.setLong("Progress", remainingProgress);
+		nbt.setLong("EnergyReq", energyReq);
 		nbt.setInteger("EnergyUsage", energyUsage);
 		inventory.writeToNBT(nbt);
 		return nbt;
@@ -365,7 +359,7 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 		if(remainingProgress <= 0 || energyReq == 0) {
 			return 0;
 		}
-		return scale * (energyReq-remainingProgress) / energyReq;
+		return scale * (int)((energyReq-remainingProgress) / energyReq);
 	}
 
 	@SideOnly(Side.CLIENT)

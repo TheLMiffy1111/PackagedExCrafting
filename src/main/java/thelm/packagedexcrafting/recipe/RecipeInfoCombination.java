@@ -112,7 +112,7 @@ public class RecipeInfoCombination implements IRecipeInfoCombination {
 	}
 
 	@Override
-	public int getEnergyRequired() {
+	public long getEnergyRequired() {
 		return recipe.getCost();
 	}
 
