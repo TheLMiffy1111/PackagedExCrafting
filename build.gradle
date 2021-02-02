@@ -30,9 +30,6 @@ repositories {
         url = "http://dvs1.progwml6.com/files/maven"
     }
     maven {
-        url = "http://tehnut.info/maven"
-    }
-    maven {
         url = "http://maven.covers1624.net/"
     }
     maven {
@@ -78,7 +75,6 @@ dependencies {
     deobfCompile("cofh:ThermalDynamics:1.12.2-2.5.5.21:universal") {
         transitive = false
     }
-    deobfCompile "mcp.mobius.waila:Hwyla:1.8.25-B40_1.12"
     deobfCompile("appeng:appliedenergistics2:rv6-stable-2") {
         transitive = false
     }
