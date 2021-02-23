@@ -27,8 +27,8 @@ public class InventoryCombinationCrafter extends InventoryTileBase {
 	public int getField(int id) {
 		switch(id) {
 		case 0: return (int)(tile.energyReq & 0xFFFFFFFF);
-		case 1: return (int)(tile.energyReq & 0xFFFFFFFF);
-		case 2: return (int)(tile.remainingProgress >>> 32);
+		case 1: return (int)(tile.remainingProgress & 0xFFFFFFFF);
+		case 2: return (int)(tile.energyReq >>> 32);
 		case 3: return (int)(tile.remainingProgress >>> 32);
 		case 4: return tile.isWorking ? 1 : 0;
 		default: return 0;
@@ -42,10 +42,10 @@ public class InventoryCombinationCrafter extends InventoryTileBase {
 			tile.energyReq = tile.energyReq | 0xFFFFFFFF & value;
 			break;
 		case 1:
-			tile.energyReq = tile.energyReq | 0xFFFFFFFF & value;
+			tile.remainingProgress = tile.remainingProgress | 0xFFFFFFFF & value;
 			break;
 		case 2:
-			tile.remainingProgress = (tile.remainingProgress | 0xFFFFFFFF00000000L) & (((long)value << 32) | 0xFFFFFFFF);
+			tile.energyReq = (tile.energyReq | 0xFFFFFFFF00000000L) & (((long)value << 32) | 0xFFFFFFFF);
 			break;
 		case 3:
 			tile.remainingProgress = (tile.remainingProgress | 0xFFFFFFFF00000000L) & (((long)value << 32) | 0xFFFFFFFF);

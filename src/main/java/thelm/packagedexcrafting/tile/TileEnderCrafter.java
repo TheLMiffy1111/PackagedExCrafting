@@ -233,8 +233,7 @@ public class TileEnderCrafter extends TileBase implements ITickable, IPackageCra
 	@Optional.Method(modid="appliedenergistics2")
 	@Override
 	public void setPlacer(EntityPlayer placer) {
-		super.setPlacer(placer);
-		getActionableNode().setPlayerID(AEApi.instance().registries().players().getID(placer));
+		placerID = AEApi.instance().registries().players().getID(placer);
 	}
 
 	@Optional.Method(modid="appliedenergistics2")
@@ -251,7 +250,9 @@ public class TileEnderCrafter extends TileBase implements ITickable, IPackageCra
 
 	@Optional.Method(modid="appliedenergistics2")
 	@Override
-	public void securityBreak() {}
+	public void securityBreak() {
+		world.destroyBlock(pos, true);
+	}
 
 	@Optional.Method(modid="appliedenergistics2")
 	@Override
