@@ -1,78 +1,153 @@
 package thelm.packagedexcrafting.config;
 
-import java.io.File;
-
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import thelm.packagedexcrafting.tile.TileAdvancedCrafter;
-import thelm.packagedexcrafting.tile.TileBasicCrafter;
-import thelm.packagedexcrafting.tile.TileCombinationCrafter;
-import thelm.packagedexcrafting.tile.TileEliteCrafter;
-import thelm.packagedexcrafting.tile.TileEnderCrafter;
-import thelm.packagedexcrafting.tile.TileUltimateCrafter;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
+import thelm.packagedexcrafting.tile.AdvancedCrafterTile;
+import thelm.packagedexcrafting.tile.BasicCrafterTile;
+import thelm.packagedexcrafting.tile.CombinationCrafterTile;
+import thelm.packagedexcrafting.tile.EliteCrafterTile;
+import thelm.packagedexcrafting.tile.EnderCrafterTile;
+import thelm.packagedexcrafting.tile.UltimateCrafterTile;
 
 public class PackagedExCraftingConfig {
 
-	private PackagedExCraftingConfig() {}
+	private PackagedExCraftingConfig() {};
 
-	public static Configuration config;
+	private static ForgeConfigSpec serverSpec;
 
-	public static void init(File file) {
-		MinecraftForge.EVENT_BUS.register(PackagedExCraftingConfig.class);
-		config = new Configuration(file);
-		config.load();
-		init();
+	public static ForgeConfigSpec.IntValue basicCrafterEnergyCapacity;
+	public static ForgeConfigSpec.IntValue basicCrafterEnergyReq;
+	public static ForgeConfigSpec.IntValue basicCrafterEnergyUsage;
+	public static ForgeConfigSpec.BooleanValue basicCrafterDrawMEEnergy;
+
+	public static ForgeConfigSpec.IntValue advancedCrafterEnergyCapacity;
+	public static ForgeConfigSpec.IntValue advancedCrafterEnergyReq;
+	public static ForgeConfigSpec.IntValue advancedCrafterEnergyUsage;
+	public static ForgeConfigSpec.BooleanValue advancedCrafterDrawMEEnergy;
+
+	public static ForgeConfigSpec.IntValue eliteCrafterEnergyCapacity;
+	public static ForgeConfigSpec.IntValue eliteCrafterEnergyReq;
+	public static ForgeConfigSpec.IntValue eliteCrafterEnergyUsage;
+	public static ForgeConfigSpec.BooleanValue eliteCrafterDrawMEEnergy;
+
+	public static ForgeConfigSpec.IntValue ultimateCrafterEnergyCapacity;
+	public static ForgeConfigSpec.IntValue ultimateCrafterEnergyReq;
+	public static ForgeConfigSpec.IntValue ultimateCrafterEnergyUsage;
+	public static ForgeConfigSpec.BooleanValue ultimateCrafterDrawMEEnergy;
+
+	public static ForgeConfigSpec.IntValue enderCrafterEnergyCapacity;
+	public static ForgeConfigSpec.DoubleValue enderCrafterAlternatorEff;
+	public static ForgeConfigSpec.IntValue enderCrafterEnergyReq;
+	public static ForgeConfigSpec.IntValue enderCrafterEnergyUsage;
+	public static ForgeConfigSpec.BooleanValue enderCrafterDrawMEEnergy;
+
+	public static ForgeConfigSpec.IntValue combinationCrafterEnergyCapacity;
+	public static ForgeConfigSpec.BooleanValue combinationCrafterDrawMEEnergy;
+
+	public static void registerConfig() {
+		buildConfig();
+		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, serverSpec);
 	}
 
-	public static void init() {
-		String category;
-		category = "blocks.basic_crafter";
-		TileBasicCrafter.enabled = config.get(category, "enabled", TileBasicCrafter.enabled, "Should the Basic Package Crafter be enabled.").setRequiresMcRestart(true).getBoolean();
-		TileBasicCrafter.energyCapacity = config.get(category, "energy_capacity", TileBasicCrafter.energyCapacity, "How much FE the Basic Package Crafter should hold.", 0, Integer.MAX_VALUE).getInt();
-		TileBasicCrafter.energyReq = config.get(category, "energy_req", TileBasicCrafter.energyReq, "How much FE the Basic Package Crafter should use.", 0, Integer.MAX_VALUE).getInt();
-		TileBasicCrafter.energyUsage = config.get(category, "energy_usage", TileBasicCrafter.energyUsage, "How much FE/t maximum the Basic Package Crafter should use.", 0, Integer.MAX_VALUE).getInt();
-		TileBasicCrafter.drawMEEnergy = config.get(category, "draw_me_energy", TileBasicCrafter.drawMEEnergy, "Should the Basic Packager Crafter draw energy from ME systems.").getBoolean();
-		category = "blocks.advanced_crafter";
-		TileAdvancedCrafter.enabled = config.get(category, "enabled", TileAdvancedCrafter.enabled, "Should the Advanced Package Crafter be enabled.").setRequiresMcRestart(true).getBoolean();
-		TileAdvancedCrafter.energyCapacity = config.get(category, "energy_capacity", TileAdvancedCrafter.energyCapacity, "How much FE the Advanced Package Crafter should hold.", 0, Integer.MAX_VALUE).getInt();
-		TileAdvancedCrafter.energyReq = config.get(category, "energy_req", TileAdvancedCrafter.energyReq, "How much FE the Advanced Package Crafter should use.", 0, Integer.MAX_VALUE).getInt();
-		TileAdvancedCrafter.energyUsage = config.get(category, "energy_usage", TileAdvancedCrafter.energyUsage, "How much FE/t maximum the Advanced Package Crafter should use.", 0, Integer.MAX_VALUE).getInt();
-		TileAdvancedCrafter.drawMEEnergy = config.get(category, "draw_me_energy", TileAdvancedCrafter.drawMEEnergy, "Should the Advanced Packager Crafter draw energy from ME systems.").getBoolean();
-		category = "blocks.elite_crafter";
-		TileEliteCrafter.enabled = config.get(category, "enabled", TileEliteCrafter.enabled, "Should the Elite Package Crafter be enabled.").setRequiresMcRestart(true).getBoolean();
-		TileEliteCrafter.energyCapacity = config.get(category, "energy_capacity", TileEliteCrafter.energyCapacity, "How much FE the Elite Package Crafter should hold.", 0, Integer.MAX_VALUE).getInt();
-		TileEliteCrafter.energyReq = config.get(category, "energy_req", TileEliteCrafter.energyReq, "How much FE the Elite Package Crafter should use.", 0, Integer.MAX_VALUE).getInt();
-		TileEliteCrafter.energyUsage = config.get(category, "energy_usage", TileEliteCrafter.energyUsage, "How much FE/t maximum the Elite Package Crafter should use.", 0, Integer.MAX_VALUE).getInt();
-		TileEliteCrafter.drawMEEnergy = config.get(category, "draw_me_energy", TileEliteCrafter.drawMEEnergy, "Should the Elite Packager Crafter draw energy from ME systems.").getBoolean();
-		category = "blocks.ultimate_crafter";
-		TileUltimateCrafter.enabled = config.get(category, "enabled", TileUltimateCrafter.enabled, "Should the Ultimate Package Crafter be enabled.").setRequiresMcRestart(true).getBoolean();
-		TileUltimateCrafter.energyCapacity = config.get(category, "energy_capacity", TileUltimateCrafter.energyCapacity, "How much FE the Ultimate Package Crafter should hold.", 0, Integer.MAX_VALUE).getInt();
-		TileUltimateCrafter.energyReq = config.get(category, "energy_req", TileUltimateCrafter.energyReq, "How much FE the Ultimate Package Crafter should use.", 0, Integer.MAX_VALUE).getInt();
-		TileUltimateCrafter.energyUsage = config.get(category, "energy_usage", TileUltimateCrafter.energyUsage, "How much FE/t maximum the Ultimate Package Crafter should use.", 0, Integer.MAX_VALUE).getInt();
-		TileUltimateCrafter.drawMEEnergy = config.get(category, "draw_me_energy", TileUltimateCrafter.drawMEEnergy, "Should the Ultimate Packager Crafter draw energy from ME systems.").getBoolean();
-		category = "blocks.ender_crafter";
-		TileEnderCrafter.enabled = config.get(category, "enabled", TileEnderCrafter.enabled, "Should the Ender Package Crafter be enabled.").setRequiresMcRestart(true).getBoolean();
-		TileEnderCrafter.energyCapacity = config.get(category, "energy_capacity", TileEnderCrafter.energyCapacity, "How much FE the Ender Package Crafter should hold.", 0, Integer.MAX_VALUE).getInt();
-		TileEnderCrafter.progressReq = config.get(category, "progress_req", TileEnderCrafter.progressReq, "How many ticks should the Ender Package Crafter wait before using energy.", 0, Integer.MAX_VALUE).getInt();
-		TileEnderCrafter.alternatorEff = config.get(category, "alternator_eff", TileEnderCrafter.alternatorEff, "How much each alternator should reduce the waiting time of the Ender Package Crafter.", 0, Double.MAX_VALUE).getDouble();
-		TileEnderCrafter.energyReq = config.get(category, "energy_req", TileEnderCrafter.energyReq, "How much FE the Ender Package Crafter should use.", 0, Integer.MAX_VALUE).getInt();
-		TileEnderCrafter.energyUsage = config.get(category, "energy_usage", TileEnderCrafter.energyUsage, "How much FE/t maximum the Ender Package Crafter should use.", 0, Integer.MAX_VALUE).getInt();
-		TileEnderCrafter.drawMEEnergy = config.get(category, "draw_me_energy", TileEnderCrafter.drawMEEnergy, "Should the Ender Packager Crafter draw energy from ME systems.").getBoolean();
-		category = "blocks.combination_crafter";
-		TileCombinationCrafter.enabled = config.get(category, "enabled", TileCombinationCrafter.enabled, "Should the Combination Package Crafter be enabled.").setRequiresMcRestart(true).getBoolean();
-		TileCombinationCrafter.energyCapacity = config.get(category, "energy_capacity", TileCombinationCrafter.energyCapacity, "How much FE the Combination Package Crafter should hold.", 0, Integer.MAX_VALUE).getInt();
-		TileCombinationCrafter.drawMEEnergy = config.get(category, "draw_me_energy", TileCombinationCrafter.drawMEEnergy, "Should the Combination Packager Crafter draw energy from ME systems.").getBoolean();
-		if(config.hasChanged()) {
-			config.save();
-		}
+	private static void buildConfig() {
+		ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
+
+		builder.push("basic_crafter");
+		builder.comment("How much FE the Basic Package Crafter should hold.");
+		basicCrafterEnergyCapacity = builder.defineInRange("energy_capacity", 5000, 0, Integer.MAX_VALUE);
+		builder.comment("How much total FE the Basic Package Crafter should use per operation.");
+		basicCrafterEnergyReq = builder.defineInRange("energy_req", 500, 0, Integer.MAX_VALUE);
+		builder.comment("How much FE/t maximum the Basic Package Crafter can use.");
+		basicCrafterEnergyUsage = builder.defineInRange("energy_usage", 100, 0, Integer.MAX_VALUE);
+		builder.comment("Should the Basic Package Crafter draw energy from ME systems.");
+		basicCrafterDrawMEEnergy = builder.define("draw_me_energy", true);
+		builder.pop();
+
+		builder.push("advanced_crafter");
+		builder.comment("How much FE the Advanced Package Crafter should hold.");
+		advancedCrafterEnergyCapacity = builder.defineInRange("energy_capacity", 5000, 0, Integer.MAX_VALUE);
+		builder.comment("How much total FE the Advanced Package Crafter should use per operation.");
+		advancedCrafterEnergyReq = builder.defineInRange("energy_req", 1000, 0, Integer.MAX_VALUE);
+		builder.comment("How much FE/t maximum the Advanced Package Crafter can use.");
+		advancedCrafterEnergyUsage = builder.defineInRange("energy_usage", 125, 0, Integer.MAX_VALUE);
+		builder.comment("Should the Advanced Package Crafter draw energy from ME systems.");
+		advancedCrafterDrawMEEnergy = builder.define("draw_me_energy", true);
+		builder.pop();
+
+		builder.push("elite_crafter");
+		builder.comment("How much FE the Elite Package Crafter should hold.");
+		eliteCrafterEnergyCapacity = builder.defineInRange("energy_capacity", 5000, 0, Integer.MAX_VALUE);
+		builder.comment("How much total FE the Elite Package Crafter should use per operation.");
+		eliteCrafterEnergyReq = builder.defineInRange("energy_req", 2500, 0, Integer.MAX_VALUE);
+		builder.comment("How much FE/t maximum the Elite Package Crafter can use.");
+		eliteCrafterEnergyUsage = builder.defineInRange("energy_usage", 250, 0, Integer.MAX_VALUE);
+		builder.comment("Should the Elite Package Crafter draw energy from ME systems.");
+		eliteCrafterDrawMEEnergy = builder.define("draw_me_energy", true);
+		builder.pop();
+
+		builder.push("ultimate_crafter");
+		builder.comment("How much FE the Ultimate Package Crafter should hold.");
+		ultimateCrafterEnergyCapacity = builder.defineInRange("energy_capacity", 5000, 0, Integer.MAX_VALUE);
+		builder.comment("How much total FE the Ultimate Package Crafter should use per operation.");
+		ultimateCrafterEnergyReq = builder.defineInRange("energy_req", 5000, 0, Integer.MAX_VALUE);
+		builder.comment("How much FE/t maximum the Ultimate Package Crafter can use.");
+		ultimateCrafterEnergyUsage = builder.defineInRange("energy_usage", 500, 0, Integer.MAX_VALUE);
+		builder.comment("Should the Ultimate Package Crafter draw energy from ME systems.");
+		ultimateCrafterDrawMEEnergy = builder.define("draw_me_energy", true);
+		builder.pop();
+
+		builder.push("ender_crafter");
+		builder.comment("How much FE the Ender Package Crafter should hold.");
+		enderCrafterEnergyCapacity = builder.defineInRange("energy_capacity", 5000, 0, Integer.MAX_VALUE);
+		builder.comment("How much each alternator should reduce the waiting time of the Ender Package Crafter. This is a percentage of the time required.");
+		enderCrafterAlternatorEff = builder.defineInRange("alternator_eff", 0.02, 0, Double.MAX_VALUE);
+		builder.comment("How much total FE the Ender Package Crafter should use per operation.");
+		enderCrafterEnergyReq = builder.defineInRange("energy_req", 500, 0, Integer.MAX_VALUE);
+		builder.comment("How much FE/t maximum the Ender Package Crafter can use.");
+		enderCrafterEnergyUsage = builder.defineInRange("energy_usage", 100, 0, Integer.MAX_VALUE);
+		builder.comment("Should the Ender Package Crafter draw energy from ME systems.");
+		enderCrafterDrawMEEnergy = builder.define("draw_me_energy", true);
+		builder.pop();
+
+		builder.push("combination_crafter");
+		builder.comment("How much FE the Combination Package Crafter should hold.");
+		combinationCrafterEnergyCapacity = builder.defineInRange("energy_capacity", 5000000, 0, Integer.MAX_VALUE);
+		builder.comment("Should the Combination Package Crafter draw energy from ME systems.");
+		combinationCrafterDrawMEEnergy = builder.define("draw_me_energy", false);
+		builder.pop();
+
+		serverSpec = builder.build();
 	}
 
-	@SubscribeEvent
-	public void onConfigChanged(OnConfigChangedEvent event) {
-		if(event.getModID().equals("packagedexcrafting")) {
-			init();
-		}
+	public static void reloadServerConfig() {
+		BasicCrafterTile.energyCapacity = basicCrafterEnergyCapacity.get();
+		BasicCrafterTile.energyReq = basicCrafterEnergyReq.get();
+		BasicCrafterTile.energyUsage = basicCrafterEnergyUsage.get();
+		BasicCrafterTile.drawMEEnergy = basicCrafterDrawMEEnergy.get();
+
+		AdvancedCrafterTile.energyCapacity = advancedCrafterEnergyCapacity.get();
+		AdvancedCrafterTile.energyReq = advancedCrafterEnergyReq.get();
+		AdvancedCrafterTile.energyUsage = advancedCrafterEnergyUsage.get();
+		AdvancedCrafterTile.drawMEEnergy = advancedCrafterDrawMEEnergy.get();
+
+		EliteCrafterTile.energyCapacity = eliteCrafterEnergyCapacity.get();
+		EliteCrafterTile.energyReq = eliteCrafterEnergyReq.get();
+		EliteCrafterTile.energyUsage = eliteCrafterEnergyUsage.get();
+		EliteCrafterTile.drawMEEnergy = eliteCrafterDrawMEEnergy.get();
+
+		UltimateCrafterTile.energyCapacity = ultimateCrafterEnergyCapacity.get();
+		UltimateCrafterTile.energyReq = ultimateCrafterEnergyReq.get();
+		UltimateCrafterTile.energyUsage = ultimateCrafterEnergyUsage.get();
+		UltimateCrafterTile.drawMEEnergy = ultimateCrafterDrawMEEnergy.get();
+
+		EnderCrafterTile.energyCapacity = enderCrafterEnergyCapacity.get();
+		EnderCrafterTile.alternatorEff = enderCrafterAlternatorEff.get();
+		EnderCrafterTile.energyReq = enderCrafterEnergyReq.get();
+		EnderCrafterTile.energyUsage = enderCrafterEnergyUsage.get();
+		EnderCrafterTile.drawMEEnergy = enderCrafterDrawMEEnergy.get();
+
+		CombinationCrafterTile.energyCapacity = combinationCrafterEnergyCapacity.get();
+		CombinationCrafterTile.drawMEEnergy = combinationCrafterDrawMEEnergy.get();
 	}
 }
