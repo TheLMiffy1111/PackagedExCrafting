@@ -18,13 +18,13 @@ public class AdvancedCrafterContainer extends BaseContainer<AdvancedCrafterTile>
 
 	public AdvancedCrafterContainer(int windowId, PlayerInventory playerInventory, AdvancedCrafterTile tile) {
 		super(TYPE_INSTANCE, windowId, playerInventory, tile);
-		addSlot(new SlotItemHandler(itemHandler, 50, 8, 71));
+		addSlot(new SlotItemHandler(itemHandler, 26, 8, 71));
 		for(int i = 0; i < 5; ++i) {
 			for(int j = 0; j < 5; ++j) {
 				addSlot(new AdvancedCrafterRemoveOnlySlot(tile, i*5+j, 44+j*18, 17+i*18));
 			}
 		}
-		addSlot(new RemoveOnlySlot(itemHandler, 49, 170, 53));
+		addSlot(new RemoveOnlySlot(itemHandler, 25, 170, 53));
 		setupPlayerInventory();
 	}
 
