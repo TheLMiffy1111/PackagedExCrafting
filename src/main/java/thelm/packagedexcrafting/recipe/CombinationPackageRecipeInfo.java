@@ -63,6 +63,9 @@ public class CombinationPackageRecipeInfo implements ICombinationPackageRecipeIn
 		ListNBT inputPedestalTag = MiscHelper.INSTANCE.saveAllItems(new ListNBT(), inputPedestal);
 		nbt.put("InputCore", inputCoreTag);
 		nbt.put("InputPedestal", inputPedestalTag);
+		if(recipe != null) {
+			nbt.putString("Recipe", recipe.getId().toString());
+		}
 		return nbt;
 	}
 
