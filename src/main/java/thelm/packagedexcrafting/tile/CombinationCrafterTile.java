@@ -1,9 +1,8 @@
 package thelm.packagedexcrafting.tile;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -38,7 +37,6 @@ import thelm.packagedexcrafting.block.CombinationCrafterBlock;
 import thelm.packagedexcrafting.container.CombinationCrafterContainer;
 import thelm.packagedexcrafting.integration.appeng.tile.AECombinationCrafterTile;
 import thelm.packagedexcrafting.inventory.CombinationCrafterItemHandler;
-import thelm.packagedexcrafting.inventory.MarkedPedestalItemHandler;
 import thelm.packagedexcrafting.recipe.ICombinationPackageRecipeInfo;
 
 public class CombinationCrafterTile extends BaseTile implements ITickableTileEntity, IPackageCraftingMachine {
@@ -56,7 +54,7 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 	public long remainingProgress = 0;
 	public int energyUsage = 0;
 	public ICombinationPackageRecipeInfo currentRecipe;
-	public Map<BlockPos, MarkedPedestalTile> pedestals = new HashMap<>();
+	public List<BlockPos> pedestals = new ArrayList<>();
 
 	public CombinationCrafterTile() {
 		super(TYPE_INSTANCE);
@@ -90,47 +88,22 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 
 	@Override
 	public boolean acceptPackage(IPackageRecipeInfo recipeInfo, List<ItemStack> stacks, Direction direction) {
-		// TODO: validate stacks against recipe?
 		if(!isBusy() && recipeInfo instanceof ICombinationPackageRecipeInfo) {
 			ICombinationPackageRecipeInfo recipe = (ICombinationPackageRecipeInfo)recipeInfo;
 			List<ItemStack> pedestalInputs = recipe.getPedestalInputs();
-			Map<BlockPos, MarkedPedestalTile> emptyPedestals = getEmptyPedestals();
-
+			List<BlockPos> emptyPedestals = getEmptyPedestals();
 			if(emptyPedestals.size() >= pedestalInputs.size()) {
 				pedestals.clear();
-				emptyPedestals.entrySet().stream()
-		        	.limit(pedestalInputs.size())
-		        	.forEach(pair -> {
-		        		if (pedestals.containsKey(pair.getKey())) {
-		        			System.err.println("would replace tile " + pedestals.get(pair.getKey()) + " with " +
-		        					pair.getValue() + " in the pedestals map!");
-		        		} else {
-		        			pedestals.put(pair.getKey(), pair.getValue());
-		        		}
-		        	});
-				if (pedestals.size() != pedestalInputs.size()) {
-					System.err.println("pedestals.size() is " + pedestals.size() + " but should be " + pedestalInputs.size());
-					return false;
-				}
-
+				pedestals.addAll(emptyPedestals.subList(0, pedestalInputs.size()));
 				currentRecipe = recipe;
 				isWorking = true;
 				energyReq = remainingProgress = recipe.getEnergyRequired();
 				energyUsage = recipe.getEnergyUsage();
-
-				int i = 0;
-				for(MarkedPedestalTile pedestalTile : pedestals.values()) {
-					MarkedPedestalItemHandler pedestalHandler = (MarkedPedestalItemHandler) pedestalTile.getItemHandler();
-					if (!pedestalHandler.getStackInSlot(0).isEmpty()) {
-						System.err.println("pedestal already has item!");
-						return false;
-					}
-					ItemStack itemStack = pedestalInputs.get(i);
-					pedestalHandler.setStackInSlot(0, itemStack);
-					i++;
-				}
-
 				itemHandler.setStackInSlot(0, recipe.getCoreInput());
+				for(int i = 0; i < pedestals.size(); ++i) {
+					((MarkedPedestalTile)world.getTileEntity(pedestals.get(i))).getItemHandler().
+					setStackInSlot(0, pedestalInputs.get(i));
+				}
 				syncTile(false);
 				markDirty();
 				return true;
@@ -145,7 +118,7 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 	}
 
 	protected void tickProcess() {
-		if (pedestals.values().stream().anyMatch(tile -> tile.isRemoved())) {
+		if(pedestals.stream().map(world::getTileEntity).anyMatch(tile->!(tile instanceof MarkedPedestalTile) || tile.isRemoved())) {
 			endProcess();
 		}
 		else {
@@ -154,9 +127,9 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 			if(!world.isRemote) {
 				spawnParticles(ParticleTypes.ENTITY_EFFECT, pos, 1.15, 2);
 				if(shouldSpawnItemParticles()) {
-					for(Entry<BlockPos, MarkedPedestalTile> pair : pedestals.entrySet()) {
-						ItemStack stack = pair.getValue().getItemHandler().getStackInSlot(0);
-						spawnItemParticles(pair.getKey(), stack);
+					for(BlockPos pedestalPos : pedestals) {
+						ItemStack stack = ((MarkedPedestalTile)world.getTileEntity(pedestalPos)).getItemHandler().getStackInSlot(0);
+						spawnItemParticles(pedestalPos, stack);
 					}
 				}
 			}
@@ -168,13 +141,13 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 			endProcess();
 			return;
 		}
-		if(pedestals.values().stream().anyMatch(tile->tile.isRemoved())) {
+		if(pedestals.stream().map(world::getTileEntity).anyMatch(tile->!(tile instanceof MarkedPedestalTile) || tile.isRemoved())) {
 			endProcess();
 			return;
 		}
-		for(Entry<BlockPos, MarkedPedestalTile> pair : pedestals.entrySet()) {
-			pair.getValue().getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
-			spawnParticles(ParticleTypes.SMOKE, pair.getKey(), 1.1, 20);
+		for(BlockPos pedestalPos : pedestals) {
+			((MarkedPedestalTile)world.getTileEntity(pedestalPos)).getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
+			spawnParticles(ParticleTypes.SMOKE, pedestalPos, 1.1, 20);
 		}
 		itemHandler.setStackInSlot(0, ItemStack.EMPTY);
 		spawnParticles(ParticleTypes.END_ROD, pos, 1.1D, 50);
@@ -186,9 +159,9 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 		energyReq = 0;
 		remainingProgress = 0;
 		energyUsage = 0;
-		pedestals.values().stream().
-			filter(tile -> !tile.isRemoved()).
-			forEach(MarkedPedestalTile::spawnItem);
+		pedestals.stream().map(world::getTileEntity).
+		filter(tile->tile instanceof MarkedPedestalTile && !tile.isRemoved()).
+		forEach(tile->((MarkedPedestalTile)tile).spawnItem());
 		pedestals.clear();
 		isWorking = false;
 		currentRecipe = null;
@@ -196,19 +169,16 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 		markDirty();
 	}
 
-	protected Map<BlockPos, MarkedPedestalTile> getEmptyPedestals() {
-		// TODO: populate the pedestals variable directly? Accept a number of pedestals to look for and only find that many?
-		Map<BlockPos, MarkedPedestalTile> output = new HashMap<>();
-		BlockPos.getAllInBox(pos.add(-3, 0, -3), pos.add(3, 0, 3)).forEach(p->{
-			TileEntity tile = world.getTileEntity(p);
+	protected List<BlockPos> getEmptyPedestals() {
+		return BlockPos.getAllInBox(pos.add(-3, 0, -3), pos.add(3, 0, 3)).map(pos->{
+			TileEntity tile = world.getTileEntity(pos);
 			if(tile instanceof MarkedPedestalTile) {
-				MarkedPedestalTile mpTile = (MarkedPedestalTile)tile;
-				if(mpTile.getItemHandler().getStackInSlot(0).isEmpty()) {
-					output.put(new BlockPos(p), mpTile);
+				if(((MarkedPedestalTile)tile).getItemHandler().getStackInSlot(0).isEmpty()) {
+					return pos.toImmutable();
 				}
 			}
-		});
-		return output;
+			return null;
+		}).filter(pos -> pos != null).collect(Collectors.toList());
 	}
 
 	protected void ejectItems() {
@@ -304,17 +274,7 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 			for(int i = 0; i < pedestalsTag.size(); ++i) {
 				int[] posArray = pedestalsTag.getIntArray(i);
 				BlockPos pos = new BlockPos(posArray[0], posArray[1], posArray[2]);
-				// TODO: is it dangerous to get tile entities here?
-				TileEntity tile = world.getTileEntity(pos);
-				if (tile instanceof MarkedPedestalTile) {
-					pedestals.put(pos, (MarkedPedestalTile)tile);
-				} else {
-					if (tile != null) {
-						System.err.println("pedestal tile entity " + i + " is " + tile.getClass().getCanonicalName() + "!");
-					} else {
-						System.err.println("Marked Pedestal tile entity " + i + " is null!");
-					}
-				}
+				pedestals.add(pos);
 			}
 		}
 	}
@@ -326,8 +286,8 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 			CompoundNBT tag = MiscHelper.INSTANCE.writeRecipe(new CompoundNBT(), currentRecipe);
 			nbt.put("Recipe", tag);
 			ListNBT pedestalsTag = new ListNBT();
-			pedestals.keySet().stream().map(pos->new int[] {pos.getX(), pos.getY(), pos.getZ()}).
-				forEach(arr->pedestalsTag.add(new IntArrayNBT(arr)));
+			pedestals.stream().map(pos->new int[] {pos.getX(), pos.getY(), pos.getZ()}).
+			forEach(arr->pedestalsTag.add(new IntArrayNBT(arr)));
 			nbt.put("Pedestals", pedestalsTag);
 		}
 		return nbt;
