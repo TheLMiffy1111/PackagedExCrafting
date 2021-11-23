@@ -59,13 +59,13 @@ public class CombinationPackageRecipeInfo implements ICombinationPackageRecipeIn
 
 	@Override
 	public CompoundNBT write(CompoundNBT nbt) {
+		if(recipe != null) {
+			nbt.putString("Recipe", recipe.getId().toString());
+		}
 		CompoundNBT inputCoreTag = inputCore.write(new CompoundNBT());
 		ListNBT inputPedestalTag = MiscHelper.INSTANCE.saveAllItems(new ListNBT(), inputPedestal);
 		nbt.put("InputCore", inputCoreTag);
 		nbt.put("InputPedestal", inputPedestalTag);
-		if(recipe != null) {
-			nbt.putString("Recipe", recipe.getId().toString());
-		}
 		return nbt;
 	}
 

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.google.common.base.Predicates;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -178,7 +180,7 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 				}
 			}
 			return null;
-		}).filter(pos -> pos != null).collect(Collectors.toList());
+		}).filter(Predicates.notNull()).collect(Collectors.toList());
 	}
 
 	protected void ejectItems() {
