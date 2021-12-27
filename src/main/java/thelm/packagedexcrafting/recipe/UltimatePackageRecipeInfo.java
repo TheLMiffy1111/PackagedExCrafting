@@ -147,6 +147,9 @@ public class UltimatePackageRecipeInfo implements ITablePackageRecipeInfo {
 	public boolean equals(Object obj) {
 		if(obj instanceof UltimatePackageRecipeInfo) {
 			UltimatePackageRecipeInfo other = (UltimatePackageRecipeInfo)obj;
+			if(input.size() != other.input.size()) {
+				return false;
+			}
 			for(int i = 0; i < input.size(); ++i) {
 				if(!ItemStack.areItemStackTagsEqual(input.get(i), other.input.get(i))) {
 					return false;
