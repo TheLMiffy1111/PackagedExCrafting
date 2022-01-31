@@ -2,8 +2,8 @@ package thelm.packagedexcrafting.inventory;
 
 import java.util.stream.IntStream;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
 import thelm.packagedauto.inventory.SidedItemHandlerWrapper;
 
 public class EliteCrafterItemHandlerWrapper extends SidedItemHandlerWrapper<EliteCrafterItemHandler> {
@@ -26,6 +26,6 @@ public class EliteCrafterItemHandlerWrapper extends SidedItemHandlerWrapper<Elit
 
 	@Override
 	public boolean canExtractItem(int index, Direction direction) {
-		return itemHandler.tile.isWorking ? index == 49 : true;
+		return itemHandler.blockEntity.isWorking ? index == 49 : true;
 	}
 }

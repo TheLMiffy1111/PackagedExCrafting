@@ -1,16 +1,16 @@
 package thelm.packagedexcrafting.inventory;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import thelm.packagedauto.inventory.BaseItemHandler;
-import thelm.packagedexcrafting.tile.CombinationCrafterTile;
+import thelm.packagedexcrafting.block.entity.CombinationCrafterBlockEntity;
 
-public class CombinationCrafterItemHandler extends BaseItemHandler<CombinationCrafterTile> {
+public class CombinationCrafterItemHandler extends BaseItemHandler<CombinationCrafterBlockEntity> {
 
-	public CombinationCrafterItemHandler(CombinationCrafterTile tile) {
-		super(tile, 3);
+	public CombinationCrafterItemHandler(CombinationCrafterBlockEntity blockEntity) {
+		super(blockEntity, 3);
 	}
 
 	@Override
@@ -29,11 +29,11 @@ public class CombinationCrafterItemHandler extends BaseItemHandler<CombinationCr
 	@Override
 	public int get(int id) {
 		switch(id) {
-		case 0: return (int)(tile.energyReq & 0xFFFFFFFF);
-		case 1: return (int)(tile.remainingProgress & 0xFFFFFFFF);
-		case 2: return (int)(tile.energyReq >>> 32);
-		case 3: return (int)(tile.remainingProgress >>> 32);
-		case 4: return tile.isWorking ? 1 : 0;
+		case 0: return (int)(blockEntity.energyReq & 0xFFFFFFFF);
+		case 1: return (int)(blockEntity.remainingProgress & 0xFFFFFFFF);
+		case 2: return (int)(blockEntity.energyReq >>> 32);
+		case 3: return (int)(blockEntity.remainingProgress >>> 32);
+		case 4: return blockEntity.isWorking ? 1 : 0;
 		default: return 0;
 		}
 	}
@@ -42,25 +42,25 @@ public class CombinationCrafterItemHandler extends BaseItemHandler<CombinationCr
 	public void set(int id, int value) {
 		switch(id) {
 		case 0:
-			tile.energyReq = tile.energyReq | 0xFFFFFFFF & value;
+			blockEntity.energyReq = blockEntity.energyReq | 0xFFFFFFFF & value;
 			break;
 		case 1:
-			tile.remainingProgress = tile.remainingProgress | 0xFFFFFFFF & value;
+			blockEntity.remainingProgress = blockEntity.remainingProgress | 0xFFFFFFFF & value;
 			break;
 		case 2:
-			tile.energyReq = (tile.energyReq | 0xFFFFFFFF00000000L) & (((long)value << 32) | 0xFFFFFFFF);
+			blockEntity.energyReq = (blockEntity.energyReq | 0xFFFFFFFF00000000L) & (((long)value << 32) | 0xFFFFFFFF);
 			break;
 		case 3:
-			tile.remainingProgress = (tile.remainingProgress | 0xFFFFFFFF00000000L) & (((long)value << 32) | 0xFFFFFFFF);
+			blockEntity.remainingProgress = (blockEntity.remainingProgress | 0xFFFFFFFF00000000L) & (((long)value << 32) | 0xFFFFFFFF);
 			break;
 		case 4:
-			tile.isWorking = value != 0;
+			blockEntity.isWorking = value != 0;
 			break;
 		}
 	}
 
 	@Override
-	public int size() {
+	public int getCount() {
 		return 5;
 	}
 }

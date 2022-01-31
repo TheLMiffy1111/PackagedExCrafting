@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.blakebr0.extendedcrafting.api.crafting.ICombinationRecipe;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import thelm.packagedauto.api.IPackageRecipeInfo;
 
 public interface ICombinationPackageRecipeInfo extends IPackageRecipeInfo {

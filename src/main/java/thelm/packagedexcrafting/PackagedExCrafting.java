@@ -1,9 +1,8 @@
 package thelm.packagedexcrafting;
 
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import thelm.packagedexcrafting.block.UltimateCrafterBlock;
@@ -14,10 +13,9 @@ import thelm.packagedexcrafting.event.CommonEventHandler;
 public class PackagedExCrafting {
 
 	public static final String MOD_ID = "packagedexcrafting";
-	public static final ItemGroup ITEM_GROUP = new ItemGroup("packagedexcrafting") {
-		@OnlyIn(Dist.CLIENT)
+	public static final CreativeModeTab CREATIVE_TAB = new CreativeModeTab("packagedexcrafting") {
 		@Override
-		public ItemStack createIcon() {
+		public ItemStack makeIcon() {
 			return new ItemStack(UltimateCrafterBlock.INSTANCE);
 		}
 	};

@@ -11,11 +11,11 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.ints.IntRBTreeSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Vector3i;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.core.Vec3i;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import thelm.packagedauto.api.IGuiIngredientWrapper;
 import thelm.packagedauto.api.IPackageRecipeInfo;
 import thelm.packagedauto.api.IPackageRecipeType;
@@ -31,8 +31,8 @@ public class UltimatePackageRecipeType implements IPackageRecipeType {
 			new ResourceLocation("extendedcrafting:elite_crafting"),
 			new ResourceLocation("extendedcrafting:advanced_crafting"),
 			new ResourceLocation("extendedcrafting:basic_crafting"));
-	public static final Vector3i COLOR = new Vector3i(139, 139, 139);
-	public static final Vector3i COLOR_DISABLED = new Vector3i(64, 64, 64);
+	public static final Vec3i COLOR = new Vec3i(139, 139, 139);
+	public static final Vec3i COLOR_DISABLED = new Vec3i(64, 64, 64);
 
 	static {
 		SLOTS = new IntRBTreeSet();
@@ -47,13 +47,13 @@ public class UltimatePackageRecipeType implements IPackageRecipeType {
 	}
 
 	@Override
-	public IFormattableTextComponent getDisplayName() {
-		return new TranslationTextComponent("recipe.packagedexcrafting.ultimate");
+	public MutableComponent getDisplayName() {
+		return new TranslatableComponent("recipe.packagedexcrafting.ultimate");
 	}
 
 	@Override
-	public IFormattableTextComponent getShortDisplayName() {
-		return new TranslationTextComponent("recipe.packagedexcrafting.ultimate.short");
+	public MutableComponent getShortDisplayName() {
+		return new TranslatableComponent("recipe.packagedexcrafting.ultimate.short");
 	}
 
 	@Override
@@ -73,6 +73,11 @@ public class UltimatePackageRecipeType implements IPackageRecipeType {
 
 	@Override
 	public boolean hasMachine() {
+		return true;
+	}
+
+	@Override
+	public boolean hasContainerItem() {
 		return true;
 	}
 
@@ -112,8 +117,8 @@ public class UltimatePackageRecipeType implements IPackageRecipeType {
 	}
 
 	@Override
-	public Vector3i getSlotColor(int slot) {
-		if(slot >= 81 && slot != 85 && slot < 90) {
+	public Vec3i getSlotColor(int slot) {
+		if(slot >= 81 && slot != 81 && slot < 90) {
 			return COLOR_DISABLED;
 		}
 		return COLOR;

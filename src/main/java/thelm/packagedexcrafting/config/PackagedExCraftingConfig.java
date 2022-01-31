@@ -3,12 +3,12 @@ package thelm.packagedexcrafting.config;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
-import thelm.packagedexcrafting.tile.AdvancedCrafterTile;
-import thelm.packagedexcrafting.tile.BasicCrafterTile;
-import thelm.packagedexcrafting.tile.CombinationCrafterTile;
-import thelm.packagedexcrafting.tile.EliteCrafterTile;
-import thelm.packagedexcrafting.tile.EnderCrafterTile;
-import thelm.packagedexcrafting.tile.UltimateCrafterTile;
+import thelm.packagedexcrafting.block.entity.AdvancedCrafterBlockEntity;
+import thelm.packagedexcrafting.block.entity.BasicCrafterBlockEntity;
+import thelm.packagedexcrafting.block.entity.CombinationCrafterBlockEntity;
+import thelm.packagedexcrafting.block.entity.EliteCrafterBlockEntity;
+import thelm.packagedexcrafting.block.entity.EnderCrafterBlockEntity;
+import thelm.packagedexcrafting.block.entity.UltimateCrafterBlockEntity;
 
 public class PackagedExCraftingConfig {
 
@@ -121,33 +121,33 @@ public class PackagedExCraftingConfig {
 	}
 
 	public static void reloadServerConfig() {
-		BasicCrafterTile.energyCapacity = basicCrafterEnergyCapacity.get();
-		BasicCrafterTile.energyReq = basicCrafterEnergyReq.get();
-		BasicCrafterTile.energyUsage = basicCrafterEnergyUsage.get();
-		BasicCrafterTile.drawMEEnergy = basicCrafterDrawMEEnergy.get();
+		BasicCrafterBlockEntity.energyCapacity = basicCrafterEnergyCapacity.get();
+		BasicCrafterBlockEntity.energyReq = basicCrafterEnergyReq.get();
+		BasicCrafterBlockEntity.energyUsage = basicCrafterEnergyUsage.get();
+		BasicCrafterBlockEntity.drawMEEnergy = basicCrafterDrawMEEnergy.get();
 
-		AdvancedCrafterTile.energyCapacity = advancedCrafterEnergyCapacity.get();
-		AdvancedCrafterTile.energyReq = advancedCrafterEnergyReq.get();
-		AdvancedCrafterTile.energyUsage = advancedCrafterEnergyUsage.get();
-		AdvancedCrafterTile.drawMEEnergy = advancedCrafterDrawMEEnergy.get();
+		AdvancedCrafterBlockEntity.energyCapacity = advancedCrafterEnergyCapacity.get();
+		AdvancedCrafterBlockEntity.energyReq = advancedCrafterEnergyReq.get();
+		AdvancedCrafterBlockEntity.energyUsage = advancedCrafterEnergyUsage.get();
+		AdvancedCrafterBlockEntity.drawMEEnergy = advancedCrafterDrawMEEnergy.get();
 
-		EliteCrafterTile.energyCapacity = eliteCrafterEnergyCapacity.get();
-		EliteCrafterTile.energyReq = eliteCrafterEnergyReq.get();
-		EliteCrafterTile.energyUsage = eliteCrafterEnergyUsage.get();
-		EliteCrafterTile.drawMEEnergy = eliteCrafterDrawMEEnergy.get();
+		EliteCrafterBlockEntity.energyCapacity = eliteCrafterEnergyCapacity.get();
+		EliteCrafterBlockEntity.energyReq = eliteCrafterEnergyReq.get();
+		EliteCrafterBlockEntity.energyUsage = eliteCrafterEnergyUsage.get();
+		EliteCrafterBlockEntity.drawMEEnergy = eliteCrafterDrawMEEnergy.get();
 
-		UltimateCrafterTile.energyCapacity = ultimateCrafterEnergyCapacity.get();
-		UltimateCrafterTile.energyReq = ultimateCrafterEnergyReq.get();
-		UltimateCrafterTile.energyUsage = ultimateCrafterEnergyUsage.get();
-		UltimateCrafterTile.drawMEEnergy = ultimateCrafterDrawMEEnergy.get();
+		UltimateCrafterBlockEntity.energyCapacity = ultimateCrafterEnergyCapacity.get();
+		UltimateCrafterBlockEntity.energyReq = ultimateCrafterEnergyReq.get();
+		UltimateCrafterBlockEntity.energyUsage = ultimateCrafterEnergyUsage.get();
+		UltimateCrafterBlockEntity.drawMEEnergy = ultimateCrafterDrawMEEnergy.get();
 
-		EnderCrafterTile.energyCapacity = enderCrafterEnergyCapacity.get();
-		EnderCrafterTile.alternatorEff = enderCrafterAlternatorEff.get();
-		EnderCrafterTile.energyReq = enderCrafterEnergyReq.get();
-		EnderCrafterTile.energyUsage = enderCrafterEnergyUsage.get();
-		EnderCrafterTile.drawMEEnergy = enderCrafterDrawMEEnergy.get();
+		EnderCrafterBlockEntity.energyCapacity = enderCrafterEnergyCapacity.get();
+		EnderCrafterBlockEntity.alternatorEff = enderCrafterAlternatorEff.get();
+		EnderCrafterBlockEntity.energyReq = enderCrafterEnergyReq.get();
+		EnderCrafterBlockEntity.energyUsage = enderCrafterEnergyUsage.get();
+		EnderCrafterBlockEntity.drawMEEnergy = enderCrafterDrawMEEnergy.get();
 
-		CombinationCrafterTile.energyCapacity = combinationCrafterEnergyCapacity.get();
-		CombinationCrafterTile.drawMEEnergy = combinationCrafterDrawMEEnergy.get();
+		CombinationCrafterBlockEntity.energyCapacity = combinationCrafterEnergyCapacity.get();
+		CombinationCrafterBlockEntity.drawMEEnergy = combinationCrafterDrawMEEnergy.get();
 	}
 }

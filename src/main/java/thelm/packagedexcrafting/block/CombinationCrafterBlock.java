@@ -1,38 +1,48 @@
 package thelm.packagedexcrafting.block;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import thelm.packagedauto.block.BaseBlock;
+import thelm.packagedauto.block.entity.BaseBlockEntity;
 import thelm.packagedexcrafting.PackagedExCrafting;
-import thelm.packagedexcrafting.tile.CombinationCrafterTile;
+import thelm.packagedexcrafting.block.entity.CombinationCrafterBlockEntity;
 
 public class CombinationCrafterBlock extends BaseBlock {
 
 	public static final CombinationCrafterBlock INSTANCE = new CombinationCrafterBlock();
-	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().group(PackagedExCrafting.ITEM_GROUP)).setRegistryName("packagedexcrafting:combination_crafter");
-	public static final VoxelShape SHAPE = VoxelShapes.or(makeCuboidShape(0, 12, 0, 16, 16, 16), makeCuboidShape(0, 5, 0, 16, 11, 16), makeCuboidShape(0, 0, 0, 16, 4, 16), makeCuboidShape(1, 4, 1, 15, 12, 15));
+	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().tab(PackagedExCrafting.CREATIVE_TAB)).setRegistryName("packagedexcrafting:combination_crafter");
+	public static final VoxelShape SHAPE = Shapes.or(box(0, 12, 0, 16, 16, 16), box(0, 5, 0, 16, 11, 16), box(0, 0, 0, 16, 4, 16), box(1, 4, 1, 15, 12, 15));
 
 	public CombinationCrafterBlock() {
-		super(AbstractBlock.Properties.create(Material.IRON).hardnessAndResistance(15F, 25F).notSolid().sound(SoundType.METAL));
+		super(BlockBehaviour.Properties.of(Material.METAL).strength(15F, 25F).noOcclusion().sound(SoundType.METAL));
 		setRegistryName("packagedexcrafting:combination_crafter");
 	}
 
 	@Override
-	public CombinationCrafterTile createTileEntity(BlockState state, IBlockReader worldIn) {
-		return CombinationCrafterTile.TYPE_INSTANCE.create();
+	public CombinationCrafterBlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return CombinationCrafterBlockEntity.TYPE_INSTANCE.create(pos, state);
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+		return BaseBlockEntity::tick;
+	}
+
+	@Override
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 }

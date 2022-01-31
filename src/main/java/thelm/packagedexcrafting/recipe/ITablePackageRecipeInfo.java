@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.blakebr0.extendedcrafting.api.crafting.ITableRecipe;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
 import thelm.packagedauto.api.IPackageRecipeInfo;
 
 public interface ITablePackageRecipeInfo extends IPackageRecipeInfo {
@@ -17,7 +17,7 @@ public interface ITablePackageRecipeInfo extends IPackageRecipeInfo {
 
 	ITableRecipe getRecipe();
 
-	IInventory getMatrix();
+	Container getMatrix();
 
 	List<ItemStack> getRemainingItems();
 

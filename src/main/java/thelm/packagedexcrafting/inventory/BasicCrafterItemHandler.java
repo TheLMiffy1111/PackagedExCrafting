@@ -1,14 +1,14 @@
 package thelm.packagedexcrafting.inventory;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.energy.CapabilityEnergy;
 import thelm.packagedauto.inventory.BaseItemHandler;
-import thelm.packagedexcrafting.tile.BasicCrafterTile;
+import thelm.packagedexcrafting.block.entity.BasicCrafterBlockEntity;
 
-public class BasicCrafterItemHandler extends BaseItemHandler<BasicCrafterTile> {
+public class BasicCrafterItemHandler extends BaseItemHandler<BasicCrafterBlockEntity> {
 
-	public BasicCrafterItemHandler(BasicCrafterTile tile) {
-		super(tile, 11);
+	public BasicCrafterItemHandler(BasicCrafterBlockEntity blockEntity) {
+		super(blockEntity, 11);
 	}
 
 	@Override
@@ -22,8 +22,8 @@ public class BasicCrafterItemHandler extends BaseItemHandler<BasicCrafterTile> {
 	@Override
 	public int get(int id) {
 		switch(id) {
-		case 0: return tile.remainingProgress;
-		case 1: return tile.isWorking ? 1 : 0;
+		case 0: return blockEntity.remainingProgress;
+		case 1: return blockEntity.isWorking ? 1 : 0;
 		default: return 0;
 		}
 	}
@@ -32,16 +32,16 @@ public class BasicCrafterItemHandler extends BaseItemHandler<BasicCrafterTile> {
 	public void set(int id, int value) {
 		switch(id) {
 		case 0:
-			tile.remainingProgress = value;
+			blockEntity.remainingProgress = value;
 			break;
 		case 1:
-			tile.isWorking = value != 0;
+			blockEntity.isWorking = value != 0;
 			break;
 		}
 	}
 
 	@Override
-	public int size() {
+	public int getCount() {
 		return 2;
 	}
 }

@@ -1,37 +1,37 @@
 package thelm.packagedexcrafting.client.renderer;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.vector.Vector3f;
-import thelm.packagedexcrafting.tile.MarkedPedestalTile;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import thelm.packagedexcrafting.block.entity.MarkedPedestalBlockEntity;
 
-public class MarkedPedestalRenderer extends TileEntityRenderer<MarkedPedestalTile> {
+public class MarkedPedestalRenderer implements BlockEntityRenderer<MarkedPedestalBlockEntity> {
 
-	public MarkedPedestalRenderer(TileEntityRendererDispatcher rendererDispatcher) {
-		super(rendererDispatcher);
+	public MarkedPedestalRenderer(BlockEntityRendererProvider.Context context) {
+
 	}
 
 	@Override
-	public void render(MarkedPedestalTile tile, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
+	public void render(MarkedPedestalBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
 		Minecraft minecraft = Minecraft.getInstance();
-		ItemStack stack = tile.getItemHandler().getStackInSlot(0);
+		ItemStack stack = blockEntity.getItemHandler().getStackInSlot(0);
 		if(!stack.isEmpty()) {
-			matrixStack.push();
-			matrixStack.translate(0.5, 1.2, 0.5);
+			poseStack.pushPose();
+			poseStack.translate(0.5, 1.2, 0.5);
 			float scale = stack.getItem() instanceof BlockItem ? 0.9F : 0.65F;
-			matrixStack.scale(scale, scale, scale);
+			poseStack.scale(scale, scale, scale);
 			double tick = System.currentTimeMillis() / 800D;
-			matrixStack.translate(0, Math.sin(tick % (Math.PI*2)) * 0.065, 0);
-			matrixStack.rotate(Vector3f.YP.rotationDegrees((float)(tick*40 % 360)));
-			minecraft.getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND, combinedLight, combinedOverlay, matrixStack, buffer);
-			matrixStack.pop();
+			poseStack.translate(0, Math.sin(tick % (Math.PI*2)) * 0.065, 0);
+			poseStack.mulPose(Vector3f.YP.rotationDegrees((float)(tick*40 % 360)));
+			minecraft.getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND, packedLight, packedOverlay, poseStack, bufferSource, 0);
+			poseStack.popPose();
 		}
 	}
 }

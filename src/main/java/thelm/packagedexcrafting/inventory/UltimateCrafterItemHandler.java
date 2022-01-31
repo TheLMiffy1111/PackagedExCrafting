@@ -1,16 +1,16 @@
 package thelm.packagedexcrafting.inventory;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import thelm.packagedauto.inventory.BaseItemHandler;
-import thelm.packagedexcrafting.tile.UltimateCrafterTile;
+import thelm.packagedexcrafting.block.entity.UltimateCrafterBlockEntity;
 
-public class UltimateCrafterItemHandler extends BaseItemHandler<UltimateCrafterTile> {
+public class UltimateCrafterItemHandler extends BaseItemHandler<UltimateCrafterBlockEntity> {
 
-	public UltimateCrafterItemHandler(UltimateCrafterTile tile) {
-		super(tile, 83);
+	public UltimateCrafterItemHandler(UltimateCrafterBlockEntity blockEntity) {
+		super(blockEntity, 83);
 	}
 
 	@Override
@@ -29,8 +29,8 @@ public class UltimateCrafterItemHandler extends BaseItemHandler<UltimateCrafterT
 	@Override
 	public int get(int id) {
 		switch(id) {
-		case 0: return tile.remainingProgress;
-		case 1: return tile.isWorking ? 1 : 0;
+		case 0: return blockEntity.remainingProgress;
+		case 1: return blockEntity.isWorking ? 1 : 0;
 		default: return 0;
 		}
 	}
@@ -39,16 +39,16 @@ public class UltimateCrafterItemHandler extends BaseItemHandler<UltimateCrafterT
 	public void set(int id, int value) {
 		switch(id) {
 		case 0:
-			tile.remainingProgress = value;
+			blockEntity.remainingProgress = value;
 			break;
 		case 1:
-			tile.isWorking = value != 0;
+			blockEntity.isWorking = value != 0;
 			break;
 		}
 	}
 
 	@Override
-	public int size() {
+	public int getCount() {
 		return 2;
 	}
 }

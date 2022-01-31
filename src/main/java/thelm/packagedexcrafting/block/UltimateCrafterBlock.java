@@ -1,28 +1,38 @@
 package thelm.packagedexcrafting.block;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
 import thelm.packagedauto.block.BaseBlock;
+import thelm.packagedauto.block.entity.BaseBlockEntity;
 import thelm.packagedexcrafting.PackagedExCrafting;
-import thelm.packagedexcrafting.tile.UltimateCrafterTile;
+import thelm.packagedexcrafting.block.entity.UltimateCrafterBlockEntity;
 
 public class UltimateCrafterBlock extends BaseBlock {
 
 	public static final UltimateCrafterBlock INSTANCE = new UltimateCrafterBlock();
-	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().group(PackagedExCrafting.ITEM_GROUP)).setRegistryName("packagedexcrafting:ultimate_crafter");
+	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().tab(PackagedExCrafting.CREATIVE_TAB)).setRegistryName("packagedexcrafting:ultimate_crafter");
 
 	public UltimateCrafterBlock() {
-		super(AbstractBlock.Properties.create(Material.IRON).hardnessAndResistance(15F, 25F).sound(SoundType.METAL));
+		super(BlockBehaviour.Properties.of(Material.METAL).strength(15F, 25F).sound(SoundType.METAL));
 		setRegistryName("packagedexcrafting:ultimate_crafter");
 	}
 
 	@Override
-	public UltimateCrafterTile createTileEntity(BlockState state, IBlockReader worldIn) {
-		return UltimateCrafterTile.TYPE_INSTANCE.create();
+	public UltimateCrafterBlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return UltimateCrafterBlockEntity.TYPE_INSTANCE.create(pos, state);
+	}
+
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+		return BaseBlockEntity::tick;
 	}
 }

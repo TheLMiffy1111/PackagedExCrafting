@@ -1,22 +1,22 @@
 package thelm.packagedexcrafting.client.screen;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
 import thelm.packagedauto.client.screen.BaseScreen;
-import thelm.packagedexcrafting.container.EliteCrafterContainer;
+import thelm.packagedexcrafting.menu.EliteCrafterMenu;
 
-public class EliteCrafterScreen extends BaseScreen<EliteCrafterContainer> {
+public class EliteCrafterScreen extends BaseScreen<EliteCrafterMenu> {
 
 	public static final ResourceLocation BACKGROUND = new ResourceLocation("packagedexcrafting:textures/gui/elite_crafter.png");
 
-	public EliteCrafterScreen(EliteCrafterContainer container, PlayerInventory playerInventory, ITextComponent title) {
-		super(container, playerInventory, title);
-		xSize = 234;
-		ySize = 238;
+	public EliteCrafterScreen(EliteCrafterMenu menu, Inventory inventory, Component title) {
+		super(menu, inventory, title);
+		imageWidth = 234;
+		imageHeight = 238;
 	}
 
 	@Override
@@ -25,20 +25,20 @@ public class EliteCrafterScreen extends BaseScreen<EliteCrafterContainer> {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
-		super.drawGuiContainerBackgroundLayer(matrixStack, partialTicks, mouseX, mouseY);
-		blit(matrixStack, guiLeft+174, guiTop+71, 234, 0, container.tile.getScaledProgress(22), 16);
-		int scaledEnergy = container.tile.getScaledEnergy(40);
-		blit(matrixStack, guiLeft+10, guiTop+46+40-scaledEnergy, 234, 16+40-scaledEnergy, 12, scaledEnergy);
+	protected void renderBg(PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
+		super.renderBg(poseStack, partialTicks, mouseX, mouseY);
+		blit(poseStack, leftPos+174, topPos+71, 234, 0, menu.blockEntity.getScaledProgress(22), 16);
+		int scaledEnergy = menu.blockEntity.getScaledEnergy(40);
+		blit(poseStack, leftPos+10, topPos+46+40-scaledEnergy, 234, 16+40-scaledEnergy, 12, scaledEnergy);
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
-		String s = container.tile.getDisplayName().getString();
-		font.drawString(matrixStack, s, xSize/2 - font.getStringWidth(s)/2, 6, 0x404040);
-		font.drawString(matrixStack, container.playerInventory.getDisplayName().getString(), container.getPlayerInvX(), container.getPlayerInvY()-11, 0x404040);
-		if(mouseX-guiLeft >= 10 && mouseY-guiTop >= 46 && mouseX-guiLeft <= 21 && mouseY-guiTop <= 85) {
-			renderTooltip(matrixStack, new StringTextComponent(container.tile.getEnergyStorage().getEnergyStored()+" / "+container.tile.getEnergyStorage().getMaxEnergyStored()+" FE"), mouseX-guiLeft, mouseY-guiTop);
+	protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
+		String s = menu.blockEntity.getDisplayName().getString();
+		font.draw(poseStack, s, imageWidth/2 - font.width(s)/2, 6, 0x404040);
+		font.draw(poseStack, menu.inventory.getDisplayName().getString(), menu.getPlayerInvX(), menu.getPlayerInvY()-11, 0x404040);
+		if(mouseX-leftPos >= 10 && mouseY-topPos >= 46 && mouseX-leftPos <= 21 && mouseY-topPos <= 85) {
+			renderTooltip(poseStack, new TextComponent(menu.blockEntity.getEnergyStorage().getEnergyStored()+" / "+menu.blockEntity.getEnergyStorage().getMaxEnergyStored()+" FE"), mouseX-leftPos, mouseY-topPos);
 		}
 	}
 }

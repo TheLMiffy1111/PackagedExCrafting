@@ -1,27 +1,27 @@
 package thelm.packagedexcrafting.slot;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.SlotItemHandler;
-import thelm.packagedexcrafting.tile.BasicCrafterTile;
+import thelm.packagedexcrafting.block.entity.BasicCrafterBlockEntity;
 
 //Code from CoFHCore
 public class BasicCrafterRemoveOnlySlot extends SlotItemHandler {
 
-	public final BasicCrafterTile tile;
+	public final BasicCrafterBlockEntity blockEntity;
 
-	public BasicCrafterRemoveOnlySlot(BasicCrafterTile tile, int index, int x, int y) {
-		super(tile.getItemHandler(), index, x, y);
-		this.tile = tile;
+	public BasicCrafterRemoveOnlySlot(BasicCrafterBlockEntity blockEntity, int index, int x, int y) {
+		super(blockEntity.getItemHandler(), index, x, y);
+		this.blockEntity = blockEntity;
 	}
 
 	@Override
-	public boolean canTakeStack(PlayerEntity playerIn) {
-		return !tile.isWorking;
+	public boolean mayPickup(Player player) {
+		return !blockEntity.isWorking;
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack stack) {
+	public boolean mayPlace(ItemStack stack) {
 		return false;
 	}
 }

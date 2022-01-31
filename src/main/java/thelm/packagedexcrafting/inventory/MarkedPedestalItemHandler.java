@@ -1,18 +1,18 @@
 package thelm.packagedexcrafting.inventory;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import thelm.packagedauto.inventory.BaseItemHandler;
-import thelm.packagedexcrafting.tile.MarkedPedestalTile;
+import thelm.packagedexcrafting.block.entity.MarkedPedestalBlockEntity;
 
-public class MarkedPedestalItemHandler extends BaseItemHandler<MarkedPedestalTile> {
+public class MarkedPedestalItemHandler extends BaseItemHandler<MarkedPedestalBlockEntity> {
 
-	public MarkedPedestalItemHandler(MarkedPedestalTile tile) {
-		super(tile, 1);
+	public MarkedPedestalItemHandler(MarkedPedestalBlockEntity blockEntity) {
+		super(blockEntity, 1);
 	}
 
 	@Override
 	protected void onContentsChanged(int slot) {
-		syncTile(false);
+		sync(false);
 	}
 
 	@Override
