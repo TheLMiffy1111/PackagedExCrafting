@@ -1,0 +1,20 @@
+tile.packagedexcrafting.basic_crafter.name=Базовый изготовитель программ
+tile.packagedexcrafting.advanced_crafter.name=Продвинутый изготовитель программ
+tile.packagedexcrafting.elite_crafter.name=Элитный изготовитель программ
+tile.packagedexcrafting.ultimate_crafter.name=Ультимат изготовитель программ
+tile.packagedexcrafting.ender_crafter.name=Эндер изготовитель программ
+tile.packagedexcrafting.combination_crafter.name=Объединяющий изготовитель программ
+tile.packagedexcrafting.marked_pedestal.name=Маркировка пьедестала
+
+recipe.packagedexcrafting.basic=Базовое изготовление
+recipe.packagedexcrafting.basic.short=Базовое
+recipe.packagedexcrafting.advanced=Продвинутое изготовление
+recipe.packagedexcrafting.advanced.short=Продвинутое
+recipe.packagedexcrafting.elite=Элитное изготовление
+recipe.packagedexcrafting.elite.short=Элитное
+recipe.packagedexcrafting.ultimate=Ультимат изготовление
+recipe.packagedexcrafting.ultimate.short=Ультимат
+recipe.packagedexcrafting.ender=Эндер изготовление
+recipe.packagedexcrafting.ender.short=Эндер
+recipe.packagedexcrafting.combination=Объединяющее изготовление
+recipe.packagedexcrafting.combination.short=Объединяющее
