@@ -1,7 +1,6 @@
 package thelm.packagedexcrafting.recipe;
 
 import java.util.List;
-import java.util.Map;
 
 import com.blakebr0.extendedcrafting.init.ModBlocks;
 import com.google.common.collect.ImmutableList;
@@ -15,10 +14,10 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import thelm.packagedauto.api.IGuiIngredientWrapper;
 import thelm.packagedauto.api.IPackageRecipeInfo;
 import thelm.packagedauto.api.IPackageRecipeType;
-import thelm.packagedauto.api.IRecipeLayoutWrapper;
+import thelm.packagedauto.api.IRecipeSlotViewWrapper;
+import thelm.packagedauto.api.IRecipeSlotsViewWrapper;
 
 public class AdvancedPackageRecipeType implements IPackageRecipeType {
 
@@ -88,18 +87,17 @@ public class AdvancedPackageRecipeType implements IPackageRecipeType {
 	}
 
 	@Override
-	public Int2ObjectMap<ItemStack> getRecipeTransferMap(IRecipeLayoutWrapper recipeLayoutWrapper) {
-		if(recipeLayoutWrapper.getCategoryUid().equals(CATEGORIES.get(0))) {
-			Int2ObjectMap<ItemStack> map = new Int2ObjectOpenHashMap<>();
-			Map<Integer, IGuiIngredientWrapper<ItemStack>> ingredients = recipeLayoutWrapper.getItemStackIngredients();
+	public Int2ObjectMap<ItemStack> getRecipeTransferMap(IRecipeSlotsViewWrapper recipeLayoutWrapper) {
+		Int2ObjectMap<ItemStack> map = new Int2ObjectOpenHashMap<>();
+		List<IRecipeSlotViewWrapper> slotViews = recipeLayoutWrapper.getRecipeSlotViews();
+		if(slotViews.size() == 26) {
 			int index = 0;
 			int[] slotArray = SLOTS.toIntArray();
-			for(Map.Entry<Integer, IGuiIngredientWrapper<ItemStack>> entry : ingredients.entrySet()) {
-				IGuiIngredientWrapper<ItemStack> ingredient = entry.getValue();
-				if(ingredient.isInput()) {
-					ItemStack displayed = entry.getValue().getDisplayedIngredient();
-					if(displayed != null && !displayed.isEmpty()) {
-						map.put(slotArray[index], displayed);
+			for(IRecipeSlotViewWrapper slotView : slotViews) {
+				if(slotView.isInput()) {
+					Object displayed = slotView.getDisplayedIngredient().orElse(null);
+					if(displayed instanceof ItemStack stack && !stack.isEmpty()) {
+						map.put(slotArray[index], stack);
 					}
 					++index;
 				}

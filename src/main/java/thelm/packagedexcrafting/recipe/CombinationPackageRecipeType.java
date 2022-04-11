@@ -2,7 +2,6 @@ package thelm.packagedexcrafting.recipe;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -17,10 +16,10 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import thelm.packagedauto.api.IGuiIngredientWrapper;
 import thelm.packagedauto.api.IPackageRecipeInfo;
 import thelm.packagedauto.api.IPackageRecipeType;
-import thelm.packagedauto.api.IRecipeLayoutWrapper;
+import thelm.packagedauto.api.IRecipeSlotViewWrapper;
+import thelm.packagedauto.api.IRecipeSlotsViewWrapper;
 
 public class CombinationPackageRecipeType implements IPackageRecipeType {
 
@@ -87,18 +86,17 @@ public class CombinationPackageRecipeType implements IPackageRecipeType {
 	}
 
 	@Override
-	public Int2ObjectMap<ItemStack> getRecipeTransferMap(IRecipeLayoutWrapper recipeLayoutWrapper) {
+	public Int2ObjectMap<ItemStack> getRecipeTransferMap(IRecipeSlotsViewWrapper recipeLayoutWrapper) {
 		Int2ObjectMap<ItemStack> map = new Int2ObjectOpenHashMap<>();
-		Map<Integer, IGuiIngredientWrapper<ItemStack>> ingredients = recipeLayoutWrapper.getItemStackIngredients();
+		List<IRecipeSlotViewWrapper> slotViews = recipeLayoutWrapper.getRecipeSlotViews();
 		int index = 0;
 		int[] slotArray = SLOTS.toIntArray();
 		ArrayUtils.shift(slotArray, 0, 25, 1);
-		for(Map.Entry<Integer, IGuiIngredientWrapper<ItemStack>> entry : ingredients.entrySet()) {
-			IGuiIngredientWrapper<ItemStack> ingredient = entry.getValue();
-			if(ingredient.isInput()) {
-				ItemStack displayed = entry.getValue().getDisplayedIngredient();
-				if(displayed != null && !displayed.isEmpty()) {
-					map.put(slotArray[index], displayed);
+		for(IRecipeSlotViewWrapper slotView : slotViews) {
+			if(slotView.isInput()) {
+				Object displayed = slotView.getDisplayedIngredient().orElse(null);
+				if(displayed instanceof ItemStack stack && !stack.isEmpty()) {
+					map.put(slotArray[index], stack);
 				}
 				++index;
 			}
