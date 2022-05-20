@@ -250,7 +250,7 @@ public class EnderCrafterTile extends BaseTile implements ITickableTileEntity, I
 	}
 
 	public int getScaledProgress(int scale) {
-		if(progress <= 0) {
+		if(progress <= 0 || actualProgressReq <= 0) {
 			return 0;
 		}
 		return scale * progress / actualProgressReq;
