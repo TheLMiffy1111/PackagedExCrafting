@@ -13,8 +13,7 @@ import thelm.packagedexcrafting.slot.EnderCrafterRemoveOnlySlot;
 public class EnderCrafterMenu extends BaseMenu<EnderCrafterBlockEntity> {
 
 	public static final MenuType<EnderCrafterMenu> TYPE_INSTANCE = (MenuType<EnderCrafterMenu>)IForgeMenuType.
-			create(new PositionalBlockEntityMenuFactory<>(EnderCrafterMenu::new)).
-			setRegistryName("packagedexcrafting:ender_crafter");
+			create(new PositionalBlockEntityMenuFactory<>(EnderCrafterMenu::new));
 
 	public EnderCrafterMenu(int windowId, Inventory inventory, EnderCrafterBlockEntity blockEntity) {
 		super(TYPE_INSTANCE, windowId, inventory, blockEntity);

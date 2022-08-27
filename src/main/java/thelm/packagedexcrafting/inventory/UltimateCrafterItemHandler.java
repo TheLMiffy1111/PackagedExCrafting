@@ -2,7 +2,7 @@ package thelm.packagedexcrafting.inventory;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import thelm.packagedauto.inventory.BaseItemHandler;
 import thelm.packagedexcrafting.block.entity.UltimateCrafterBlockEntity;
@@ -16,7 +16,7 @@ public class UltimateCrafterItemHandler extends BaseItemHandler<UltimateCrafterB
 	@Override
 	public boolean isItemValid(int slot, ItemStack stack) {
 		if(slot == 82) {
-			return stack.getCapability(CapabilityEnergy.ENERGY).isPresent();
+			return stack.getCapability(ForgeCapabilities.ENERGY).isPresent();
 		}
 		return false;
 	}

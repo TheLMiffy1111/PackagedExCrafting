@@ -13,8 +13,7 @@ import thelm.packagedexcrafting.slot.EliteCrafterRemoveOnlySlot;
 public class EliteCrafterMenu extends BaseMenu<EliteCrafterBlockEntity> {
 
 	public static final MenuType<EliteCrafterMenu> TYPE_INSTANCE = (MenuType<EliteCrafterMenu>)IForgeMenuType.
-			create(new PositionalBlockEntityMenuFactory<>(EliteCrafterMenu::new)).
-			setRegistryName("packagedexcrafting:elite_crafter");
+			create(new PositionalBlockEntityMenuFactory<>(EliteCrafterMenu::new));
 
 	public EliteCrafterMenu(int windowId, Inventory inventory, EliteCrafterBlockEntity blockEntity) {
 		super(TYPE_INSTANCE, windowId, inventory, blockEntity);

@@ -25,12 +25,11 @@ import thelm.packagedexcrafting.block.entity.MarkedPedestalBlockEntity;
 public class MarkedPedestalBlock extends BaseBlock {
 
 	public static final MarkedPedestalBlock INSTANCE = new MarkedPedestalBlock();
-	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().tab(PackagedExCrafting.CREATIVE_TAB)).setRegistryName("packagedexcrafting:marked_pedestal");
+	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().tab(PackagedExCrafting.CREATIVE_TAB));
 	public static final VoxelShape SHAPE = Shapes.or(box(1, 0, 1, 15, 2, 15), box(3, 2, 3, 13, 14, 13), box(2, 14, 2, 14, 16, 14));
 
 	public MarkedPedestalBlock() {
 		super(BlockBehaviour.Properties.of(Material.METAL).strength(15F, 25F).noOcclusion().sound(SoundType.METAL));
-		setRegistryName("packagedexcrafting:marked_pedestal");
 	}
 
 	@Override

@@ -13,8 +13,7 @@ import thelm.packagedexcrafting.slot.AdvancedCrafterRemoveOnlySlot;
 public class AdvancedCrafterMenu extends BaseMenu<AdvancedCrafterBlockEntity> {
 
 	public static final MenuType<AdvancedCrafterMenu> TYPE_INSTANCE = (MenuType<AdvancedCrafterMenu>)IForgeMenuType.
-			create(new PositionalBlockEntityMenuFactory<>(AdvancedCrafterMenu::new)).
-			setRegistryName("packagedexcrafting:advanced_crafter");
+			create(new PositionalBlockEntityMenuFactory<>(AdvancedCrafterMenu::new));
 
 	public AdvancedCrafterMenu(int windowId, Inventory inventory, AdvancedCrafterBlockEntity blockEntity) {
 		super(TYPE_INSTANCE, windowId, inventory, blockEntity);

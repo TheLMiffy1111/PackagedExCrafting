@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.blakebr0.extendedcrafting.api.crafting.IEnderCrafterRecipe;
-import com.blakebr0.extendedcrafting.api.crafting.RecipeTypes;
+import com.blakebr0.extendedcrafting.init.ModRecipeTypes;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -121,7 +121,7 @@ public class EnderPackageRecipeInfo implements IEnderPackageRecipeInfo {
 			toSet.setCount(1);
 			matrix.setItem(i, toSet.copy());
 		}
-		IEnderCrafterRecipe recipe = MiscHelper.INSTANCE.getRecipeManager().getRecipeFor(RecipeTypes.ENDER_CRAFTER, matrix, level).orElse(null);
+		IEnderCrafterRecipe recipe = MiscHelper.INSTANCE.getRecipeManager().getRecipeFor(ModRecipeTypes.ENDER_CRAFTER.get(), matrix, level).orElse(null);
 		if(recipe != null) {
 			this.recipe = recipe;
 			this.input.addAll(MiscHelper.INSTANCE.condenseStacks(matrix));

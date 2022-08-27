@@ -10,8 +10,8 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.ints.IntRBTreeSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import net.minecraft.core.Vec3i;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import thelm.packagedauto.api.IPackageRecipeInfo;
@@ -46,12 +46,12 @@ public class EnderPackageRecipeType implements IPackageRecipeType {
 
 	@Override
 	public MutableComponent getDisplayName() {
-		return new TranslatableComponent("recipe.packagedexcrafting.ender");
+		return Component.translatable("recipe.packagedexcrafting.ender");
 	}
 
 	@Override
 	public MutableComponent getShortDisplayName() {
-		return new TranslatableComponent("recipe.packagedexcrafting.ender.short");
+		return Component.translatable("recipe.packagedexcrafting.ender.short");
 	}
 
 	@Override
@@ -75,7 +75,7 @@ public class EnderPackageRecipeType implements IPackageRecipeType {
 	}
 
 	@Override
-	public boolean hasContainerItem() {
+	public boolean hasCraftingRemainingItem() {
 		return true;
 	}
 

@@ -13,8 +13,7 @@ import thelm.packagedexcrafting.slot.BasicCrafterRemoveOnlySlot;
 public class BasicCrafterMenu extends BaseMenu<BasicCrafterBlockEntity> {
 
 	public static final MenuType<BasicCrafterMenu> TYPE_INSTANCE = (MenuType<BasicCrafterMenu>)IForgeMenuType.
-			create(new PositionalBlockEntityMenuFactory<>(BasicCrafterMenu::new)).
-			setRegistryName("packagedexcrafting:basic_crafter");
+			create(new PositionalBlockEntityMenuFactory<>(BasicCrafterMenu::new));
 
 	public BasicCrafterMenu(int windowId, Inventory inventory, BasicCrafterBlockEntity blockEntity) {
 		super(TYPE_INSTANCE, windowId, inventory, blockEntity);

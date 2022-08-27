@@ -1,7 +1,7 @@
 package thelm.packagedexcrafting.inventory;
 
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import thelm.packagedauto.inventory.BaseItemHandler;
 import thelm.packagedexcrafting.block.entity.BasicCrafterBlockEntity;
 
@@ -14,7 +14,7 @@ public class BasicCrafterItemHandler extends BaseItemHandler<BasicCrafterBlockEn
 	@Override
 	public boolean isItemValid(int slot, ItemStack stack) {
 		if(slot == 10) {
-			return stack.getCapability(CapabilityEnergy.ENERGY).isPresent();
+			return stack.getCapability(ForgeCapabilities.ENERGY).isPresent();
 		}
 		return false;
 	}

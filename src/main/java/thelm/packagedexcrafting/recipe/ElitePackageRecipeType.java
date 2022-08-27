@@ -2,6 +2,7 @@ package thelm.packagedexcrafting.recipe;
 
 import java.util.List;
 
+import com.blakebr0.extendedcrafting.api.crafting.ITableRecipe;
 import com.blakebr0.extendedcrafting.init.ModBlocks;
 import com.google.common.collect.ImmutableList;
 
@@ -10,8 +11,8 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.ints.IntRBTreeSet;
 import it.unimi.dsi.fastutil.ints.IntSet;
 import net.minecraft.core.Vec3i;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import thelm.packagedauto.api.IPackageRecipeInfo;
@@ -49,12 +50,12 @@ public class ElitePackageRecipeType implements IPackageRecipeType {
 
 	@Override
 	public MutableComponent getDisplayName() {
-		return new TranslatableComponent("recipe.packagedexcrafting.elite");
+		return Component.translatable("recipe.packagedexcrafting.elite");
 	}
 
 	@Override
 	public MutableComponent getShortDisplayName() {
-		return new TranslatableComponent("recipe.packagedexcrafting.elite.short");
+		return Component.translatable("recipe.packagedexcrafting.elite.short");
 	}
 
 	@Override
@@ -78,7 +79,7 @@ public class ElitePackageRecipeType implements IPackageRecipeType {
 	}
 
 	@Override
-	public boolean hasContainerItem() {
+	public boolean hasCraftingRemainingItem() {
 		return true;
 	}
 
@@ -91,7 +92,7 @@ public class ElitePackageRecipeType implements IPackageRecipeType {
 	public Int2ObjectMap<ItemStack> getRecipeTransferMap(IRecipeSlotsViewWrapper recipeLayoutWrapper) {
 		Int2ObjectMap<ItemStack> map = new Int2ObjectOpenHashMap<>();
 		List<IRecipeSlotViewWrapper> slotViews = recipeLayoutWrapper.getRecipeSlotViews();
-		if(slotViews.size() == 50) {
+		if(recipeLayoutWrapper.getRecipe() instanceof ITableRecipe recipe && recipe.getTier() == 3) {
 			int index = 0;
 			int[] slotArray = SLOTS.toIntArray();
 			for(IRecipeSlotViewWrapper slotView : slotViews) {

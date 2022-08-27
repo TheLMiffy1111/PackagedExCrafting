@@ -6,7 +6,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -14,9 +13,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import thelm.packagedauto.api.IPackageCraftingMachine;
 import thelm.packagedauto.api.IPackageRecipeInfo;
@@ -36,8 +34,7 @@ public class EliteCrafterBlockEntity extends BaseBlockEntity implements IPackage
 			of(MiscHelper.INSTANCE.<BlockEntityType.BlockEntitySupplier<EliteCrafterBlockEntity>>conditionalSupplier(
 					()->ModList.get().isLoaded("ae2"),
 					()->()->AEEliteCrafterBlockEntity::new, ()->()->EliteCrafterBlockEntity::new).get(),
-					EliteCrafterBlock.INSTANCE).
-			build(null).setRegistryName("packagedexcrafting:elite_crafter");
+					EliteCrafterBlock.INSTANCE).build(null);
 
 	public static int energyCapacity = 5000;
 	public static int energyReq = 2500;
@@ -56,7 +53,7 @@ public class EliteCrafterBlockEntity extends BaseBlockEntity implements IPackage
 
 	@Override
 	protected Component getDefaultName() {
-		return new TranslatableComponent("block.packagedexcrafting.elite_crafter");
+		return Component.translatable("block.packagedexcrafting.elite_crafter");
 	}
 
 	@Override
@@ -139,8 +136,8 @@ public class EliteCrafterBlockEntity extends BaseBlockEntity implements IPackage
 		int endIndex = isWorking ? 49 : 0;
 		for(Direction direction : Direction.values()) {
 			BlockEntity blockEntity = level.getBlockEntity(worldPosition.relative(direction));
-			if(blockEntity != null && !(blockEntity instanceof UnpackagerBlockEntity) && blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction.getOpposite()).isPresent()) {
-				IItemHandler itemHandler = blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction.getOpposite()).resolve().get();
+			if(blockEntity != null && !(blockEntity instanceof UnpackagerBlockEntity) && blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, direction.getOpposite()).isPresent()) {
+				IItemHandler itemHandler = blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER, direction.getOpposite()).resolve().get();
 				boolean flag = true;
 				for(int i = 49; i >= endIndex; --i) {
 					ItemStack stack = this.itemHandler.getStackInSlot(i);
@@ -169,9 +166,9 @@ public class EliteCrafterBlockEntity extends BaseBlockEntity implements IPackage
 	protected void chargeEnergy() {
 		int prevStored = energyStorage.getEnergyStored();
 		ItemStack energyStack = itemHandler.getStackInSlot(50);
-		if(energyStack.getCapability(CapabilityEnergy.ENERGY, null).isPresent()) {
+		if(energyStack.getCapability(ForgeCapabilities.ENERGY, null).isPresent()) {
 			int energyRequest = Math.min(energyStorage.getMaxReceive(), energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored());
-			energyStorage.receiveEnergy(energyStack.getCapability(CapabilityEnergy.ENERGY).resolve().get().extractEnergy(energyRequest, false), false);
+			energyStorage.receiveEnergy(energyStack.getCapability(ForgeCapabilities.ENERGY).resolve().get().extractEnergy(energyRequest, false), false);
 			if(energyStack.getCount() <= 0) {
 				itemHandler.setStackInSlot(50, ItemStack.EMPTY);
 			}

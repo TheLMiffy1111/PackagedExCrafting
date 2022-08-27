@@ -3,7 +3,6 @@ package thelm.packagedexcrafting.block.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -18,8 +17,7 @@ import thelm.packagedexcrafting.inventory.MarkedPedestalItemHandler;
 public class MarkedPedestalBlockEntity extends BaseBlockEntity {
 
 	public static final BlockEntityType<MarkedPedestalBlockEntity> TYPE_INSTANCE = (BlockEntityType<MarkedPedestalBlockEntity>)BlockEntityType.Builder.
-			of(MarkedPedestalBlockEntity::new, MarkedPedestalBlock.INSTANCE).
-			build(null).setRegistryName("packagedexcrafting:marked_pedestal");
+			of(MarkedPedestalBlockEntity::new, MarkedPedestalBlock.INSTANCE).build(null);
 
 	public MarkedPedestalBlockEntity(BlockPos pos, BlockState state) {
 		super(TYPE_INSTANCE, pos, state);
@@ -28,7 +26,7 @@ public class MarkedPedestalBlockEntity extends BaseBlockEntity {
 
 	@Override
 	protected Component getDefaultName() {
-		return new TranslatableComponent("block.packagedexcrafting.marked_pedestal");
+		return Component.translatable("block.packagedexcrafting.marked_pedestal");
 	}
 
 	public void spawnItem() {

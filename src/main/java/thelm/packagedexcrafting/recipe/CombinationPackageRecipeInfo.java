@@ -8,7 +8,7 @@ import java.util.List;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.blakebr0.extendedcrafting.api.crafting.ICombinationRecipe;
-import com.blakebr0.extendedcrafting.api.crafting.RecipeTypes;
+import com.blakebr0.extendedcrafting.init.ModRecipeTypes;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -148,7 +148,7 @@ public class CombinationPackageRecipeInfo implements ICombinationPackageRecipeIn
 		for(int i = 0; i < inputPedestal.size(); ++i) {
 			matrix.setItem(i+1, inputPedestal.get(i));
 		}
-		ICombinationRecipe recipe = MiscHelper.INSTANCE.getRecipeManager().getRecipeFor(RecipeTypes.COMBINATION, matrix, level).orElse(null);
+		ICombinationRecipe recipe = MiscHelper.INSTANCE.getRecipeManager().getRecipeFor(ModRecipeTypes.COMBINATION.get(), matrix, level).orElse(null);
 		if(recipe != null) {
 			this.recipe = recipe;
 			List<ItemStack> toCondense = new ArrayList<>(inputPedestal);

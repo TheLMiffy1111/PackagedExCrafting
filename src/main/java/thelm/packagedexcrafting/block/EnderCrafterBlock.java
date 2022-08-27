@@ -19,11 +19,10 @@ import thelm.packagedexcrafting.block.entity.EnderCrafterBlockEntity;
 public class EnderCrafterBlock extends BaseBlock {
 
 	public static final EnderCrafterBlock INSTANCE = new EnderCrafterBlock();
-	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().tab(PackagedExCrafting.CREATIVE_TAB)).setRegistryName("packagedexcrafting:ender_crafter");
+	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().tab(PackagedExCrafting.CREATIVE_TAB));
 
 	public EnderCrafterBlock() {
 		super(BlockBehaviour.Properties.of(Material.METAL).strength(15F, 25F).sound(SoundType.METAL));
-		setRegistryName("packagedexcrafting:ender_crafter");
 	}
 
 	@Override

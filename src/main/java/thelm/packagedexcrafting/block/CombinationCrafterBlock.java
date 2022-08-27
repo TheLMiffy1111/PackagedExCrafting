@@ -23,12 +23,11 @@ import thelm.packagedexcrafting.block.entity.CombinationCrafterBlockEntity;
 public class CombinationCrafterBlock extends BaseBlock {
 
 	public static final CombinationCrafterBlock INSTANCE = new CombinationCrafterBlock();
-	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().tab(PackagedExCrafting.CREATIVE_TAB)).setRegistryName("packagedexcrafting:combination_crafter");
+	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().tab(PackagedExCrafting.CREATIVE_TAB));
 	public static final VoxelShape SHAPE = Shapes.or(box(0, 12, 0, 16, 16, 16), box(0, 5, 0, 16, 11, 16), box(0, 0, 0, 16, 4, 16), box(1, 4, 1, 15, 12, 15));
 
 	public CombinationCrafterBlock() {
 		super(BlockBehaviour.Properties.of(Material.METAL).strength(15F, 25F).noOcclusion().sound(SoundType.METAL));
-		setRegistryName("packagedexcrafting:combination_crafter");
 	}
 
 	@Override

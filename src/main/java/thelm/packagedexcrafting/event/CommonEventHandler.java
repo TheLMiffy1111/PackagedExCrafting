@@ -1,15 +1,16 @@
 package thelm.packagedexcrafting.event;
 
+import net.minecraft.core.Registry;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.DeferredRegister;
 import thelm.packagedauto.util.ApiImpl;
 import thelm.packagedexcrafting.block.AdvancedCrafterBlock;
 import thelm.packagedexcrafting.block.BasicCrafterBlock;
@@ -48,55 +49,48 @@ public class CommonEventHandler {
 	}
 
 	public void onConstruct() {
-		FMLJavaModLoadingContext.get().getModEventBus().register(this);
+		IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+		modEventBus.register(this);
 		PackagedExCraftingConfig.registerConfig();
-	}
 
-	@SubscribeEvent
-	public void onBlockRegister(RegistryEvent.Register<Block> event) {
-		IForgeRegistry<Block> registry = event.getRegistry();
-		registry.register(BasicCrafterBlock.INSTANCE);
-		registry.register(AdvancedCrafterBlock.INSTANCE);
-		registry.register(EliteCrafterBlock.INSTANCE);
-		registry.register(UltimateCrafterBlock.INSTANCE);
-		registry.register(EnderCrafterBlock.INSTANCE);
-		registry.register(CombinationCrafterBlock.INSTANCE);
-		registry.register(MarkedPedestalBlock.INSTANCE);
-	}
+		DeferredRegister<Block> blockRegister = DeferredRegister.create(Registry.BLOCK_REGISTRY, "packagedexcrafting");
+		blockRegister.register(modEventBus);
+		blockRegister.register("basic_crafter", ()->BasicCrafterBlock.INSTANCE);
+		blockRegister.register("advanced_crafter", ()->AdvancedCrafterBlock.INSTANCE);
+		blockRegister.register("elite_crafter", ()->EliteCrafterBlock.INSTANCE);
+		blockRegister.register("ultimate_crafter", ()->UltimateCrafterBlock.INSTANCE);
+		blockRegister.register("ender_crafter", ()->EnderCrafterBlock.INSTANCE);
+		blockRegister.register("combination_crafter", ()->CombinationCrafterBlock.INSTANCE);
+		blockRegister.register("marked_pedestal", ()->MarkedPedestalBlock.INSTANCE);
 
-	@SubscribeEvent
-	public void onItemRegister(RegistryEvent.Register<Item> event) {
-		IForgeRegistry<Item> registry = event.getRegistry();
-		registry.register(BasicCrafterBlock.ITEM_INSTANCE);
-		registry.register(AdvancedCrafterBlock.ITEM_INSTANCE);
-		registry.register(EliteCrafterBlock.ITEM_INSTANCE);
-		registry.register(UltimateCrafterBlock.ITEM_INSTANCE);
-		registry.register(EnderCrafterBlock.ITEM_INSTANCE);
-		registry.register(CombinationCrafterBlock.ITEM_INSTANCE);
-		registry.register(MarkedPedestalBlock.ITEM_INSTANCE);
-	}
+		DeferredRegister<Item> itemRegister = DeferredRegister.create(Registry.ITEM_REGISTRY, "packagedexcrafting");
+		itemRegister.register(modEventBus);
+		itemRegister.register("basic_crafter", ()->BasicCrafterBlock.ITEM_INSTANCE);
+		itemRegister.register("advanced_crafter", ()->AdvancedCrafterBlock.ITEM_INSTANCE);
+		itemRegister.register("elite_crafter", ()->EliteCrafterBlock.ITEM_INSTANCE);
+		itemRegister.register("ultimate_crafter", ()->UltimateCrafterBlock.ITEM_INSTANCE);
+		itemRegister.register("ender_crafter", ()->EnderCrafterBlock.ITEM_INSTANCE);
+		itemRegister.register("combination_crafter", ()->CombinationCrafterBlock.ITEM_INSTANCE);
+		itemRegister.register("marked_pedestal", ()->MarkedPedestalBlock.ITEM_INSTANCE);
 
-	@SubscribeEvent
-	public void onBlockEntityRegister(RegistryEvent.Register<BlockEntityType<?>> event) {
-		IForgeRegistry<BlockEntityType<?>> registry = event.getRegistry();
-		registry.register(BasicCrafterBlockEntity.TYPE_INSTANCE);
-		registry.register(AdvancedCrafterBlockEntity.TYPE_INSTANCE);
-		registry.register(EliteCrafterBlockEntity.TYPE_INSTANCE);
-		registry.register(UltimateCrafterBlockEntity.TYPE_INSTANCE);
-		registry.register(EnderCrafterBlockEntity.TYPE_INSTANCE);
-		registry.register(CombinationCrafterBlockEntity.TYPE_INSTANCE);
-		registry.register(MarkedPedestalBlockEntity.TYPE_INSTANCE);
-	}
+		DeferredRegister<BlockEntityType<?>> blockEntityRegister = DeferredRegister.create(Registry.BLOCK_ENTITY_TYPE_REGISTRY, "packagedexcrafting");
+		blockEntityRegister.register(modEventBus);
+		blockEntityRegister.register("basic_crafter", ()->BasicCrafterBlockEntity.TYPE_INSTANCE);
+		blockEntityRegister.register("advanced_crafter", ()->AdvancedCrafterBlockEntity.TYPE_INSTANCE);
+		blockEntityRegister.register("elite_crafter", ()->EliteCrafterBlockEntity.TYPE_INSTANCE);
+		blockEntityRegister.register("ultimate_crafter", ()->UltimateCrafterBlockEntity.TYPE_INSTANCE);
+		blockEntityRegister.register("ender_crafter", ()->EnderCrafterBlockEntity.TYPE_INSTANCE);
+		blockEntityRegister.register("combination_crafter", ()->CombinationCrafterBlockEntity.TYPE_INSTANCE);
+		blockEntityRegister.register("marked_pedestal", ()->MarkedPedestalBlockEntity.TYPE_INSTANCE);
 
-	@SubscribeEvent
-	public void onMenuRegister(RegistryEvent.Register<MenuType<?>> event) {
-		IForgeRegistry<MenuType<?>> registry = event.getRegistry();
-		registry.register(BasicCrafterMenu.TYPE_INSTANCE);
-		registry.register(AdvancedCrafterMenu.TYPE_INSTANCE);
-		registry.register(EliteCrafterMenu.TYPE_INSTANCE);
-		registry.register(UltimateCrafterMenu.TYPE_INSTANCE);
-		registry.register(EnderCrafterMenu.TYPE_INSTANCE);
-		registry.register(CombinationCrafterMenu.TYPE_INSTANCE);
+		DeferredRegister<MenuType<?>> menuRegister = DeferredRegister.create(Registry.MENU_REGISTRY, "packagedexcrafting");
+		menuRegister.register(modEventBus);
+		menuRegister.register("basic_crafter", ()->BasicCrafterMenu.TYPE_INSTANCE);
+		menuRegister.register("advanced_crafter", ()->AdvancedCrafterMenu.TYPE_INSTANCE);
+		menuRegister.register("elite_crafter", ()->EliteCrafterMenu.TYPE_INSTANCE);
+		menuRegister.register("ultimate_crafter", ()->UltimateCrafterMenu.TYPE_INSTANCE);
+		menuRegister.register("ender_crafter", ()->EnderCrafterMenu.TYPE_INSTANCE);
+		menuRegister.register("combination_crafter", ()->CombinationCrafterMenu.TYPE_INSTANCE);
 	}
 
 	@SubscribeEvent
