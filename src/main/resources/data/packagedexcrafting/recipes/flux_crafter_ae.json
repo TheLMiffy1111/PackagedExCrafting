@@ -7,7 +7,7 @@
     ],
     "type": "minecraft:crafting_shaped",
     "result": {
-        "item": "packagedexcrafting:ender_crafter",
+        "item": "packagedexcrafting:flux_crafter",
         "count": 1
     },
     "pattern": [
@@ -20,10 +20,10 @@
             "item": "packagedauto:me_package_component"
         },
         "T": {
-            "item": "extendedcrafting:auto_ender_crafter"
+            "item": "extendedcrafting:auto_flux_crafter"
         },
         "E": {
-            "item": "extendedcrafting:enhanced_ender_ingot"
+            "item": "extendedcrafting:enhanced_redstone_ingot"
         },
         "Y": {
             "item": "extendedcrafting:crystaltine_component"

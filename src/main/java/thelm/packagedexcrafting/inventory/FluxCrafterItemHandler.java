@@ -3,11 +3,11 @@ package thelm.packagedexcrafting.inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import thelm.packagedauto.inventory.BaseItemHandler;
-import thelm.packagedexcrafting.block.entity.BasicCrafterBlockEntity;
+import thelm.packagedexcrafting.block.entity.FluxCrafterBlockEntity;
 
-public class BasicCrafterItemHandler extends BaseItemHandler<BasicCrafterBlockEntity> {
+public class FluxCrafterItemHandler extends BaseItemHandler<FluxCrafterBlockEntity> {
 
-	public BasicCrafterItemHandler(BasicCrafterBlockEntity blockEntity) {
+	public FluxCrafterItemHandler(FluxCrafterBlockEntity blockEntity) {
 		super(blockEntity, 11);
 	}
 
@@ -22,8 +22,9 @@ public class BasicCrafterItemHandler extends BaseItemHandler<BasicCrafterBlockEn
 	@Override
 	public int get(int id) {
 		return switch(id) {
-		case 0 -> blockEntity.remainingProgress;
-		case 1 -> blockEntity.isWorking ? 1 : 0;
+		case 0 -> blockEntity.energyReq;
+		case 1 -> blockEntity.remainingProgress;
+		case 2 -> blockEntity.isWorking ? 1 : 0;
 		default -> 0;
 		};
 	}
@@ -31,13 +32,14 @@ public class BasicCrafterItemHandler extends BaseItemHandler<BasicCrafterBlockEn
 	@Override
 	public void set(int id, int value) {
 		switch(id) {
-		case 0 -> blockEntity.remainingProgress = value;
-		case 1 -> blockEntity.isWorking = value != 0;
+		case 0 -> blockEntity.energyReq = value;
+		case 1 -> blockEntity.remainingProgress = value;
+		case 2 -> blockEntity.isWorking = value != 0;
 		}
 	}
 
 	@Override
 	public int getCount() {
-		return 2;
+		return 3;
 	}
 }

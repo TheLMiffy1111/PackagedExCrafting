@@ -17,6 +17,7 @@ import thelm.packagedexcrafting.block.BasicCrafterBlock;
 import thelm.packagedexcrafting.block.CombinationCrafterBlock;
 import thelm.packagedexcrafting.block.EliteCrafterBlock;
 import thelm.packagedexcrafting.block.EnderCrafterBlock;
+import thelm.packagedexcrafting.block.FluxCrafterBlock;
 import thelm.packagedexcrafting.block.MarkedPedestalBlock;
 import thelm.packagedexcrafting.block.UltimateCrafterBlock;
 import thelm.packagedexcrafting.block.entity.AdvancedCrafterBlockEntity;
@@ -24,6 +25,7 @@ import thelm.packagedexcrafting.block.entity.BasicCrafterBlockEntity;
 import thelm.packagedexcrafting.block.entity.CombinationCrafterBlockEntity;
 import thelm.packagedexcrafting.block.entity.EliteCrafterBlockEntity;
 import thelm.packagedexcrafting.block.entity.EnderCrafterBlockEntity;
+import thelm.packagedexcrafting.block.entity.FluxCrafterBlockEntity;
 import thelm.packagedexcrafting.block.entity.MarkedPedestalBlockEntity;
 import thelm.packagedexcrafting.block.entity.UltimateCrafterBlockEntity;
 import thelm.packagedexcrafting.config.PackagedExCraftingConfig;
@@ -32,12 +34,14 @@ import thelm.packagedexcrafting.menu.BasicCrafterMenu;
 import thelm.packagedexcrafting.menu.CombinationCrafterMenu;
 import thelm.packagedexcrafting.menu.EliteCrafterMenu;
 import thelm.packagedexcrafting.menu.EnderCrafterMenu;
+import thelm.packagedexcrafting.menu.FluxCrafterMenu;
 import thelm.packagedexcrafting.menu.UltimateCrafterMenu;
 import thelm.packagedexcrafting.recipe.AdvancedPackageRecipeType;
 import thelm.packagedexcrafting.recipe.BasicPackageRecipeType;
 import thelm.packagedexcrafting.recipe.CombinationPackageRecipeType;
 import thelm.packagedexcrafting.recipe.ElitePackageRecipeType;
 import thelm.packagedexcrafting.recipe.EnderPackageRecipeType;
+import thelm.packagedexcrafting.recipe.FluxPackageRecipeType;
 import thelm.packagedexcrafting.recipe.UltimatePackageRecipeType;
 
 public class CommonEventHandler {
@@ -60,6 +64,7 @@ public class CommonEventHandler {
 		blockRegister.register("elite_crafter", ()->EliteCrafterBlock.INSTANCE);
 		blockRegister.register("ultimate_crafter", ()->UltimateCrafterBlock.INSTANCE);
 		blockRegister.register("ender_crafter", ()->EnderCrafterBlock.INSTANCE);
+		blockRegister.register("flux_crafter", ()->FluxCrafterBlock.INSTANCE);
 		blockRegister.register("combination_crafter", ()->CombinationCrafterBlock.INSTANCE);
 		blockRegister.register("marked_pedestal", ()->MarkedPedestalBlock.INSTANCE);
 
@@ -70,6 +75,7 @@ public class CommonEventHandler {
 		itemRegister.register("elite_crafter", ()->EliteCrafterBlock.ITEM_INSTANCE);
 		itemRegister.register("ultimate_crafter", ()->UltimateCrafterBlock.ITEM_INSTANCE);
 		itemRegister.register("ender_crafter", ()->EnderCrafterBlock.ITEM_INSTANCE);
+		itemRegister.register("flux_crafter", ()->FluxCrafterBlock.ITEM_INSTANCE);
 		itemRegister.register("combination_crafter", ()->CombinationCrafterBlock.ITEM_INSTANCE);
 		itemRegister.register("marked_pedestal", ()->MarkedPedestalBlock.ITEM_INSTANCE);
 
@@ -80,6 +86,7 @@ public class CommonEventHandler {
 		blockEntityRegister.register("elite_crafter", ()->EliteCrafterBlockEntity.TYPE_INSTANCE);
 		blockEntityRegister.register("ultimate_crafter", ()->UltimateCrafterBlockEntity.TYPE_INSTANCE);
 		blockEntityRegister.register("ender_crafter", ()->EnderCrafterBlockEntity.TYPE_INSTANCE);
+		blockEntityRegister.register("flux_crafter", ()->FluxCrafterBlockEntity.TYPE_INSTANCE);
 		blockEntityRegister.register("combination_crafter", ()->CombinationCrafterBlockEntity.TYPE_INSTANCE);
 		blockEntityRegister.register("marked_pedestal", ()->MarkedPedestalBlockEntity.TYPE_INSTANCE);
 
@@ -90,6 +97,7 @@ public class CommonEventHandler {
 		menuRegister.register("elite_crafter", ()->EliteCrafterMenu.TYPE_INSTANCE);
 		menuRegister.register("ultimate_crafter", ()->UltimateCrafterMenu.TYPE_INSTANCE);
 		menuRegister.register("ender_crafter", ()->EnderCrafterMenu.TYPE_INSTANCE);
+		menuRegister.register("flux_crafter", ()->FluxCrafterMenu.TYPE_INSTANCE);
 		menuRegister.register("combination_crafter", ()->CombinationCrafterMenu.TYPE_INSTANCE);
 	}
 
@@ -100,17 +108,15 @@ public class CommonEventHandler {
 		ApiImpl.INSTANCE.registerRecipeType(ElitePackageRecipeType.INSTANCE);
 		ApiImpl.INSTANCE.registerRecipeType(UltimatePackageRecipeType.INSTANCE);
 		ApiImpl.INSTANCE.registerRecipeType(EnderPackageRecipeType.INSTANCE);
+		ApiImpl.INSTANCE.registerRecipeType(FluxPackageRecipeType.INSTANCE);
 		ApiImpl.INSTANCE.registerRecipeType(CombinationPackageRecipeType.INSTANCE);
 	}
 
 	@SubscribeEvent
 	public void onModConfig(ModConfigEvent event) {
 		switch(event.getConfig().getType()) {
-		case SERVER:
-			PackagedExCraftingConfig.reloadServerConfig();
-			break;
-		default:
-			break;
+		case SERVER -> PackagedExCraftingConfig.reloadServerConfig();
+		default -> {}
 		}
 	}
 }

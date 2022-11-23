@@ -8,6 +8,7 @@ import thelm.packagedexcrafting.block.entity.BasicCrafterBlockEntity;
 import thelm.packagedexcrafting.block.entity.CombinationCrafterBlockEntity;
 import thelm.packagedexcrafting.block.entity.EliteCrafterBlockEntity;
 import thelm.packagedexcrafting.block.entity.EnderCrafterBlockEntity;
+import thelm.packagedexcrafting.block.entity.FluxCrafterBlockEntity;
 import thelm.packagedexcrafting.block.entity.UltimateCrafterBlockEntity;
 
 public class PackagedExCraftingConfig {
@@ -41,6 +42,10 @@ public class PackagedExCraftingConfig {
 	public static ForgeConfigSpec.IntValue enderCrafterEnergyReq;
 	public static ForgeConfigSpec.IntValue enderCrafterEnergyUsage;
 	public static ForgeConfigSpec.BooleanValue enderCrafterDrawMEEnergy;
+
+	public static ForgeConfigSpec.IntValue fluxCrafterEnergyCapacity;
+	public static ForgeConfigSpec.IntValue fluxCrafterAlternatorRate;
+	public static ForgeConfigSpec.BooleanValue fluxCrafterDrawMEEnergy;
 
 	public static ForgeConfigSpec.IntValue combinationCrafterEnergyCapacity;
 	public static ForgeConfigSpec.BooleanValue combinationCrafterDrawMEEnergy;
@@ -110,6 +115,14 @@ public class PackagedExCraftingConfig {
 		enderCrafterDrawMEEnergy = builder.define("draw_me_energy", true);
 		builder.pop();
 
+		builder.push("flux_crafter");
+		builder.comment("How much FE the Flux Package Crafter should hold.");
+		fluxCrafterEnergyCapacity = builder.defineInRange("energy_capacity", 500000, 0, Integer.MAX_VALUE);
+		builder.comment("How much each alternator should increase the energy rate of the Flux Package Crafter. This is a percentage of the time required.");
+		fluxCrafterAlternatorRate = builder.defineInRange("alternator_rate", 400, 0, Integer.MAX_VALUE);
+		builder.comment("Should the Flux Package Crafter draw energy from ME systems.");
+		fluxCrafterDrawMEEnergy = builder.define("draw_me_energy", false);
+
 		builder.push("combination_crafter");
 		builder.comment("How much FE the Combination Package Crafter should hold.");
 		combinationCrafterEnergyCapacity = builder.defineInRange("energy_capacity", 5000000, 0, Integer.MAX_VALUE);
@@ -146,6 +159,10 @@ public class PackagedExCraftingConfig {
 		EnderCrafterBlockEntity.energyReq = enderCrafterEnergyReq.get();
 		EnderCrafterBlockEntity.energyUsage = enderCrafterEnergyUsage.get();
 		EnderCrafterBlockEntity.drawMEEnergy = enderCrafterDrawMEEnergy.get();
+
+		FluxCrafterBlockEntity.energyCapacity = fluxCrafterEnergyCapacity.get();
+		FluxCrafterBlockEntity.alternatorRate = fluxCrafterAlternatorRate.get();
+		FluxCrafterBlockEntity.drawMEEnergy = fluxCrafterDrawMEEnergy.get();
 
 		CombinationCrafterBlockEntity.energyCapacity = combinationCrafterEnergyCapacity.get();
 		CombinationCrafterBlockEntity.drawMEEnergy = combinationCrafterDrawMEEnergy.get();

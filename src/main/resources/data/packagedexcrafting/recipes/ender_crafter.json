@@ -15,24 +15,24 @@
     },
     "pattern": [
         "ECE",
-        "RTR",
-        "EYE"
+        "YTY",
+        "ERE"
     ],
     "key": {
         "C": {
             "item": "packagedauto:package_component"
         },
         "T": {
-            "item": "extendedcrafting:ender_crafter"
+            "item": "extendedcrafting:auto_ender_crafter"
         },
         "E": {
             "item": "extendedcrafting:enhanced_ender_ingot"
         },
+        "Y": {
+            "item": "extendedcrafting:crystaltine_component"
+        },
         "R": {
             "item": "extendedcrafting:redstone_catalyst"
-        },
-        "Y": {
-            "item": "extendedcrafting:crystaltine_catalyst"
         }
     }
 }

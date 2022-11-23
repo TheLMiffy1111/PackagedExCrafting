@@ -14,12 +14,14 @@ import thelm.packagedexcrafting.client.screen.BasicCrafterScreen;
 import thelm.packagedexcrafting.client.screen.CombinationCrafterScreen;
 import thelm.packagedexcrafting.client.screen.EliteCrafterScreen;
 import thelm.packagedexcrafting.client.screen.EnderCrafterScreen;
+import thelm.packagedexcrafting.client.screen.FluxCrafterScreen;
 import thelm.packagedexcrafting.client.screen.UltimateCrafterScreen;
 import thelm.packagedexcrafting.menu.AdvancedCrafterMenu;
 import thelm.packagedexcrafting.menu.BasicCrafterMenu;
 import thelm.packagedexcrafting.menu.CombinationCrafterMenu;
 import thelm.packagedexcrafting.menu.EliteCrafterMenu;
 import thelm.packagedexcrafting.menu.EnderCrafterMenu;
+import thelm.packagedexcrafting.menu.FluxCrafterMenu;
 import thelm.packagedexcrafting.menu.UltimateCrafterMenu;
 
 public class ClientEventHandler {
@@ -41,6 +43,7 @@ public class ClientEventHandler {
 		MenuScreens.register(EliteCrafterMenu.TYPE_INSTANCE, EliteCrafterScreen::new);
 		MenuScreens.register(UltimateCrafterMenu.TYPE_INSTANCE, UltimateCrafterScreen::new);
 		MenuScreens.register(EnderCrafterMenu.TYPE_INSTANCE, EnderCrafterScreen::new);
+		MenuScreens.register(FluxCrafterMenu.TYPE_INSTANCE, FluxCrafterScreen::new);
 		MenuScreens.register(CombinationCrafterMenu.TYPE_INSTANCE, CombinationCrafterScreen::new);
 
 		BlockEntityRenderers.register(CombinationCrafterBlockEntity.TYPE_INSTANCE, CombinationCrafterRenderer::new);

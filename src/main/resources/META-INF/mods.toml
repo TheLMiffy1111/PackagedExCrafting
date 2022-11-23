@@ -20,7 +20,7 @@ description="A PackagedAuto addon that adds ExtendedCrafting autocrafting."
 [[dependencies.packagedexcrafting]]
     modId="extendedcrafting"
     mandatory=true
-    versionRange="[5,)"
+    versionRange="[5.1.2,)"
     ordering="NONE"
     side="BOTH"
 
