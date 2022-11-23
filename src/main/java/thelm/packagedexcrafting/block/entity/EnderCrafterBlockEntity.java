@@ -3,12 +3,16 @@ package thelm.packagedexcrafting.block.entity;
 import java.util.List;
 
 import com.blakebr0.extendedcrafting.block.EnderAlternatorBlock;
+import com.google.common.base.Predicates;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -111,10 +115,16 @@ public class EnderCrafterBlockEntity extends BaseBlockEntity implements IPackage
 	}
 
 	protected void tickProcess() {
-		int alternatorCount = getAlternatorCount();
+		List<BlockPos> alternators = getAlternators();
+		int alternatorCount = alternators.size();
 		if(alternatorCount > 0) {
 			progress++;
 			actualProgressReq = (int)Math.max(progressReq*(1-alternatorEff*alternatorCount), 0);
+			for(BlockPos alternatorPos : alternators) {
+				if(level.isEmptyBlock(alternatorPos.above())) {
+					spawnParticles(ParticleTypes.PORTAL, alternatorPos, 1, 1);
+				}
+			}
 		}
 		else {
 			actualProgressReq = progressReq;
@@ -152,10 +162,13 @@ public class EnderCrafterBlockEntity extends BaseBlockEntity implements IPackage
 		setChanged();
 	}
 
-	protected int getAlternatorCount() {
-		return (int)BlockPos.betweenClosedStream(worldPosition.offset(-3, -3, -3), worldPosition.offset(3, 3, 3)).
-				map(pos->level.getBlockState(pos).getBlock()).
-				filter(block->block instanceof EnderAlternatorBlock).count();
+	protected List<BlockPos> getAlternators() {
+		return BlockPos.betweenClosedStream(worldPosition.offset(-3, -3, -3), worldPosition.offset(3, 3, 3)).map(pos->{
+			if(level.getBlockState(pos).getBlock() instanceof EnderAlternatorBlock) {
+				return pos.immutable();
+			}
+			return null;
+		}).filter(Predicates.notNull()).toList();
 	}
 
 	protected void ejectItems() {
@@ -199,6 +212,17 @@ public class EnderCrafterBlockEntity extends BaseBlockEntity implements IPackage
 				itemHandler.setStackInSlot(10, ItemStack.EMPTY);
 			}
 		}
+	}
+
+	protected <T extends ParticleOptions> void spawnParticles(T particle, BlockPos pos, double yOffset, int count) {
+		if(level == null || level.isClientSide()) {
+			return;
+		}
+		ServerLevel level = (ServerLevel)this.level;
+		double x = pos.getX()+0.5;
+		double y = pos.getY()+yOffset;
+		double z = pos.getZ()+0.5;
+		level.sendParticles(particle, x, y, z, count, 0, 0, 0, 0.1);
 	}
 
 	@Override

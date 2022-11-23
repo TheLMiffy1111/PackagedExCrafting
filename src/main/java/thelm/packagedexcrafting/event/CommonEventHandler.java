@@ -112,11 +112,8 @@ public class CommonEventHandler {
 	@SubscribeEvent
 	public void onModConfig(ModConfigEvent event) {
 		switch(event.getConfig().getType()) {
-		case SERVER:
-			PackagedExCraftingConfig.reloadServerConfig();
-			break;
-		default:
-			break;
+		case SERVER -> PackagedExCraftingConfig.reloadServerConfig();
+		default -> {}
 		}
 	}
 }

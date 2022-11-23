@@ -24,7 +24,7 @@ public class EnderPackageRecipeType implements IPackageRecipeType {
 	public static final EnderPackageRecipeType INSTANCE = new EnderPackageRecipeType();
 	public static final ResourceLocation NAME = new ResourceLocation("packagedexcrafting:ender");
 	public static final IntSet SLOTS;
-	public static final List<ResourceLocation> CATEGORIES = Collections.singletonList(new ResourceLocation("extendedcrafting:ender_crafting"));
+	public static final List<ResourceLocation> CATEGORIES = List.of(new ResourceLocation("extendedcrafting:ender_crafting"));
 	public static final Vec3i COLOR = new Vec3i(139, 139, 139);
 	public static final Vec3i COLOR_DISABLED = new Vec3i(64, 64, 64);
 

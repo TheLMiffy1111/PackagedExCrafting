@@ -21,26 +21,20 @@ public class EnderCrafterItemHandler extends BaseItemHandler<EnderCrafterBlockEn
 
 	@Override
 	public int get(int id) {
-		switch(id) {
-		case 0: return blockEntity.progress;
-		case 1: return blockEntity.actualProgressReq;
-		case 2: return blockEntity.isWorking ? 1 : 0;
-		default: return 0;
-		}
+		return switch(id) {
+		case 0 -> blockEntity.progress;
+		case 1 -> blockEntity.actualProgressReq;
+		case 2 -> blockEntity.isWorking ? 1 : 0;
+		default -> 0;
+		};
 	}
 
 	@Override
 	public void set(int id, int value) {
 		switch(id) {
-		case 0:
-			blockEntity.progress = value;
-			break;
-		case 1:
-			blockEntity.actualProgressReq = value;
-			break;
-		case 2:
-			blockEntity.isWorking = value != 0;
-			break;
+		case 0 -> blockEntity.progress = value;
+		case 1 -> blockEntity.actualProgressReq = value;
+		case 2 -> blockEntity.isWorking = value != 0;
 		}
 	}
 

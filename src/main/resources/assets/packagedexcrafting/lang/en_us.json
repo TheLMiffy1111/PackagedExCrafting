@@ -1,4 +1,6 @@
 {
+    "itemGroup.packagedexcrafting": "PackagedExCrafting",
+
     "block.packagedexcrafting.basic_crafter": "Basic Package Crafter",
     "block.packagedexcrafting.advanced_crafter": "Advanced Package Crafter",
     "block.packagedexcrafting.elite_crafter": "Elite Package Crafter",

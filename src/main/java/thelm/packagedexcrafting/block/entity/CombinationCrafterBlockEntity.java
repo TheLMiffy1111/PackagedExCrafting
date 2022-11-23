@@ -153,7 +153,7 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 			spawnParticles(ParticleTypes.SMOKE, pedestalPos, 1.1, 20);
 		}
 		itemHandler.setStackInSlot(0, ItemStack.EMPTY);
-		spawnParticles(ParticleTypes.END_ROD, worldPosition, 1.1D, 50);
+		spawnParticles(ParticleTypes.END_ROD, worldPosition, 1.1, 50);
 		itemHandler.setStackInSlot(1, currentRecipe.getOutput());
 		endProcess();
 	}
@@ -174,10 +174,8 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 
 	protected List<BlockPos> getEmptyPedestals() {
 		return BlockPos.betweenClosedStream(worldPosition.offset(-3, 0, -3), worldPosition.offset(3, 0, 3)).map(pos->{
-			if(level.getBlockEntity(pos) instanceof MarkedPedestalBlockEntity pedestal) {
-				if(pedestal.getItemHandler().getStackInSlot(0).isEmpty()) {
-					return pos.immutable();
-				}
+			if(level.getBlockEntity(pos) instanceof MarkedPedestalBlockEntity pedestal && pedestal.getItemHandler().getStackInSlot(0).isEmpty()) {
+				return pos.immutable();
 			}
 			return null;
 		}).filter(Predicates.notNull()).collect(Collectors.toList());
@@ -326,7 +324,7 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 		if(remainingProgress <= 0 || energyReq <= 0) {
 			return 0;
 		}
-		return scale * (int)((energyReq-remainingProgress) / energyReq);
+		return (int)(scale * (energyReq-remainingProgress) / energyReq);
 	}
 
 	@Override

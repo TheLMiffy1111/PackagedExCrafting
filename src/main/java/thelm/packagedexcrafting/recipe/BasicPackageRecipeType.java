@@ -24,7 +24,7 @@ public class BasicPackageRecipeType implements IPackageRecipeType {
 	public static final BasicPackageRecipeType INSTANCE = new BasicPackageRecipeType();
 	public static final ResourceLocation NAME = new ResourceLocation("packagedexcrafting:basic");
 	public static final IntSet SLOTS;
-	public static final List<ResourceLocation> CATEGORIES = Collections.singletonList(new ResourceLocation("extendedcrafting:basic_crafting"));
+	public static final List<ResourceLocation> CATEGORIES = List.of(new ResourceLocation("extendedcrafting:basic_crafting"));
 	public static final Vec3i COLOR = new Vec3i(139, 139, 139);
 	public static final Vec3i COLOR_DISABLED = new Vec3i(64, 64, 64);
 

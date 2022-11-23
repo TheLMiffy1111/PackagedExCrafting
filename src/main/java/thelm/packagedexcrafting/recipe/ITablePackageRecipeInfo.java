@@ -23,6 +23,6 @@ public interface ITablePackageRecipeInfo extends IPackageRecipeInfo {
 
 	@Override
 	default List<ItemStack> getOutputs() {
-		return Collections.singletonList(getOutput());
+		return List.of(getOutput());
 	}
 }

@@ -26,7 +26,7 @@ public class CombinationPackageRecipeType implements IPackageRecipeType {
 	public static final CombinationPackageRecipeType INSTANCE = new CombinationPackageRecipeType();
 	public static final ResourceLocation NAME = new ResourceLocation("packagedexcrafting:combination");
 	public static final IntSet SLOTS;
-	public static final List<ResourceLocation> CATEGORIES = Collections.singletonList(new ResourceLocation("extendedcrafting:combination"));
+	public static final List<ResourceLocation> CATEGORIES = List.of(new ResourceLocation("extendedcrafting:combination"));
 	public static final Vec3i COLOR = new Vec3i(139, 139, 139);
 	public static final Vec3i COLOR_CENTER = new Vec3i(139, 139, 179);
 	public static final Vec3i COLOR_DISABLED = new Vec3i(64, 64, 64);

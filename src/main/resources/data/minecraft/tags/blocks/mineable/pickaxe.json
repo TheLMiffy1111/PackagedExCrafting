@@ -1,0 +1,12 @@
+{
+    "replace": false,
+    "values": [
+        "packagedexcrafting:basic_crafter",
+        "packagedexcrafting:advanced_crafter",
+        "packagedexcrafting:elite_crafter",
+        "packagedexcrafting:ultimate_crafter",
+        "packagedexcrafting:ender_crafter",
+        "packagedexcrafting:combination_crafter",
+        "packagedexcrafting:marked_pedestal"
+    ]
+}
