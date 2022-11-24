@@ -1,6 +1,5 @@
 package thelm.packagedexcrafting.recipe;
 
-import java.util.Collections;
 import java.util.List;
 
 import com.blakebr0.extendedcrafting.init.ModBlocks;
@@ -37,7 +36,7 @@ public class EnderPackageRecipeType implements IPackageRecipeType {
 		}
 	}
 
-	protected EnderPackageRecipeType() {};
+	protected EnderPackageRecipeType() {}
 
 	@Override
 	public ResourceLocation getName() {

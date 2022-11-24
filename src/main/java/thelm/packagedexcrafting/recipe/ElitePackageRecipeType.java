@@ -40,7 +40,7 @@ public class ElitePackageRecipeType implements IPackageRecipeType {
 		}
 	}
 
-	protected ElitePackageRecipeType() {};
+	protected ElitePackageRecipeType() {}
 
 	@Override
 	public ResourceLocation getName() {

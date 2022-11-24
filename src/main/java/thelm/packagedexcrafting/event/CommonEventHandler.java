@@ -107,6 +107,7 @@ public class CommonEventHandler {
 		ApiImpl.INSTANCE.registerRecipeType(UltimatePackageRecipeType.INSTANCE);
 		ApiImpl.INSTANCE.registerRecipeType(EnderPackageRecipeType.INSTANCE);
 		ApiImpl.INSTANCE.registerRecipeType(CombinationPackageRecipeType.INSTANCE);
+		System.out.println();
 	}
 
 	@SubscribeEvent

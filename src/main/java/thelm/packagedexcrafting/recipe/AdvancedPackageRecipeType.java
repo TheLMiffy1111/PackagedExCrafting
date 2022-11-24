@@ -39,7 +39,7 @@ public class AdvancedPackageRecipeType implements IPackageRecipeType {
 		}
 	}
 
-	protected AdvancedPackageRecipeType() {};
+	protected AdvancedPackageRecipeType() {}
 
 	@Override
 	public ResourceLocation getName() {

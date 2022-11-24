@@ -146,8 +146,7 @@ public class BasicPackageRecipeInfo implements ITablePackageRecipeInfo {
 
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof BasicPackageRecipeInfo) {
-			BasicPackageRecipeInfo other = (BasicPackageRecipeInfo)obj;
+		if(obj instanceof BasicPackageRecipeInfo other) {
 			if(input.size() != other.input.size()) {
 				return false;
 			}

@@ -146,8 +146,7 @@ public class ElitePackageRecipeInfo implements ITablePackageRecipeInfo {
 
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof ElitePackageRecipeInfo) {
-			ElitePackageRecipeInfo other = (ElitePackageRecipeInfo)obj;
+		if(obj instanceof ElitePackageRecipeInfo other) {
 			if(input.size() != other.input.size()) {
 				return false;
 			}

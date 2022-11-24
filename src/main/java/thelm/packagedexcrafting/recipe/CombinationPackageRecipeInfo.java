@@ -176,8 +176,7 @@ public class CombinationPackageRecipeInfo implements ICombinationPackageRecipeIn
 
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof CombinationPackageRecipeInfo) {
-			CombinationPackageRecipeInfo other = (CombinationPackageRecipeInfo)obj;
+		if(obj instanceof CombinationPackageRecipeInfo other) {
 			if(input.size() != other.input.size()) {
 				return false;
 			}

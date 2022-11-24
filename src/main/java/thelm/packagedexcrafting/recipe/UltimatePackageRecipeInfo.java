@@ -144,8 +144,7 @@ public class UltimatePackageRecipeInfo implements ITablePackageRecipeInfo {
 
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof UltimatePackageRecipeInfo) {
-			UltimatePackageRecipeInfo other = (UltimatePackageRecipeInfo)obj;
+		if(obj instanceof UltimatePackageRecipeInfo other) {
 			if(input.size() != other.input.size()) {
 				return false;
 			}

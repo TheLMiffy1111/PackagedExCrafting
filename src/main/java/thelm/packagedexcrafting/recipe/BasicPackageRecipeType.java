@@ -1,6 +1,5 @@
 package thelm.packagedexcrafting.recipe;
 
-import java.util.Collections;
 import java.util.List;
 
 import com.blakebr0.extendedcrafting.init.ModBlocks;
@@ -37,7 +36,7 @@ public class BasicPackageRecipeType implements IPackageRecipeType {
 		}
 	}
 
-	protected BasicPackageRecipeType() {};
+	protected BasicPackageRecipeType() {}
 
 	@Override
 	public ResourceLocation getName() {

@@ -80,8 +80,7 @@ public class UltimateCrafterBlockEntity extends BaseBlockEntity implements IPack
 
 	@Override
 	public boolean acceptPackage(IPackageRecipeInfo recipeInfo, List<ItemStack> stacks, Direction direction) {
-		if(!isBusy() && recipeInfo instanceof ITablePackageRecipeInfo) {
-			ITablePackageRecipeInfo recipe = (ITablePackageRecipeInfo)recipeInfo;
+		if(!isBusy() && recipeInfo instanceof ITablePackageRecipeInfo recipe) {
 			if(recipe.getTier() == 4) {
 				ItemStack slotStack = itemHandler.getStackInSlot(81);
 				ItemStack outputStack = recipe.getOutput();
@@ -185,8 +184,8 @@ public class UltimateCrafterBlockEntity extends BaseBlockEntity implements IPack
 		if(nbt.contains("Recipe")) {
 			CompoundTag tag = nbt.getCompound("Recipe");
 			IPackageRecipeInfo recipe = MiscHelper.INSTANCE.loadRecipe(tag);
-			if(recipe instanceof ITablePackageRecipeInfo && ((ITablePackageRecipeInfo)recipe).getTier() == 4) {
-				currentRecipe = (ITablePackageRecipeInfo)recipe;
+			if(recipe instanceof ITablePackageRecipeInfo tableRecipe && tableRecipe.getTier() == 4) {
+				currentRecipe = tableRecipe;
 			}
 		}
 	}

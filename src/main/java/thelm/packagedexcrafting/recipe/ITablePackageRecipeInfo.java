@@ -1,6 +1,5 @@
 package thelm.packagedexcrafting.recipe;
 
-import java.util.Collections;
 import java.util.List;
 
 import com.blakebr0.extendedcrafting.api.crafting.ITableRecipe;

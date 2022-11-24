@@ -146,8 +146,7 @@ public class EnderPackageRecipeInfo implements IEnderPackageRecipeInfo {
 
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof EnderPackageRecipeInfo) {
-			EnderPackageRecipeInfo other = (EnderPackageRecipeInfo)obj;
+		if(obj instanceof EnderPackageRecipeInfo other) {
 			if(input.size() != other.input.size()) {
 				return false;
 			}

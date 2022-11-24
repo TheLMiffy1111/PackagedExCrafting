@@ -12,7 +12,7 @@ import thelm.packagedexcrafting.block.entity.UltimateCrafterBlockEntity;
 
 public class PackagedExCraftingConfig {
 
-	private PackagedExCraftingConfig() {};
+	private PackagedExCraftingConfig() {}
 
 	private static ForgeConfigSpec serverSpec;
 
