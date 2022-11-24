@@ -42,8 +42,8 @@ public class UltimatePackageRecipeInfo implements ITablePackageRecipeInfo {
 		for(int i = 0; i < 81 && i < matrixList.size(); ++i) {
 			matrix.setItem(i, matrixList.get(i));
 		}
-		if(recipe instanceof ITableRecipe) {
-			this.recipe = (ITableRecipe)recipe;
+		if(recipe instanceof ITableRecipe tableRecipe) {
+			this.recipe = tableRecipe;
 			input.addAll(MiscHelper.INSTANCE.condenseStacks(matrix));
 			output = recipe.assemble(matrix).copy();
 			for(int i = 0; i*9 < input.size(); ++i) {
