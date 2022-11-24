@@ -3,7 +3,6 @@ package thelm.packagedexcrafting.recipe;
 import java.util.List;
 
 import com.blakebr0.extendedcrafting.init.ModBlocks;
-import com.google.common.collect.ImmutableList;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -24,7 +23,7 @@ public class ElitePackageRecipeType implements IPackageRecipeType {
 	public static final ElitePackageRecipeType INSTANCE = new ElitePackageRecipeType();
 	public static final ResourceLocation NAME = new ResourceLocation("packagedexcrafting:elite");
 	public static final IntSet SLOTS;
-	public static final List<ResourceLocation> CATEGORIES = ImmutableList.of(
+	public static final List<ResourceLocation> CATEGORIES = List.of(
 			new ResourceLocation("extendedcrafting:elite_crafting"),
 			new ResourceLocation("extendedcrafting:advanced_crafting"),
 			new ResourceLocation("extendedcrafting:basic_crafting"));

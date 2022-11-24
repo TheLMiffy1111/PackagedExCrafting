@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import com.blakebr0.extendedcrafting.init.ModBlocks;
-import com.google.common.collect.ImmutableList;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -25,7 +24,7 @@ public class UltimatePackageRecipeType implements IPackageRecipeType {
 	public static final UltimatePackageRecipeType INSTANCE = new UltimatePackageRecipeType();
 	public static final ResourceLocation NAME = new ResourceLocation("packagedexcrafting:ultimate");
 	public static final IntSet SLOTS;
-	public static final List<ResourceLocation> CATEGORIES = ImmutableList.of(
+	public static final List<ResourceLocation> CATEGORIES = List.of(
 			new ResourceLocation("extendedcrafting:ultimate_crafting"),
 			new ResourceLocation("extendedcrafting:elite_crafting"),
 			new ResourceLocation("extendedcrafting:advanced_crafting"),
@@ -90,7 +89,6 @@ public class UltimatePackageRecipeType implements IPackageRecipeType {
 		Int2ObjectMap<ItemStack> map = new Int2ObjectOpenHashMap<>();
 		List<IRecipeSlotViewWrapper> slotViews = recipeLayoutWrapper.getRecipeSlotViews();
 		if(slotViews.size() == 82) {
-			System.out.println(slotViews.size());
 			int index = 0;
 			int[] slotArray = SLOTS.toIntArray();
 			for(IRecipeSlotViewWrapper slotView : slotViews) {
