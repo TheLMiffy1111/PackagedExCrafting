@@ -25,7 +25,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import thelm.packagedexcrafting.block.BasicCrafterBlock;
+import thelm.packagedexcrafting.block.CombinationCrafterBlock;
 import thelm.packagedexcrafting.block.entity.CombinationCrafterBlockEntity;
 
 public class AECombinationCrafterBlockEntity extends CombinationCrafterBlockEntity implements IInWorldGridNodeHost, IGridNodeListener<AECombinationCrafterBlockEntity>, IActionHost {
@@ -90,7 +90,7 @@ public class AECombinationCrafterBlockEntity extends CombinationCrafterBlockEnti
 		if(gridNode == null) {
 			gridNode = GridHelper.createManagedNode(this, this);
 			gridNode.setTagName("Node");
-			gridNode.setVisualRepresentation(BasicCrafterBlock.INSTANCE);
+			gridNode.setVisualRepresentation(CombinationCrafterBlock.INSTANCE);
 			gridNode.setGridColor(AEColor.TRANSPARENT);
 			gridNode.setIdlePowerUsage(1);
 			gridNode.setInWorldNode(true);

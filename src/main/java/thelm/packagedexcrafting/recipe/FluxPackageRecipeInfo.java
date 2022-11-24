@@ -42,8 +42,8 @@ public class FluxPackageRecipeInfo implements IFluxPackageRecipeInfo {
 		for(int i = 0; i < 9 && i < matrixList.size(); ++i) {
 			matrix.setItem(i, matrixList.get(i));
 		}
-		if(recipe instanceof IFluxCrafterRecipe) {
-			this.recipe = (IFluxCrafterRecipe)recipe;
+		if(recipe instanceof IFluxCrafterRecipe fluxRecipe) {
+			this.recipe = fluxRecipe;
 			input.addAll(MiscHelper.INSTANCE.condenseStacks(matrix));
 			output = recipe.assemble(matrix).copy();
 			for(int i = 0; i*9 < input.size(); ++i) {
@@ -151,8 +151,7 @@ public class FluxPackageRecipeInfo implements IFluxPackageRecipeInfo {
 
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof FluxPackageRecipeInfo) {
-			FluxPackageRecipeInfo other = (FluxPackageRecipeInfo)obj;
+		if(obj instanceof FluxPackageRecipeInfo other) {
 			if(input.size() != other.input.size()) {
 				return false;
 			}

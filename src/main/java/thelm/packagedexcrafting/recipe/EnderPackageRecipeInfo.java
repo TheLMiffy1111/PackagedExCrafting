@@ -42,8 +42,8 @@ public class EnderPackageRecipeInfo implements IEnderPackageRecipeInfo {
 		for(int i = 0; i < 9 && i < matrixList.size(); ++i) {
 			matrix.setItem(i, matrixList.get(i));
 		}
-		if(recipe instanceof IEnderCrafterRecipe) {
-			this.recipe = (IEnderCrafterRecipe)recipe;
+		if(recipe instanceof IEnderCrafterRecipe enderRecipe) {
+			this.recipe = enderRecipe;
 			input.addAll(MiscHelper.INSTANCE.condenseStacks(matrix));
 			output = recipe.assemble(matrix).copy();
 			for(int i = 0; i*9 < input.size(); ++i) {
@@ -146,8 +146,7 @@ public class EnderPackageRecipeInfo implements IEnderPackageRecipeInfo {
 
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof EnderPackageRecipeInfo) {
-			EnderPackageRecipeInfo other = (EnderPackageRecipeInfo)obj;
+		if(obj instanceof EnderPackageRecipeInfo other) {
 			if(input.size() != other.input.size()) {
 				return false;
 			}

@@ -37,7 +37,7 @@ public class EnderPackageRecipeType implements IPackageRecipeType {
 		}
 	}
 
-	protected EnderPackageRecipeType() {};
+	protected EnderPackageRecipeType() {}
 
 	@Override
 	public ResourceLocation getName() {

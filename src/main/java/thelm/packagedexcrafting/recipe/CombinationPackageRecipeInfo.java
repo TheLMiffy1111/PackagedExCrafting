@@ -46,8 +46,8 @@ public class CombinationPackageRecipeInfo implements ICombinationPackageRecipeIn
 		if(inputPedestal.isEmpty()) {
 			return;
 		}
-		if(recipe instanceof ICombinationRecipe) {
-			this.recipe = (ICombinationRecipe)recipe;
+		if(recipe instanceof ICombinationRecipe combinationRecipe) {
+			this.recipe = combinationRecipe;
 			List<ItemStack> toCondense = new ArrayList<>(inputPedestal);
 			toCondense.add(inputCore);
 			input.addAll(MiscHelper.INSTANCE.condenseStacks(toCondense));
@@ -176,8 +176,7 @@ public class CombinationPackageRecipeInfo implements ICombinationPackageRecipeIn
 
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof CombinationPackageRecipeInfo) {
-			CombinationPackageRecipeInfo other = (CombinationPackageRecipeInfo)obj;
+		if(obj instanceof CombinationPackageRecipeInfo other) {
 			if(input.size() != other.input.size()) {
 				return false;
 			}

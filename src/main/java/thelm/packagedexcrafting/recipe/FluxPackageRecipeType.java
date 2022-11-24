@@ -37,7 +37,7 @@ public class FluxPackageRecipeType implements IPackageRecipeType {
 		}
 	}
 
-	protected FluxPackageRecipeType() {};
+	protected FluxPackageRecipeType() {}
 
 	@Override
 	public ResourceLocation getName() {

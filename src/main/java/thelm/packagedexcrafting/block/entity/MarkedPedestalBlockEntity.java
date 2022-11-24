@@ -16,7 +16,7 @@ import thelm.packagedexcrafting.inventory.MarkedPedestalItemHandler;
 
 public class MarkedPedestalBlockEntity extends BaseBlockEntity {
 
-	public static final BlockEntityType<MarkedPedestalBlockEntity> TYPE_INSTANCE = (BlockEntityType<MarkedPedestalBlockEntity>)BlockEntityType.Builder.
+	public static final BlockEntityType<MarkedPedestalBlockEntity> TYPE_INSTANCE = BlockEntityType.Builder.
 			of(MarkedPedestalBlockEntity::new, MarkedPedestalBlock.INSTANCE).build(null);
 
 	public MarkedPedestalBlockEntity(BlockPos pos, BlockState state) {

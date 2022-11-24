@@ -40,7 +40,7 @@ import thelm.packagedexcrafting.recipe.ICombinationPackageRecipeInfo;
 
 public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IPackageCraftingMachine {
 
-	public static final BlockEntityType<CombinationCrafterBlockEntity> TYPE_INSTANCE = (BlockEntityType<CombinationCrafterBlockEntity>)BlockEntityType.Builder.
+	public static final BlockEntityType<CombinationCrafterBlockEntity> TYPE_INSTANCE = BlockEntityType.Builder.
 			of(MiscHelper.INSTANCE.<BlockEntityType.BlockEntitySupplier<CombinationCrafterBlockEntity>>conditionalSupplier(
 					()->ModList.get().isLoaded("ae2"),
 					()->()->AECombinationCrafterBlockEntity::new, ()->()->CombinationCrafterBlockEntity::new).get(),
@@ -88,8 +88,7 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 
 	@Override
 	public boolean acceptPackage(IPackageRecipeInfo recipeInfo, List<ItemStack> stacks, Direction direction) {
-		if(!isBusy() && recipeInfo instanceof ICombinationPackageRecipeInfo) {
-			ICombinationPackageRecipeInfo recipe = (ICombinationPackageRecipeInfo)recipeInfo;
+		if(!isBusy() && recipeInfo instanceof ICombinationPackageRecipeInfo recipe) {
 			List<ItemStack> pedestalInputs = recipe.getPedestalInputs();
 			List<BlockPos> emptyPedestals = getEmptyPedestals();
 			if(emptyPedestals.size() >= pedestalInputs.size()) {
@@ -263,8 +262,8 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 		if(nbt.contains("Recipe")) {
 			CompoundTag tag = nbt.getCompound("Recipe");
 			IPackageRecipeInfo recipe = MiscHelper.INSTANCE.loadRecipe(tag);
-			if(recipe instanceof ICombinationPackageRecipeInfo) {
-				currentRecipe = (ICombinationPackageRecipeInfo)recipe;
+			if(recipe instanceof ICombinationPackageRecipeInfo combinationRecipe) {
+				currentRecipe = combinationRecipe;
 			}
 			pedestals.clear();
 			ListTag pedestalsTag = nbt.getList("Pedestals", 11);

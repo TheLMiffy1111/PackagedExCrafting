@@ -12,8 +12,7 @@ import thelm.packagedexcrafting.slot.UltimateCrafterRemoveOnlySlot;
 
 public class UltimateCrafterMenu extends BaseMenu<UltimateCrafterBlockEntity> {
 
-	public static final MenuType<UltimateCrafterMenu> TYPE_INSTANCE = (MenuType<UltimateCrafterMenu>)IForgeMenuType.
-			create(new PositionalBlockEntityMenuFactory<>(UltimateCrafterMenu::new));
+	public static final MenuType<UltimateCrafterMenu> TYPE_INSTANCE = IForgeMenuType.create(new PositionalBlockEntityMenuFactory<>(UltimateCrafterMenu::new));
 
 	public UltimateCrafterMenu(int windowId, Inventory inventory, UltimateCrafterBlockEntity blockEntity) {
 		super(TYPE_INSTANCE, windowId, inventory, blockEntity);

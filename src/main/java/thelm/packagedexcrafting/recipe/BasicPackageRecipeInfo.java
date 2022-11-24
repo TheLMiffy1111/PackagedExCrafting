@@ -42,8 +42,8 @@ public class BasicPackageRecipeInfo implements ITablePackageRecipeInfo {
 		for(int i = 0; i < 9 && i < matrixList.size(); ++i) {
 			matrix.setItem(i, matrixList.get(i));
 		}
-		if(recipe instanceof ITableRecipe) {
-			this.recipe = (ITableRecipe)recipe;
+		if(recipe instanceof ITableRecipe tableRecipe) {
+			this.recipe = tableRecipe;
 			input.addAll(MiscHelper.INSTANCE.condenseStacks(matrix));
 			output = recipe.assemble(matrix).copy();
 			for(int i = 0; i*9 < input.size(); ++i) {
@@ -146,8 +146,7 @@ public class BasicPackageRecipeInfo implements ITablePackageRecipeInfo {
 
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof BasicPackageRecipeInfo) {
-			BasicPackageRecipeInfo other = (BasicPackageRecipeInfo)obj;
+		if(obj instanceof BasicPackageRecipeInfo other) {
 			if(input.size() != other.input.size()) {
 				return false;
 			}

@@ -12,8 +12,7 @@ import thelm.packagedexcrafting.slot.FluxCrafterRemoveOnlySlot;
 
 public class FluxCrafterMenu extends BaseMenu<FluxCrafterBlockEntity> {
 
-	public static final MenuType<FluxCrafterMenu> TYPE_INSTANCE = (MenuType<FluxCrafterMenu>)IForgeMenuType.
-			create(new PositionalBlockEntityMenuFactory<>(FluxCrafterMenu::new));
+	public static final MenuType<FluxCrafterMenu> TYPE_INSTANCE = IForgeMenuType.create(new PositionalBlockEntityMenuFactory<>(FluxCrafterMenu::new));
 
 	public FluxCrafterMenu(int windowId, Inventory inventory, FluxCrafterBlockEntity blockEntity) {
 		super(TYPE_INSTANCE, windowId, inventory, blockEntity);

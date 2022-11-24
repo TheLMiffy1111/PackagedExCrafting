@@ -30,7 +30,7 @@ import thelm.packagedexcrafting.recipe.ITablePackageRecipeInfo;
 
 public class EliteCrafterBlockEntity extends BaseBlockEntity implements IPackageCraftingMachine {
 
-	public static final BlockEntityType<EliteCrafterBlockEntity> TYPE_INSTANCE = (BlockEntityType<EliteCrafterBlockEntity>)BlockEntityType.Builder.
+	public static final BlockEntityType<EliteCrafterBlockEntity> TYPE_INSTANCE = BlockEntityType.Builder.
 			of(MiscHelper.INSTANCE.<BlockEntityType.BlockEntitySupplier<EliteCrafterBlockEntity>>conditionalSupplier(
 					()->ModList.get().isLoaded("ae2"),
 					()->()->AEEliteCrafterBlockEntity::new, ()->()->EliteCrafterBlockEntity::new).get(),
@@ -77,8 +77,7 @@ public class EliteCrafterBlockEntity extends BaseBlockEntity implements IPackage
 
 	@Override
 	public boolean acceptPackage(IPackageRecipeInfo recipeInfo, List<ItemStack> stacks, Direction direction) {
-		if(!isBusy() && recipeInfo instanceof ITablePackageRecipeInfo) {
-			ITablePackageRecipeInfo recipe = (ITablePackageRecipeInfo)recipeInfo;
+		if(!isBusy() && recipeInfo instanceof ITablePackageRecipeInfo recipe) {
 			if(recipe.getTier() == 3) {
 				ItemStack slotStack = itemHandler.getStackInSlot(49);
 				ItemStack outputStack = recipe.getOutput();
@@ -182,8 +181,8 @@ public class EliteCrafterBlockEntity extends BaseBlockEntity implements IPackage
 		if(nbt.contains("Recipe")) {
 			CompoundTag tag = nbt.getCompound("Recipe");
 			IPackageRecipeInfo recipe = MiscHelper.INSTANCE.loadRecipe(tag);
-			if(recipe instanceof ITablePackageRecipeInfo && ((ITablePackageRecipeInfo)recipe).getTier() == 3) {
-				currentRecipe = (ITablePackageRecipeInfo)recipe;
+			if(recipe instanceof ITablePackageRecipeInfo tableRecipe && tableRecipe.getTier() == 3) {
+				currentRecipe = tableRecipe;
 			}
 		}
 	}

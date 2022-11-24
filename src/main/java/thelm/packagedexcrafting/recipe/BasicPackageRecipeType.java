@@ -38,7 +38,7 @@ public class BasicPackageRecipeType implements IPackageRecipeType {
 		}
 	}
 
-	protected BasicPackageRecipeType() {};
+	protected BasicPackageRecipeType() {}
 
 	@Override
 	public ResourceLocation getName() {

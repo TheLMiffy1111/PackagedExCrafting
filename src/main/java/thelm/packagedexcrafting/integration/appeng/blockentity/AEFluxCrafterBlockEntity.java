@@ -25,7 +25,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import thelm.packagedexcrafting.block.EliteCrafterBlock;
+import thelm.packagedexcrafting.block.FluxCrafterBlock;
 import thelm.packagedexcrafting.block.entity.FluxCrafterBlockEntity;
 
 public class AEFluxCrafterBlockEntity extends FluxCrafterBlockEntity implements IInWorldGridNodeHost, IGridNodeListener<AEFluxCrafterBlockEntity>, IActionHost {
@@ -90,7 +90,7 @@ public class AEFluxCrafterBlockEntity extends FluxCrafterBlockEntity implements 
 		if(gridNode == null) {
 			gridNode = GridHelper.createManagedNode(this, this);
 			gridNode.setTagName("Node");
-			gridNode.setVisualRepresentation(EliteCrafterBlock.INSTANCE);
+			gridNode.setVisualRepresentation(FluxCrafterBlock.INSTANCE);
 			gridNode.setGridColor(AEColor.TRANSPARENT);
 			gridNode.setIdlePowerUsage(1);
 			gridNode.setInWorldNode(true);

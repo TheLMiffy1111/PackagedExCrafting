@@ -25,7 +25,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
-import thelm.packagedexcrafting.block.EliteCrafterBlock;
+import thelm.packagedexcrafting.block.UltimateCrafterBlock;
 import thelm.packagedexcrafting.block.entity.UltimateCrafterBlockEntity;
 
 public class AEUltimateCrafterBlockEntity extends UltimateCrafterBlockEntity implements IInWorldGridNodeHost, IGridNodeListener<AEUltimateCrafterBlockEntity>, IActionHost {
@@ -90,7 +90,7 @@ public class AEUltimateCrafterBlockEntity extends UltimateCrafterBlockEntity imp
 		if(gridNode == null) {
 			gridNode = GridHelper.createManagedNode(this, this);
 			gridNode.setTagName("Node");
-			gridNode.setVisualRepresentation(EliteCrafterBlock.INSTANCE);
+			gridNode.setVisualRepresentation(UltimateCrafterBlock.INSTANCE);
 			gridNode.setGridColor(AEColor.TRANSPARENT);
 			gridNode.setIdlePowerUsage(1);
 			gridNode.setInWorldNode(true);

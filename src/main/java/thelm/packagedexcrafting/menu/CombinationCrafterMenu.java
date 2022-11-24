@@ -12,8 +12,7 @@ import thelm.packagedexcrafting.slot.CombinationCrafterRemoveOnlySlot;
 
 public class CombinationCrafterMenu extends BaseMenu<CombinationCrafterBlockEntity> {
 
-	public static final MenuType<CombinationCrafterMenu> TYPE_INSTANCE = (MenuType<CombinationCrafterMenu>)IForgeMenuType.
-			create(new PositionalBlockEntityMenuFactory<>(CombinationCrafterMenu::new));
+	public static final MenuType<CombinationCrafterMenu> TYPE_INSTANCE = IForgeMenuType.create(new PositionalBlockEntityMenuFactory<>(CombinationCrafterMenu::new));
 
 	public CombinationCrafterMenu(int windowId, Inventory inventory, CombinationCrafterBlockEntity blockEntity) {
 		super(TYPE_INSTANCE, windowId, inventory, blockEntity);

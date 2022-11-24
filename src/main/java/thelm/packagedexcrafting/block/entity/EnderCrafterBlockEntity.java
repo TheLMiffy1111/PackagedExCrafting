@@ -36,7 +36,7 @@ import thelm.packagedexcrafting.recipe.IEnderPackageRecipeInfo;
 
 public class EnderCrafterBlockEntity extends BaseBlockEntity implements IPackageCraftingMachine {
 
-	public static final BlockEntityType<EnderCrafterBlockEntity> TYPE_INSTANCE = (BlockEntityType<EnderCrafterBlockEntity>)BlockEntityType.Builder.
+	public static final BlockEntityType<EnderCrafterBlockEntity> TYPE_INSTANCE = BlockEntityType.Builder.
 			of(MiscHelper.INSTANCE.<BlockEntityType.BlockEntitySupplier<EnderCrafterBlockEntity>>conditionalSupplier(
 					()->ModList.get().isLoaded("ae2"),
 					()->()->AEEnderCrafterBlockEntity::new, ()->()->EnderCrafterBlockEntity::new).get(),
@@ -87,8 +87,7 @@ public class EnderCrafterBlockEntity extends BaseBlockEntity implements IPackage
 
 	@Override
 	public boolean acceptPackage(IPackageRecipeInfo recipeInfo, List<ItemStack> stacks, Direction direction) {
-		if(!isBusy() && recipeInfo instanceof IEnderPackageRecipeInfo) {
-			IEnderPackageRecipeInfo recipe = (IEnderPackageRecipeInfo)recipeInfo;
+		if(!isBusy() && recipeInfo instanceof IEnderPackageRecipeInfo recipe) {
 			ItemStack slotStack = itemHandler.getStackInSlot(9);
 			ItemStack outputStack = recipe.getOutput();
 			if(slotStack.isEmpty() || slotStack.getItem() == outputStack.getItem() && ItemStack.isSameItemSameTags(slotStack, outputStack) && slotStack.getCount()+outputStack.getCount() <= outputStack.getMaxStackSize()) {
@@ -229,8 +228,8 @@ public class EnderCrafterBlockEntity extends BaseBlockEntity implements IPackage
 		if(nbt.contains("Recipe")) {
 			CompoundTag tag = nbt.getCompound("Recipe");
 			IPackageRecipeInfo recipe = MiscHelper.INSTANCE.loadRecipe(tag);
-			if(recipe instanceof IEnderPackageRecipeInfo) {
-				currentRecipe = (IEnderPackageRecipeInfo)recipe;
+			if(recipe instanceof IEnderPackageRecipeInfo enderRecipe) {
+				currentRecipe = enderRecipe;
 			}
 		}
 	}

@@ -36,7 +36,7 @@ import thelm.packagedexcrafting.recipe.IFluxPackageRecipeInfo;
 
 public class FluxCrafterBlockEntity extends BaseBlockEntity implements IPackageCraftingMachine {
 
-	public static final BlockEntityType<FluxCrafterBlockEntity> TYPE_INSTANCE = (BlockEntityType<FluxCrafterBlockEntity>)BlockEntityType.Builder.
+	public static final BlockEntityType<FluxCrafterBlockEntity> TYPE_INSTANCE = BlockEntityType.Builder.
 			of(MiscHelper.INSTANCE.<BlockEntityType.BlockEntitySupplier<FluxCrafterBlockEntity>>conditionalSupplier(
 					()->ModList.get().isLoaded("ae2"),
 					()->()->AEFluxCrafterBlockEntity::new, ()->()->FluxCrafterBlockEntity::new).get(),
@@ -84,8 +84,7 @@ public class FluxCrafterBlockEntity extends BaseBlockEntity implements IPackageC
 
 	@Override
 	public boolean acceptPackage(IPackageRecipeInfo recipeInfo, List<ItemStack> stacks, Direction direction) {
-		if(!isBusy() && recipeInfo instanceof IFluxPackageRecipeInfo) {
-			IFluxPackageRecipeInfo recipe = (IFluxPackageRecipeInfo)recipeInfo;
+		if(!isBusy() && recipeInfo instanceof IFluxPackageRecipeInfo recipe) {
 			ItemStack slotStack = itemHandler.getStackInSlot(9);
 			ItemStack outputStack = recipe.getOutput();
 			if(slotStack.isEmpty() || slotStack.getItem() == outputStack.getItem() && ItemStack.isSameItemSameTags(slotStack, outputStack) && slotStack.getCount()+outputStack.getCount() <= outputStack.getMaxStackSize()) {
@@ -219,8 +218,8 @@ public class FluxCrafterBlockEntity extends BaseBlockEntity implements IPackageC
 		if(nbt.contains("Recipe")) {
 			CompoundTag tag = nbt.getCompound("Recipe");
 			IPackageRecipeInfo recipe = MiscHelper.INSTANCE.loadRecipe(tag);
-			if(recipe instanceof IFluxPackageRecipeInfo) {
-				currentRecipe = (IFluxPackageRecipeInfo)recipe;
+			if(recipe instanceof IFluxPackageRecipeInfo fluxRecipe) {
+				currentRecipe = fluxRecipe;
 			}
 		}
 	}
