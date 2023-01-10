@@ -1,3 +1,5 @@
+itemGroup.packagedexcrafting=PackagedExCrafting
+
 tile.packagedexcrafting.basic_crafter.name=Basic Package Crafter
 tile.packagedexcrafting.advanced_crafter.name=Advanced Package Crafter
 tile.packagedexcrafting.elite_crafter.name=Elite Package Crafter

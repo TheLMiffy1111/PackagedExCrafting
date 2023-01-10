@@ -1,8 +1,7 @@
 buildscript {
     repositories {
-        jcenter()
         maven {
-            url = "http://files.minecraftforge.net/maven"
+            url = "https://maven.minecraftforge.net/"
         }
         maven {
             url = "https://plugins.gradle.org/m2/"
@@ -10,24 +9,28 @@ buildscript {
         maven {
             url = "https://jitpack.io/"
         }
+        mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath "net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT"
-        classpath "com.wynprice.cursemaven:CurseMaven:2.1.5"
-        //classpath "com.github.Wyn-Price:CurseMaven:f0d58155e6"
     }
 }
 
 apply plugin: "net.minecraftforge.gradle.forge"
-apply plugin: "com.wynprice.cursemaven"
+apply plugin: "eclipse"
+apply plugin: "maven-publish"
 
 repositories {
     jcenter()
-    maven {
-        url = "https://maven.blamejared.com/"
+    flatDir {
+        dirs "libs"
     }
     maven {
         url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven {
+        url = "https://maven.blamejared.com/"
     }
     maven {
         url = "https://maven.covers1624.net/"
@@ -36,66 +39,59 @@ repositories {
         url = "https://jitpack.io/"
     }
     maven {
-        url = "https://modmaven.k-4u.nl/" 
+        url = "https://cursemaven.com/"
+    }
+    maven {
+        url = "https://modmaven.dev/"
     }
 }
 
 version = "1.12.2-1.0.2.3"
-group= "thelm.packagedexcrafting"
+group = "thelm.packagedexcrafting"
 archivesBaseName = "PackagedExCrafting"
 
 sourceCompatibility = targetCompatibility = "1.8"
 compileJava {
     sourceCompatibility = targetCompatibility = "1.8"
 }
+compileJava.options.encoding = "UTF-8"
 
 minecraft {
     version = "1.12.2-14.23.5.2847"
     runDir = "run"
     mappings = "stable_39"
+    clientRunArgs.add("--username=Dev")
     makeObfSourceJar = false
 }
 
 dependencies {
-    deobfCompile "mezz.jei:jei_1.12.2:4.15.0.273"
-    deobfCompile "codechicken:CodeChickenLib:1.12.2-3.2.3.357:universal"
-    deobfCompile "cofh:RedstoneFlux:1.12-2.1.0.6:universal"
-    deobfCompile("cofh:CoFHCore:1.12.2-4.6.3.27:universal") {
-        transitive = false
-    }
-    deobfCompile("cofh:CoFHWorld:1.12.2-1.3.1.7:universal") {
-        transitive = false
-    }
-    deobfCompile("cofh:ThermalFoundation:1.12.2-2.6.3.27:universal") {
-        transitive = false
-    }
-    deobfCompile("cofh:ThermalExpansion:1.12.2-5.5.4.43:universal") {
-        transitive = false
-    }
-    deobfCompile("cofh:ThermalDynamics:1.12.2-2.5.5.21:universal") {
-        transitive = false
-    }
-	deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.0.9.285"
-    deobfCompile("appeng:appliedenergistics2:rv6-stable-7") {
-        transitive = false
-    }
+    deobfCompile "mezz.jei:jei_1.12.2:4.16.1.302"
+    deobfCompile "codechicken:CodeChickenLib:1.12.2-3.2.3.358:universal"
+    deobfCompile "CraftTweaker2:CraftTweaker2-API:4.1.20.675"
+    deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.675"
 
-    deobfCompile "curse.maven:cucumber:2645867"
-    deobfCompile "curse.maven:extended-crafting:2777071"
-
-    deobfCompile "com.github.TheLMiffy1111:PackagedAuto:60226d3aba"
+    deobfCompile "curse.maven:packagedauto-308380:4126066"
+    deobfCompile "curse.maven:applied-energistics-2-223794:2747063"
+    deobfCompile "curse.maven:cucumber-272335:2645867"
+    deobfCompile "curse.maven:extended-crafting-268387:2777071"
+    deobfCompile "curse.maven:redstone-flux-270789:2920436"
+    deobfCompile "curse.maven:cofh-core-69162:2920433"
+    deobfCompile "curse.maven:cofh-world-271384:2920434"
+    deobfCompile "curse.maven:thermal-foundation-222880:2926428"
+    deobfCompile "curse.maven:thermal-expansion-69163:2926431"
+    deobfCompile "curse.maven:thermal-dynamics-227443:2920505"
 }
 
-processResources
-{
+jar {
+    manifest {
+        attributes([
+                "Specification-Title": "PackagedExCrafting",
+                "Specification-Vendor": "thelm",
+                "Specification-Version": "1",
+                "Implementation-Title": "${archivesBaseName}",
+                "Implementation-Version": "${version}",
+                "Implementation-Vendor": "thelm"
+                //"Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ],)
+    }
 }
-
-task deobfJar(type: Jar) {
-    from sourceSets.main.output
-    classifier = 'deobf'
-}
-
-artifacts {
-    archives deobfJar
-}
-
