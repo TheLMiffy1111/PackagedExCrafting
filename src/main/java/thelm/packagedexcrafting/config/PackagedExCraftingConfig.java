@@ -12,7 +12,7 @@ import thelm.packagedexcrafting.tile.UltimateCrafterTile;
 
 public class PackagedExCraftingConfig {
 
-	private PackagedExCraftingConfig() {};
+	private PackagedExCraftingConfig() {}
 
 	private static ForgeConfigSpec serverSpec;
 

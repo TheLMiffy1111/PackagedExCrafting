@@ -39,7 +39,7 @@ public class UltimatePackageRecipeType implements IPackageRecipeType {
 		IntStream.range(0, 81).forEachOrdered(SLOTS::add);
 	}
 
-	protected UltimatePackageRecipeType() {};
+	protected UltimatePackageRecipeType() {}
 
 	@Override
 	public ResourceLocation getName() {

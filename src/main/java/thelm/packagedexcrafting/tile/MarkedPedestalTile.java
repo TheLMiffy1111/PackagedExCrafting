@@ -41,7 +41,7 @@ public class MarkedPedestalTile extends BaseTile {
 			world.addEntity(itemEntity);
 		}
 	}
-	
+
 	@Override
 	public void readSync(CompoundNBT nbt) {
 		super.readSync(nbt);
