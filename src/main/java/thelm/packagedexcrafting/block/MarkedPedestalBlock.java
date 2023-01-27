@@ -19,13 +19,12 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import thelm.packagedauto.block.BaseBlock;
 import thelm.packagedauto.block.entity.BaseBlockEntity;
-import thelm.packagedexcrafting.PackagedExCrafting;
 import thelm.packagedexcrafting.block.entity.MarkedPedestalBlockEntity;
 
 public class MarkedPedestalBlock extends BaseBlock {
 
 	public static final MarkedPedestalBlock INSTANCE = new MarkedPedestalBlock();
-	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().tab(PackagedExCrafting.CREATIVE_TAB));
+	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties());
 	public static final VoxelShape SHAPE = Shapes.or(box(1, 0, 1, 15, 2, 15), box(3, 2, 3, 13, 14, 13), box(2, 14, 2, 14, 16, 14));
 
 	public MarkedPedestalBlock() {

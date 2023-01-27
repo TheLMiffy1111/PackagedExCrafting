@@ -13,13 +13,12 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import thelm.packagedauto.block.BaseBlock;
 import thelm.packagedauto.block.entity.BaseBlockEntity;
-import thelm.packagedexcrafting.PackagedExCrafting;
 import thelm.packagedexcrafting.block.entity.AdvancedCrafterBlockEntity;
 
 public class AdvancedCrafterBlock extends BaseBlock {
 
 	public static final AdvancedCrafterBlock INSTANCE = new AdvancedCrafterBlock();
-	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().tab(PackagedExCrafting.CREATIVE_TAB));
+	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties());
 
 	public AdvancedCrafterBlock() {
 		super(BlockBehaviour.Properties.of(Material.METAL).strength(15F, 25F).sound(SoundType.METAL));

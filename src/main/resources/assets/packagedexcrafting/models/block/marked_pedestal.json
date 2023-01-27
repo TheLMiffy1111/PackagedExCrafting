@@ -1,8 +1,8 @@
 {
     "parent": "block/block",
     "textures": {
-        "particle": "packagedexcrafting:blocks/marked_pedestal",
-        "all": "packagedexcrafting:blocks/marked_pedestal"
+        "particle": "packagedexcrafting:block/marked_pedestal",
+        "all": "packagedexcrafting:block/marked_pedestal"
     },
     "elements": [
         {

@@ -1,10 +1,10 @@
 {
     "parent": "block/block",
     "textures": {
-        "particle": "packagedexcrafting:blocks/combination_crafter_side",
-        "side": "packagedexcrafting:blocks/combination_crafter_side",
-        "top": "packagedexcrafting:blocks/combination_crafter_top",
-        "bottom": "packagedexcrafting:blocks/combination_crafter_bottom"
+        "particle": "packagedexcrafting:block/combination_crafter_side",
+        "side": "packagedexcrafting:block/combination_crafter_side",
+        "top": "packagedexcrafting:block/combination_crafter_top",
+        "bottom": "packagedexcrafting:block/combination_crafter_bottom"
     },
     "elements": [
         {

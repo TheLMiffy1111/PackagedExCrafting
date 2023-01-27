@@ -1,7 +1,7 @@
 package thelm.packagedexcrafting.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -29,7 +29,7 @@ public class MarkedPedestalRenderer implements BlockEntityRenderer<MarkedPedesta
 			poseStack.scale(scale, scale, scale);
 			double tick = System.currentTimeMillis() / 800D;
 			poseStack.translate(0, Math.sin(tick % (Math.PI*2)) * 0.065, 0);
-			poseStack.mulPose(Vector3f.YP.rotationDegrees((float)(tick*40 % 360)));
+			poseStack.mulPose(Axis.YP.rotationDegrees((float)(tick*40 % 360)));
 			minecraft.getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND, packedLight, packedOverlay, poseStack, bufferSource, 0);
 			poseStack.popPose();
 		}

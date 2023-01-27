@@ -1,10 +1,14 @@
 package thelm.packagedexcrafting.event;
 
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
@@ -57,7 +61,7 @@ public class CommonEventHandler {
 		modEventBus.register(this);
 		PackagedExCraftingConfig.registerConfig();
 
-		DeferredRegister<Block> blockRegister = DeferredRegister.create(Registry.BLOCK_REGISTRY, "packagedexcrafting");
+		DeferredRegister<Block> blockRegister = DeferredRegister.create(Registries.BLOCK, "packagedexcrafting");
 		blockRegister.register(modEventBus);
 		blockRegister.register("basic_crafter", ()->BasicCrafterBlock.INSTANCE);
 		blockRegister.register("advanced_crafter", ()->AdvancedCrafterBlock.INSTANCE);
@@ -68,7 +72,7 @@ public class CommonEventHandler {
 		blockRegister.register("combination_crafter", ()->CombinationCrafterBlock.INSTANCE);
 		blockRegister.register("marked_pedestal", ()->MarkedPedestalBlock.INSTANCE);
 
-		DeferredRegister<Item> itemRegister = DeferredRegister.create(Registry.ITEM_REGISTRY, "packagedexcrafting");
+		DeferredRegister<Item> itemRegister = DeferredRegister.create(Registries.ITEM, "packagedexcrafting");
 		itemRegister.register(modEventBus);
 		itemRegister.register("basic_crafter", ()->BasicCrafterBlock.ITEM_INSTANCE);
 		itemRegister.register("advanced_crafter", ()->AdvancedCrafterBlock.ITEM_INSTANCE);
@@ -79,7 +83,7 @@ public class CommonEventHandler {
 		itemRegister.register("combination_crafter", ()->CombinationCrafterBlock.ITEM_INSTANCE);
 		itemRegister.register("marked_pedestal", ()->MarkedPedestalBlock.ITEM_INSTANCE);
 
-		DeferredRegister<BlockEntityType<?>> blockEntityRegister = DeferredRegister.create(Registry.BLOCK_ENTITY_TYPE_REGISTRY, "packagedexcrafting");
+		DeferredRegister<BlockEntityType<?>> blockEntityRegister = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, "packagedexcrafting");
 		blockEntityRegister.register(modEventBus);
 		blockEntityRegister.register("basic_crafter", ()->BasicCrafterBlockEntity.TYPE_INSTANCE);
 		blockEntityRegister.register("advanced_crafter", ()->AdvancedCrafterBlockEntity.TYPE_INSTANCE);
@@ -90,7 +94,7 @@ public class CommonEventHandler {
 		blockEntityRegister.register("combination_crafter", ()->CombinationCrafterBlockEntity.TYPE_INSTANCE);
 		blockEntityRegister.register("marked_pedestal", ()->MarkedPedestalBlockEntity.TYPE_INSTANCE);
 
-		DeferredRegister<MenuType<?>> menuRegister = DeferredRegister.create(Registry.MENU_REGISTRY, "packagedexcrafting");
+		DeferredRegister<MenuType<?>> menuRegister = DeferredRegister.create(Registries.MENU, "packagedexcrafting");
 		menuRegister.register(modEventBus);
 		menuRegister.register("basic_crafter", ()->BasicCrafterMenu.TYPE_INSTANCE);
 		menuRegister.register("advanced_crafter", ()->AdvancedCrafterMenu.TYPE_INSTANCE);
@@ -110,6 +114,26 @@ public class CommonEventHandler {
 		ApiImpl.INSTANCE.registerRecipeType(EnderPackageRecipeType.INSTANCE);
 		ApiImpl.INSTANCE.registerRecipeType(FluxPackageRecipeType.INSTANCE);
 		ApiImpl.INSTANCE.registerRecipeType(CombinationPackageRecipeType.INSTANCE);
+	}
+
+	@SubscribeEvent
+	public void onCreativeModeTabRegister(CreativeModeTabEvent.Register event) {
+		event.registerCreativeModeTab(new ResourceLocation("packagedexcrafting:tab"), builder->{
+			builder.
+			title(Component.translatable("itemGroup.packagedexcrafting")).
+			icon(()->new ItemStack(UltimateCrafterBlock.ITEM_INSTANCE)).
+			displayItems((enabledFeatures, output, displayOperatorCreativeTab)->{
+				output.accept(BasicCrafterBlock.ITEM_INSTANCE);
+				output.accept(AdvancedCrafterBlock.ITEM_INSTANCE);
+				output.accept(EliteCrafterBlock.ITEM_INSTANCE);
+				output.accept(UltimateCrafterBlock.ITEM_INSTANCE);
+				output.accept(EnderCrafterBlock.ITEM_INSTANCE);
+				output.accept(FluxCrafterBlock.ITEM_INSTANCE);
+				output.accept(CombinationCrafterBlock.ITEM_INSTANCE);
+				output.accept(MarkedPedestalBlock.ITEM_INSTANCE);
+			}).
+			build();
+		});
 	}
 
 	@SubscribeEvent
