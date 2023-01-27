@@ -67,7 +67,7 @@ sourceSets {
     main
 }
 
-version = "3.1.0.4"
+version = "3.1.0.5"
 group = "thelm.packagedexcrafting"
 archivesBaseName = "PackagedExCrafting-1.18.2"
 
@@ -96,23 +96,22 @@ minecraft {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:1.18.2-40.1.85"
+    minecraft "net.minecraftforge:forge:1.18.2-40.2.1"
 
-    implementation fg.deobf("appeng:appliedenergistics2-forge:11.6.4")
-    implementation fg.deobf("mezz.jei:jei-1.18.2:9.7.2.281")
+    implementation fg.deobf("appeng:appliedenergistics2-forge:11.7.0")
+    implementation fg.deobf("mezz.jei:jei-1.18.2:9.7.2.1001")
     implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-1.18.2:9.1.197")
     implementation fg.deobf("vazkii.patchouli:Patchouli:1.18.2-71.1")
-    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-1.18.2:0.6.5-91")
-    implementation fg.deobf("com.simibubi.create:create-1.18.2:0.5.0.e-196:all")
+    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-1.18.2:0.6.8.a-99")
+    implementation fg.deobf("com.simibubi.create:create-1.18.2:0.5.0.h-243:all")
     implementation fg.deobf("mekanism:Mekanism:1.18.2-10.2.5.465")
-    implementation fg.deobf("mekanism:Mekanism:1.18.2-10.2.5.465:generators")
-    implementation fg.deobf("codechicken:CodeChickenLib:1.18.2-4.1.2.479:universal")
+    implementation fg.deobf("codechicken:CodeChickenLib:1.18.2-4.1.2.475:universal")
 
     //JitPack
 
     //CurseMaven
     implementation fg.deobf("curse.maven:shutup-experimental-settings-407174:3759881")
-    implementation fg.deobf("curse.maven:packagedauto-308380:4109215")
+    implementation fg.deobf("curse.maven:packagedauto-308380:4366298")
     implementation fg.deobf("curse.maven:applied-mekanistics-574300:3968835")
     implementation fg.deobf("curse.maven:cucumber-272335:4005476")
     implementation fg.deobf("curse.maven:extended-crafting-268387:3885707")
