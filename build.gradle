@@ -46,7 +46,7 @@ repositories {
     }
 }
 
-version = "1.12.2-1.0.2.3"
+version = "1.12.2-1.0.2.4"
 group = "thelm.packagedexcrafting"
 archivesBaseName = "PackagedExCrafting"
 
@@ -67,10 +67,10 @@ minecraft {
 dependencies {
     deobfCompile "mezz.jei:jei_1.12.2:4.16.1.302"
     deobfCompile "codechicken:CodeChickenLib:1.12.2-3.2.3.358:universal"
-    deobfCompile "CraftTweaker2:CraftTweaker2-API:4.1.20.675"
-    deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.675"
+    deobfCompile "CraftTweaker2:CraftTweaker2-API:4.1.20.683"
+    deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.683"
 
-    deobfCompile "curse.maven:packagedauto-308380:4126066"
+    deobfCompile "curse.maven:packagedauto-308380:4361351"
     deobfCompile "curse.maven:applied-energistics-2-223794:2747063"
     deobfCompile "curse.maven:cucumber-272335:2645867"
     deobfCompile "curse.maven:extended-crafting-268387:2777071"

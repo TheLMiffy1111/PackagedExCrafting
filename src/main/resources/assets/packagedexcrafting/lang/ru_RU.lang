@@ -1,3 +1,5 @@
+itemGroup.packagedexcrafting=PackagedExCrafting
+
 tile.packagedexcrafting.basic_crafter.name=Базовый изготовитель программ
 tile.packagedexcrafting.advanced_crafter.name=Продвинутый изготовитель программ
 tile.packagedexcrafting.elite_crafter.name=Элитный изготовитель программ
