@@ -25,9 +25,9 @@ buildscript {
 }
 
 apply plugin: "net.minecraftforge.gradle"
+apply plugin: "org.parchmentmc.librarian.forgegradle"
 apply plugin: "eclipse"
 apply plugin: "maven-publish"
-apply plugin: "org.parchmentmc.librarian.forgegradle"
 
 repositories {
     jcenter()
@@ -61,7 +61,7 @@ sourceSets {
     main
 }
 
-version = "2.0.0.5"
+version = "2.0.0.6"
 group = "thelm.packagedexcrafting"
 archivesBaseName = "PackagedExCrafting-1.16.5"
 

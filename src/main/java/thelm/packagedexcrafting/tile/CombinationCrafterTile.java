@@ -75,7 +75,6 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 			if(isWorking) {
 				tickProcess();
 				if(remainingProgress <= 0) {
-					energyStorage.receiveEnergy((int)Math.abs(remainingProgress), false);
 					finishProcess();
 					ejectItems();
 				}
@@ -124,7 +123,7 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 			endProcess();
 		}
 		else {
-			int energy = energyStorage.extractEnergy(energyUsage, false);
+			int energy = energyStorage.extractEnergy((int)Math.min(energyUsage, remainingProgress), false);
 			remainingProgress -= energy;
 			if(!world.isRemote) {
 				spawnParticles(ParticleTypes.ENTITY_EFFECT, pos, 1.15, 2);

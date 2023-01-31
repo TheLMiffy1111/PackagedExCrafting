@@ -63,7 +63,6 @@ public class EliteCrafterTile extends BaseTile implements ITickableTileEntity, I
 			if(isWorking) {
 				tickProcess();
 				if(remainingProgress <= 0) {
-					energyStorage.receiveEnergy(Math.abs(remainingProgress), false);
 					finishProcess();
 					ejectItems();
 				}
@@ -104,7 +103,7 @@ public class EliteCrafterTile extends BaseTile implements ITickableTileEntity, I
 	}
 
 	protected void tickProcess() {
-		int energy = energyStorage.extractEnergy(energyUsage, false);
+		int energy = energyStorage.extractEnergy(Math.min(energyUsage, remainingProgress), false);
 		remainingProgress -= energy;
 	}
 

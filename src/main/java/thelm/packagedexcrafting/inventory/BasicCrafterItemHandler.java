@@ -1,7 +1,9 @@
 package thelm.packagedexcrafting.inventory;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Direction;
 import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import thelm.packagedauto.inventory.BaseItemHandler;
 import thelm.packagedexcrafting.tile.BasicCrafterTile;
 
@@ -17,6 +19,11 @@ public class BasicCrafterItemHandler extends BaseItemHandler<BasicCrafterTile> {
 			return stack.getCapability(CapabilityEnergy.ENERGY).isPresent();
 		}
 		return false;
+	}
+
+	@Override
+	public IItemHandlerModifiable getWrapperForDirection(Direction side) {
+		return wrapperMap.computeIfAbsent(side, s->new BasicCrafterItemHandlerWrapper(this, s));
 	}
 
 	@Override
