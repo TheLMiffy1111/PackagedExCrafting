@@ -44,7 +44,8 @@ public class PackagedExCraftingConfig {
 	public static ForgeConfigSpec.BooleanValue enderCrafterDrawMEEnergy;
 
 	public static ForgeConfigSpec.IntValue fluxCrafterEnergyCapacity;
-	public static ForgeConfigSpec.IntValue fluxCrafterAlternatorRate;
+	public static ForgeConfigSpec.IntValue fluxCrafterEnergyReq;
+	public static ForgeConfigSpec.IntValue fluxCrafterEnergyUsage;
 	public static ForgeConfigSpec.BooleanValue fluxCrafterDrawMEEnergy;
 
 	public static ForgeConfigSpec.IntValue combinationCrafterEnergyCapacity;
@@ -117,9 +118,11 @@ public class PackagedExCraftingConfig {
 
 		builder.push("flux_crafter");
 		builder.comment("How much FE the Flux Package Crafter should hold.");
-		fluxCrafterEnergyCapacity = builder.defineInRange("energy_capacity", 500000, 0, Integer.MAX_VALUE);
-		builder.comment("How much each alternator should increase the energy rate of the Flux Package Crafter. This is a percentage of the time required.");
-		fluxCrafterAlternatorRate = builder.defineInRange("alternator_rate", 400, 0, Integer.MAX_VALUE);
+		fluxCrafterEnergyCapacity = builder.defineInRange("energy_capacity", 5000, 0, Integer.MAX_VALUE);
+		builder.comment("How much total FE the Flux Package Crafter should use per operation.");
+		fluxCrafterEnergyReq = builder.defineInRange("energy_req", 500, 0, Integer.MAX_VALUE);
+		builder.comment("How much FE/t maximum the Flux Package Crafter can use.");
+		fluxCrafterEnergyUsage = builder.defineInRange("energy_usage", 100, 0, Integer.MAX_VALUE);
 		builder.comment("Should the Flux Package Crafter draw energy from ME systems.");
 		fluxCrafterDrawMEEnergy = builder.define("draw_me_energy", false);
 
@@ -161,7 +164,8 @@ public class PackagedExCraftingConfig {
 		EnderCrafterBlockEntity.drawMEEnergy = enderCrafterDrawMEEnergy.get();
 
 		FluxCrafterBlockEntity.energyCapacity = fluxCrafterEnergyCapacity.get();
-		FluxCrafterBlockEntity.alternatorRate = fluxCrafterAlternatorRate.get();
+		FluxCrafterBlockEntity.energyReq = fluxCrafterEnergyReq.get();
+		FluxCrafterBlockEntity.energyUsage = fluxCrafterEnergyUsage.get();
 		FluxCrafterBlockEntity.drawMEEnergy = fluxCrafterDrawMEEnergy.get();
 
 		CombinationCrafterBlockEntity.energyCapacity = combinationCrafterEnergyCapacity.get();

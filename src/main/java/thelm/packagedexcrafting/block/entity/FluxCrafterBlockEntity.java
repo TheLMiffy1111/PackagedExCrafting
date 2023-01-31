@@ -42,14 +42,16 @@ public class FluxCrafterBlockEntity extends BaseBlockEntity implements IPackageC
 					()->()->AEFluxCrafterBlockEntity::new, ()->()->FluxCrafterBlockEntity::new).get(),
 					FluxCrafterBlock.INSTANCE).build(null);
 
-	public static int energyCapacity = 500000;
-	public static int alternatorRate = 400;
-	public static boolean drawMEEnergy = false;
+	public static int energyCapacity = 5000;
+	public static int energyReq = 500;
+	public static int energyUsage = 100;
+	public static boolean drawMEEnergy = true;
 
 	public boolean isWorking = false;
-	public int energyReq = 0;
+	public int progressReq = 0;
+	public int progress = 0;
+	public int alternatorUsage = 0;
 	public int remainingProgress = 0;
-	public int energyUsage = 0;
 	public IFluxPackageRecipeInfo currentRecipe;
 
 	public FluxCrafterBlockEntity(BlockPos pos, BlockState state) {
@@ -69,7 +71,6 @@ public class FluxCrafterBlockEntity extends BaseBlockEntity implements IPackageC
 			if(isWorking) {
 				tickProcess();
 				if(remainingProgress <= 0) {
-					energyStorage.receiveEnergy(Math.abs(remainingProgress), false);
 					finishProcess();
 					ejectItems();
 				}
@@ -90,8 +91,9 @@ public class FluxCrafterBlockEntity extends BaseBlockEntity implements IPackageC
 			if(slotStack.isEmpty() || slotStack.getItem() == outputStack.getItem() && ItemStack.isSameItemSameTags(slotStack, outputStack) && slotStack.getCount()+outputStack.getCount() <= outputStack.getMaxStackSize()) {
 				currentRecipe = recipe;
 				isWorking = true;
-				energyReq = remainingProgress = recipe.getEnergyRequired();
-				energyUsage = recipe.getEnergyUsage();
+				progressReq = recipe.getEnergyRequired();
+				alternatorUsage = recipe.getEnergyUsage();
+				remainingProgress = energyReq;
 				for(int i = 0; i < 9; ++i) {
 					itemHandler.setStackInSlot(i, recipe.getMatrix().getItem(i).copy());
 				}
@@ -108,16 +110,22 @@ public class FluxCrafterBlockEntity extends BaseBlockEntity implements IPackageC
 	}
 
 	protected void tickProcess() {
-		List<FluxAlternatorTileEntity> alternators = getAlternators();
-		int alternatorCount = alternators.size();
-		int energy = energyStorage.extractEnergy(alternatorCount*alternatorRate, false);
-		remainingProgress -= energy;
-		for(FluxAlternatorTileEntity alternator : alternators) {
-			alternator.getEnergy().extractEnergy(energyUsage, false);
-			BlockPos alternatorPos = alternator.getBlockPos();
-			if(level.isEmptyBlock(alternatorPos.above())) {
-				spawnParticles(DustParticleOptions.REDSTONE, alternatorPos, 1, 1);
+		if(progress < progressReq) {
+			List<FluxAlternatorTileEntity> alternators = getAlternators();
+			int alternatorCount = alternators.size();
+			progress += alternatorCount*alternatorUsage;
+			for(FluxAlternatorTileEntity alternator : alternators) {
+				alternator.getEnergy().extractEnergy(alternatorUsage, false);
+				BlockPos alternatorPos = alternator.getBlockPos();
+				if(level.isEmptyBlock(alternatorPos.above())) {
+					spawnParticles(DustParticleOptions.REDSTONE, alternatorPos, 1, 1);
+				}
 			}
+		}
+		if(progress >= progressReq) {
+			progress = progressReq;
+			int energy = energyStorage.extractEnergy(Math.min(energyUsage, remainingProgress), false);
+			remainingProgress -= energy;
 		}
 	}
 
@@ -140,9 +148,10 @@ public class FluxCrafterBlockEntity extends BaseBlockEntity implements IPackageC
 	}
 
 	public void endProcess() {
-		energyReq = 0;
+		progressReq = 0;
+		progress = 0;
+		alternatorUsage = 0;
 		remainingProgress = 0;
-		energyUsage = 0;
 		isWorking = false;
 		currentRecipe = null;
 		setChanged();
@@ -150,7 +159,7 @@ public class FluxCrafterBlockEntity extends BaseBlockEntity implements IPackageC
 
 	protected List<FluxAlternatorTileEntity> getAlternators() {
 		return BlockPos.betweenClosedStream(worldPosition.offset(-3, -3, -3), worldPosition.offset(3, 3, 3)).map(pos->{
-			if(level.getBlockEntity(pos) instanceof FluxAlternatorTileEntity alternator && alternator.getEnergy().getEnergyStored() >= energyUsage) {
+			if(level.getBlockEntity(pos) instanceof FluxAlternatorTileEntity alternator && alternator.getEnergy().getEnergyStored() >= alternatorUsage) {
 				return alternator;
 			}
 			return null;
@@ -237,18 +246,20 @@ public class FluxCrafterBlockEntity extends BaseBlockEntity implements IPackageC
 	public void loadSync(CompoundTag nbt) {
 		super.loadSync(nbt);
 		isWorking = nbt.getBoolean("Working");
-		remainingProgress = nbt.getInt("Progress");
-		energyReq = nbt.getInt("EnergyReq");
-		energyUsage = nbt.getInt("EnergyUsage");
+		progressReq = nbt.getInt("ProgressReq");
+		progress = nbt.getInt("Progress");
+		alternatorUsage = nbt.getInt("AlternatorUsage");
+		remainingProgress = nbt.getInt("EnergyProgress");
 	}
 
 	@Override
 	public CompoundTag saveSync(CompoundTag nbt) {
 		super.saveSync(nbt);
 		nbt.putBoolean("Working", isWorking);
-		nbt.putInt("Progress", remainingProgress);
-		nbt.putInt("EnergyReq", energyReq);
-		nbt.putInt("EnergyUsage", energyUsage);
+		nbt.putInt("ProgressReq", progressReq);
+		nbt.putInt("Progress", progress);
+		nbt.putInt("AlternatorUsage", alternatorUsage);
+		nbt.putInt("EnergyProgress", remainingProgress);
 		return nbt;
 	}
 

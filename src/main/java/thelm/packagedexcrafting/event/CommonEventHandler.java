@@ -118,22 +118,21 @@ public class CommonEventHandler {
 
 	@SubscribeEvent
 	public void onCreativeModeTabRegister(CreativeModeTabEvent.Register event) {
-		event.registerCreativeModeTab(new ResourceLocation("packagedexcrafting:tab"), builder->{
-			builder.
-			title(Component.translatable("itemGroup.packagedexcrafting")).
-			icon(()->new ItemStack(UltimateCrafterBlock.ITEM_INSTANCE)).
-			displayItems((enabledFeatures, output, displayOperatorCreativeTab)->{
-				output.accept(BasicCrafterBlock.ITEM_INSTANCE);
-				output.accept(AdvancedCrafterBlock.ITEM_INSTANCE);
-				output.accept(EliteCrafterBlock.ITEM_INSTANCE);
-				output.accept(UltimateCrafterBlock.ITEM_INSTANCE);
-				output.accept(EnderCrafterBlock.ITEM_INSTANCE);
-				output.accept(FluxCrafterBlock.ITEM_INSTANCE);
-				output.accept(CombinationCrafterBlock.ITEM_INSTANCE);
-				output.accept(MarkedPedestalBlock.ITEM_INSTANCE);
-			}).
-			build();
-		});
+		event.registerCreativeModeTab(new ResourceLocation("packagedexcrafting:tab"),
+				builder->builder.
+				title(Component.translatable("itemGroup.packagedexcrafting")).
+				icon(()->new ItemStack(UltimateCrafterBlock.ITEM_INSTANCE)).
+				displayItems((enabledFeatures, output, displayOperatorCreativeTab)->{
+					output.accept(BasicCrafterBlock.ITEM_INSTANCE);
+					output.accept(AdvancedCrafterBlock.ITEM_INSTANCE);
+					output.accept(EliteCrafterBlock.ITEM_INSTANCE);
+					output.accept(UltimateCrafterBlock.ITEM_INSTANCE);
+					output.accept(EnderCrafterBlock.ITEM_INSTANCE);
+					output.accept(FluxCrafterBlock.ITEM_INSTANCE);
+					output.accept(CombinationCrafterBlock.ITEM_INSTANCE);
+					output.accept(MarkedPedestalBlock.ITEM_INSTANCE);
+				}).
+				build());
 	}
 
 	@SubscribeEvent
