@@ -19,7 +19,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -31,9 +30,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import thelm.packagedauto.api.IPackageCraftingMachine;
 import thelm.packagedauto.api.IRecipeInfo;
-import thelm.packagedauto.api.IRecipeType;
 import thelm.packagedauto.api.MiscUtil;
-import thelm.packagedauto.api.RecipeTypeRegistry;
 import thelm.packagedauto.energy.EnergyStorage;
 import thelm.packagedauto.tile.TileBase;
 import thelm.packagedauto.tile.TileUnpackager;
@@ -83,7 +80,6 @@ public class TileEnderCrafter extends TileBase implements ITickable, IPackageCra
 			if(isWorking) {
 				tickProcess();
 				if(remainingProgress <= 0) {
-					energyStorage.receiveEnergy(Math.abs(remainingProgress), false);
 					finishProcess();
 					if(hostHelper != null && hostHelper.isActive()) {
 						hostHelper.ejectItem();
@@ -141,7 +137,8 @@ public class TileEnderCrafter extends TileBase implements ITickable, IPackageCra
 			actualProgressReq = (int)Math.max(progressReq*(1-alternatorEff*alternatorCount), 0);
 		}
 		if(progress >= actualProgressReq) {
-			int energy = energyStorage.extractEnergy(energyUsage, false);
+			progress = actualProgressReq;
+			int energy = energyStorage.extractEnergy(Math.min(energyUsage, remainingProgress), false);
 			remainingProgress -= energy;
 		}
 	}

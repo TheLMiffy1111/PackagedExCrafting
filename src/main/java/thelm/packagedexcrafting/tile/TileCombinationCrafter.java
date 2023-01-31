@@ -85,7 +85,6 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 			if(isWorking) {
 				tickProcess();
 				if(remainingProgress <= 0) {
-					energyStorage.receiveEnergy((int)Math.abs(remainingProgress), false);
 					finishProcess();
 					if(hostHelper != null && hostHelper.isActive()) {
 						hostHelper.ejectItem();
@@ -148,7 +147,7 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 			endProcess();
 		}
 		else {
-			int energy = energyStorage.extractEnergy(energyUsage, false);
+			int energy = energyStorage.extractEnergy((int)Math.min(energyUsage, remainingProgress), false);
 			remainingProgress -= energy;
 			if(!world.isRemote) {
 				((WorldServer)world).spawnParticle(EnumParticleTypes.SPELL, false,
