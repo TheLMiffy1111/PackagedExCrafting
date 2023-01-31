@@ -111,7 +111,7 @@ dependencies {
 
     //CurseMaven
     implementation fg.deobf("curse.maven:shutup-experimental-settings-407174:3759881")
-    implementation fg.deobf("curse.maven:packagedauto-308380:4366298")
+    implementation fg.deobf("curse.maven:packagedauto-308380:4374408")
     implementation fg.deobf("curse.maven:applied-mekanistics-574300:3968835")
     implementation fg.deobf("curse.maven:cucumber-272335:4005476")
     implementation fg.deobf("curse.maven:extended-crafting-268387:3885707")
