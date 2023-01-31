@@ -72,7 +72,6 @@ public class EnderCrafterBlockEntity extends BaseBlockEntity implements IPackage
 			if(isWorking) {
 				tickProcess();
 				if(remainingProgress <= 0) {
-					energyStorage.receiveEnergy(Math.abs(remainingProgress), false);
 					finishProcess();
 					ejectItems();
 				}
@@ -93,7 +92,7 @@ public class EnderCrafterBlockEntity extends BaseBlockEntity implements IPackage
 			if(slotStack.isEmpty() || slotStack.getItem() == outputStack.getItem() && ItemStack.isSameItemSameTags(slotStack, outputStack) && slotStack.getCount()+outputStack.getCount() <= outputStack.getMaxStackSize()) {
 				currentRecipe = recipe;
 				isWorking = true;
-				progressReq = recipe.getTimeRequired()*20;
+				actualProgressReq = progressReq = recipe.getTimeRequired()*20;
 				remainingProgress = energyReq;
 				for(int i = 0; i < 9; ++i) {
 					itemHandler.setStackInSlot(i, recipe.getMatrix().getItem(i).copy());
@@ -126,7 +125,8 @@ public class EnderCrafterBlockEntity extends BaseBlockEntity implements IPackage
 			actualProgressReq = progressReq;
 		}
 		if(progress >= actualProgressReq) {
-			int energy = energyStorage.extractEnergy(energyUsage, false);
+			progress = actualProgressReq;
+			int energy = energyStorage.extractEnergy(Math.min(energyUsage, remainingProgress), false);
 			remainingProgress -= energy;
 		}
 	}

@@ -1,7 +1,9 @@
 package thelm.packagedexcrafting.inventory;
 
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import thelm.packagedauto.inventory.BaseItemHandler;
 import thelm.packagedexcrafting.block.entity.FluxCrafterBlockEntity;
 
@@ -17,6 +19,11 @@ public class FluxCrafterItemHandler extends BaseItemHandler<FluxCrafterBlockEnti
 			return stack.getCapability(ForgeCapabilities.ENERGY).isPresent();
 		}
 		return false;
+	}
+
+	@Override
+	public IItemHandlerModifiable getWrapperForDirection(Direction side) {
+		return wrapperMap.computeIfAbsent(side, s->new FluxCrafterItemHandlerWrapper(this, s));
 	}
 
 	@Override

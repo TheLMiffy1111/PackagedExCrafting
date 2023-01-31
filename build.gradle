@@ -25,9 +25,9 @@ buildscript {
 }
 
 apply plugin: "net.minecraftforge.gradle"
+apply plugin: "org.parchmentmc.librarian.forgegradle"
 apply plugin: "eclipse"
 apply plugin: "maven-publish"
-apply plugin: "org.parchmentmc.librarian.forgegradle"
 
 repositories {
     jcenter()
