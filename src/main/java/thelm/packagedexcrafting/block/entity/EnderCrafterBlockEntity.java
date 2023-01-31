@@ -75,7 +75,6 @@ public class EnderCrafterBlockEntity extends BaseBlockEntity implements IPackage
 			if(isWorking) {
 				tickProcess();
 				if(remainingProgress <= 0) {
-					energyStorage.receiveEnergy(Math.abs(remainingProgress), false);
 					finishProcess();
 					ejectItems();
 				}
@@ -129,7 +128,8 @@ public class EnderCrafterBlockEntity extends BaseBlockEntity implements IPackage
 			actualProgressReq = progressReq;
 		}
 		if(progress >= actualProgressReq) {
-			int energy = energyStorage.extractEnergy(energyUsage, false);
+			progress = actualProgressReq;
+			int energy = energyStorage.extractEnergy(Math.min(energyUsage, remainingProgress), false);
 			remainingProgress -= energy;
 		}
 	}

@@ -76,7 +76,6 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 			if(isWorking) {
 				tickProcess();
 				if(remainingProgress <= 0) {
-					energyStorage.receiveEnergy((int)Math.abs(remainingProgress), false);
 					finishProcess();
 					ejectItems();
 				}
@@ -124,7 +123,7 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 			endProcess();
 		}
 		else {
-			int energy = energyStorage.extractEnergy(energyUsage, false);
+			int energy = energyStorage.extractEnergy((int)Math.min(energyUsage, remainingProgress), false);
 			remainingProgress -= energy;
 			if(!level.isClientSide) {
 				spawnParticles(ParticleTypes.ENTITY_EFFECT, worldPosition, 1.15, 2);
