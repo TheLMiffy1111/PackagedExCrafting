@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 import thelm.packagedauto.api.IPackageCraftingMachine;
 import thelm.packagedauto.api.IPackageRecipeInfo;
 import thelm.packagedauto.block.entity.BaseBlockEntity;
@@ -100,7 +101,7 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 				itemHandler.setStackInSlot(0, recipe.getCoreInput());
 				for(int i = 0; i < pedestals.size(); ++i) {
 					((MarkedPedestalBlockEntity)level.getBlockEntity(pedestals.get(i))).getItemHandler().
-					setStackInSlot(0, pedestalInputs.get(i));
+					setStackInSlot(0, pedestalInputs.get(i).copy());
 				}
 				sync(false);
 				setChanged();
@@ -144,7 +145,8 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 			return;
 		}
 		for(BlockPos pedestalPos : pedestals) {
-			((MarkedPedestalBlockEntity)level.getBlockEntity(pedestalPos)).getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
+			ItemStackHandler pedestalInv = ((MarkedPedestalBlockEntity)level.getBlockEntity(pedestalPos)).getItemHandler();
+			pedestalInv.setStackInSlot(0, MiscHelper.INSTANCE.getContainerItem(pedestalInv.getStackInSlot(0)));
 			spawnParticles(ParticleTypes.SMOKE, pedestalPos, 1.1, 20);
 		}
 		itemHandler.setStackInSlot(0, ItemStack.EMPTY);
