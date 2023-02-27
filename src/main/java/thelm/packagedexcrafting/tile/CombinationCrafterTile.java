@@ -29,6 +29,7 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 import thelm.packagedauto.api.IPackageCraftingMachine;
 import thelm.packagedauto.api.IPackageRecipeInfo;
 import thelm.packagedauto.energy.EnergyStorage;
@@ -103,7 +104,7 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 				itemHandler.setStackInSlot(0, recipe.getCoreInput());
 				for(int i = 0; i < pedestals.size(); ++i) {
 					((MarkedPedestalTile)world.getTileEntity(pedestals.get(i))).getItemHandler().
-					setStackInSlot(0, pedestalInputs.get(i));
+					setStackInSlot(0, pedestalInputs.get(i).copy());
 				}
 				syncTile(false);
 				markDirty();
@@ -147,11 +148,12 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 			return;
 		}
 		for(BlockPos pedestalPos : pedestals) {
-			((MarkedPedestalTile)world.getTileEntity(pedestalPos)).getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
+			ItemStackHandler pedestalInv = ((MarkedPedestalTile)world.getTileEntity(pedestalPos)).getItemHandler();
+			pedestalInv.setStackInSlot(0, MiscHelper.INSTANCE.getContainerItem(pedestalInv.getStackInSlot(0)));
 			spawnParticles(ParticleTypes.SMOKE, pedestalPos, 1.1, 20);
 		}
 		itemHandler.setStackInSlot(0, ItemStack.EMPTY);
-		spawnParticles(ParticleTypes.END_ROD, pos, 1.1D, 50);
+		spawnParticles(ParticleTypes.END_ROD, pos, 1.1, 50);
 		itemHandler.setStackInSlot(1, currentRecipe.getOutput());
 		endProcess();
 	}
@@ -326,7 +328,7 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 		if(remainingProgress <= 0 || energyReq <= 0) {
 			return 0;
 		}
-		return scale * (int)((energyReq-remainingProgress) / energyReq);
+		return (int)(scale * (energyReq-remainingProgress) / energyReq);
 	}
 
 	@Override

@@ -50,7 +50,12 @@ public class CombinationPackageRecipeInfo implements ICombinationPackageRecipeIn
 			List<ItemStack> toCondense = new ArrayList<>(inputPedestal);
 			toCondense.add(inputCore);
 			input.addAll(MiscHelper.INSTANCE.condenseStacks(toCondense));
-			output = recipe.getRecipeOutput().copy();
+			Inventory matrix = new Inventory(inputPedestal.size()+1);
+			matrix.setInventorySlotContents(0, inputCore);
+			for(int i = 0; i < inputPedestal.size(); ++i) {
+				matrix.setInventorySlotContents(i+1, inputPedestal.get(i));
+			}
+			output = this.recipe.getCraftingResult(matrix).copy();
 			for(int i = 0; i*9 < input.size(); ++i) {
 				patterns.add(new PackagePattern(this, i));
 			}
@@ -154,7 +159,7 @@ public class CombinationPackageRecipeInfo implements ICombinationPackageRecipeIn
 			List<ItemStack> toCondense = new ArrayList<>(inputPedestal);
 			toCondense.add(inputCore);
 			this.input.addAll(MiscHelper.INSTANCE.condenseStacks(toCondense));
-			this.output = recipe.getRecipeOutput().copy();
+			this.output = recipe.getCraftingResult(matrix).copy();
 			for(int i = 0; i*9 < this.input.size(); ++i) {
 				patterns.add(new PackagePattern(this, i));
 			}
