@@ -124,5 +124,4 @@ public class RecipeTypeCombination implements IRecipeType {
 		}
 		return COLOR;
 	}
-
 }

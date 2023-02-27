@@ -15,6 +15,7 @@ import appeng.api.util.AEPartLocation;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagIntArray;
@@ -23,7 +24,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.WorldServer;
@@ -36,9 +36,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import thelm.packagedauto.api.IPackageCraftingMachine;
 import thelm.packagedauto.api.IRecipeInfo;
-import thelm.packagedauto.api.IRecipeType;
 import thelm.packagedauto.api.MiscUtil;
-import thelm.packagedauto.api.RecipeTypeRegistry;
 import thelm.packagedauto.energy.EnergyStorage;
 import thelm.packagedauto.tile.TileBase;
 import thelm.packagedauto.tile.TileUnpackager;
@@ -126,7 +124,7 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 				inventory.setInventorySlotContents(0, recipe.getCoreInput());
 				for(int i = 0; i < pedestals.size(); ++i) {
 					((TileMarkedPedestal)world.getTileEntity(pedestals.get(i))).getInventory().
-					setInventorySlotContents(0, pedestalInputs.get(i));
+					setInventorySlotContents(0, pedestalInputs.get(i).copy());
 				}
 				syncTile(false);
 				markDirty();
@@ -167,8 +165,8 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 			return;
 		}
 		for(BlockPos pedestalPos : pedestals) {
-			((TileMarkedPedestal)world.getTileEntity(pedestalPos)).getInventory().
-			setInventorySlotContents(0, ItemStack.EMPTY);
+			IInventory pedestalInv = ((TileMarkedPedestal)world.getTileEntity(pedestalPos)).getInventory();
+			pedestalInv.setInventorySlotContents(0, MiscUtil.getContainerItem(pedestalInv.getStackInSlot(0)));
 			((WorldServer)world).spawnParticle(EnumParticleTypes.SMOKE_NORMAL, false,
 					pedestalPos.getX()+0.5, pedestalPos.getY()+1.1, pedestalPos.getZ()+0.5, 20, 0, 0, 0, 0.1);
 		}
@@ -359,7 +357,7 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 		if(remainingProgress <= 0 || energyReq == 0) {
 			return 0;
 		}
-		return scale * (int)((energyReq-remainingProgress) / energyReq);
+		return (int)(scale * (energyReq-remainingProgress) / energyReq);
 	}
 
 	@SideOnly(Side.CLIENT)

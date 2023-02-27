@@ -45,12 +45,12 @@ public class BlockMarkedPedestal extends BlockBase {
 	}
 
 	@Override
-	public AxisAlignedBB getBoundingBox(final IBlockState state, final IBlockAccess source, final BlockPos pos) {
+	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return AABB;
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(final IBlockState state, final IBlockAccess world, BlockPos pos) {
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
 		return FULL_BLOCK_AABB;
 	}
 
@@ -60,12 +60,12 @@ public class BlockMarkedPedestal extends BlockBase {
 	}
 
 	@Override
-	public boolean isOpaqueCube(final IBlockState state) {
+	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 
 	@Override
-	public boolean isFullCube(final IBlockState state) {
+	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 
