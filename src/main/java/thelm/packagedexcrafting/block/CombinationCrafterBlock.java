@@ -18,11 +18,11 @@ import thelm.packagedexcrafting.tile.CombinationCrafterTile;
 public class CombinationCrafterBlock extends BaseBlock {
 
 	public static final CombinationCrafterBlock INSTANCE = new CombinationCrafterBlock();
-	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().group(PackagedExCrafting.ITEM_GROUP)).setRegistryName("packagedexcrafting:combination_crafter");
-	public static final VoxelShape SHAPE = VoxelShapes.or(makeCuboidShape(0, 12, 0, 16, 16, 16), makeCuboidShape(0, 5, 0, 16, 11, 16), makeCuboidShape(0, 0, 0, 16, 4, 16), makeCuboidShape(1, 4, 1, 15, 12, 15));
+	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().tab(PackagedExCrafting.ITEM_GROUP)).setRegistryName("packagedexcrafting:combination_crafter");
+	public static final VoxelShape SHAPE = VoxelShapes.or(box(0, 12, 0, 16, 16, 16), box(0, 5, 0, 16, 11, 16), box(0, 0, 0, 16, 4, 16), box(1, 4, 1, 15, 12, 15));
 
 	public CombinationCrafterBlock() {
-		super(AbstractBlock.Properties.create(Material.IRON).hardnessAndResistance(15F, 25F).notSolid().sound(SoundType.METAL));
+		super(AbstractBlock.Properties.of(Material.METAL).strength(15F, 25F).noOcclusion().sound(SoundType.METAL));
 		setRegistryName("packagedexcrafting:combination_crafter");
 	}
 

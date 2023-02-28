@@ -60,7 +60,7 @@ public class CombinationCrafterItemHandler extends BaseItemHandler<CombinationCr
 	}
 
 	@Override
-	public int size() {
+	public int getCount() {
 		return 5;
 	}
 }

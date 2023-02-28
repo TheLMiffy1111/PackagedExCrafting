@@ -16,12 +16,12 @@ public class AdvancedCrafterRemoveOnlySlot extends SlotItemHandler {
 	}
 
 	@Override
-	public boolean canTakeStack(PlayerEntity playerIn) {
+	public boolean mayPickup(PlayerEntity playerIn) {
 		return !tile.isWorking;
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack stack) {
+	public boolean mayPlace(ItemStack stack) {
 		return false;
 	}
 }

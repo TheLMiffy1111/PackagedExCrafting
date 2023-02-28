@@ -15,8 +15,8 @@ public class UltimateCrafterScreen extends BaseScreen<UltimateCrafterContainer> 
 
 	public UltimateCrafterScreen(UltimateCrafterContainer container, PlayerInventory playerInventory, ITextComponent title) {
 		super(container, playerInventory, title);
-		xSize = 270;
-		ySize = 274;
+		imageWidth = 270;
+		imageHeight = 274;
 	}
 
 	@Override
@@ -25,20 +25,20 @@ public class UltimateCrafterScreen extends BaseScreen<UltimateCrafterContainer> 
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
-		super.drawGuiContainerBackgroundLayer(matrixStack, partialTicks, mouseX, mouseY);
-		blit(matrixStack, guiLeft+210, guiTop+89, 270, 0, container.tile.getScaledProgress(22), 16, 512, 512);
-		int scaledEnergy = container.tile.getScaledEnergy(40);
-		blit(matrixStack, guiLeft+10, guiTop+64+40-scaledEnergy, 270, 16+40-scaledEnergy, 12, scaledEnergy, 512, 512);
+	protected void renderBg(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
+		super.renderBg(matrixStack, partialTicks, mouseX, mouseY);
+		blit(matrixStack, leftPos+210, topPos+89, 270, 0, menu.tile.getScaledProgress(22), 16, 512, 512);
+		int scaledEnergy = menu.tile.getScaledEnergy(40);
+		blit(matrixStack, leftPos+10, topPos+64+40-scaledEnergy, 270, 16+40-scaledEnergy, 12, scaledEnergy, 512, 512);
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
-		String s = container.tile.getDisplayName().getString();
-		font.drawString(matrixStack, s, xSize/2 - font.getStringWidth(s)/2, 6, 0x404040);
-		font.drawString(matrixStack, container.playerInventory.getDisplayName().getString(), container.getPlayerInvX(), container.getPlayerInvY()-11, 0x404040);
-		if(mouseX-guiLeft >= 10 && mouseY-guiTop >= 64 && mouseX-guiLeft <= 21 && mouseY-guiTop <= 103) {
-			renderTooltip(matrixStack, new StringTextComponent(container.tile.getEnergyStorage().getEnergyStored()+" / "+container.tile.getEnergyStorage().getMaxEnergyStored()+" FE"), mouseX-guiLeft, mouseY-guiTop);
+	protected void renderLabels(MatrixStack matrixStack, int mouseX, int mouseY) {
+		String s = menu.tile.getDisplayName().getString();
+		font.draw(matrixStack, s, imageWidth/2 - font.width(s)/2, 6, 0x404040);
+		font.draw(matrixStack, menu.playerInventory.getDisplayName().getString(), menu.getPlayerInvX(), menu.getPlayerInvY()-11, 0x404040);
+		if(mouseX-leftPos >= 10 && mouseY-topPos >= 64 && mouseX-leftPos <= 21 && mouseY-topPos <= 103) {
+			renderTooltip(matrixStack, new StringTextComponent(menu.tile.getEnergyStorage().getEnergyStored()+" / "+menu.tile.getEnergyStorage().getMaxEnergyStored()+" FE"), mouseX-leftPos, mouseY-topPos);
 		}
 	}
 }

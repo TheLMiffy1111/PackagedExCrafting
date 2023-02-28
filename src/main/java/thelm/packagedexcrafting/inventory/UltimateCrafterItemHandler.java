@@ -48,7 +48,7 @@ public class UltimateCrafterItemHandler extends BaseItemHandler<UltimateCrafterT
 	}
 
 	@Override
-	public int size() {
+	public int getCount() {
 		return 2;
 	}
 }

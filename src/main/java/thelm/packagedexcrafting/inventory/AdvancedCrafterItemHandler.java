@@ -48,7 +48,7 @@ public class AdvancedCrafterItemHandler extends BaseItemHandler<AdvancedCrafterT
 	}
 
 	@Override
-	public int size() {
+	public int getCount() {
 		return 2;
 	}
 }

@@ -36,16 +36,16 @@ public class BasicPackageRecipeInfo implements ITablePackageRecipeInfo {
 		input.clear();
 		output = ItemStack.EMPTY;
 		patterns.clear();
-		IRecipe recipe = MiscHelper.INSTANCE.getRecipeManager().getRecipe(new ResourceLocation(nbt.getString("Recipe"))).orElse(null);
+		IRecipe recipe = MiscHelper.INSTANCE.getRecipeManager().byKey(new ResourceLocation(nbt.getString("Recipe"))).orElse(null);
 		List<ItemStack> matrixList = new ArrayList<>();
 		MiscHelper.INSTANCE.loadAllItems(nbt.getList("Matrix", 10), matrixList);
 		for(int i = 0; i < 9 && i < matrixList.size(); ++i) {
-			matrix.setInventorySlotContents(i, matrixList.get(i));
+			matrix.setItem(i, matrixList.get(i));
 		}
 		if(recipe instanceof ITableRecipe) {
 			this.recipe = (ITableRecipe)recipe;
 			input.addAll(MiscHelper.INSTANCE.condenseStacks(matrix));
-			output = recipe.getCraftingResult(matrix).copy();
+			output = recipe.assemble(matrix).copy();
 			for(int i = 0; i*9 < input.size(); ++i) {
 				patterns.add(new PackagePattern(this, i));
 			}
@@ -59,7 +59,7 @@ public class BasicPackageRecipeInfo implements ITablePackageRecipeInfo {
 		}
 		List<ItemStack> matrixList = new ArrayList<>();
 		for(int i = 0; i < 9; ++i) {
-			matrixList.add(matrix.getStackInSlot(i));
+			matrixList.add(matrix.getItem(i));
 		}
 		ListNBT matrixTag = MiscHelper.INSTANCE.saveAllItems(new ListNBT(), matrixList);
 		nbt.put("Matrix", matrixTag);
@@ -120,19 +120,19 @@ public class BasicPackageRecipeInfo implements ITablePackageRecipeInfo {
 		for(int i = 0; i < 9; ++i) {
 			ItemStack toSet = input.get(slotArray[i]);
 			toSet.setCount(1);
-			matrix.setInventorySlotContents(i, toSet.copy());
+			matrix.setItem(i, toSet.copy());
 		}
-		ITableRecipe recipe = MiscHelper.INSTANCE.getRecipeManager().getRecipe(RecipeTypes.TABLE, matrix, world).orElse(null);
+		ITableRecipe recipe = MiscHelper.INSTANCE.getRecipeManager().getRecipeFor(RecipeTypes.TABLE, matrix, world).orElse(null);
 		if(recipe != null) {
 			this.recipe = recipe;
 			this.input.addAll(MiscHelper.INSTANCE.condenseStacks(matrix));
-			this.output = recipe.getCraftingResult(matrix).copy();
+			this.output = recipe.assemble(matrix).copy();
 			for(int i = 0; i*9 < this.input.size(); ++i) {
 				patterns.add(new PackagePattern(this, i));
 			}
 			return;
 		}
-		matrix.clear();
+		matrix.clearContent();
 	}
 
 	@Override
@@ -140,7 +140,7 @@ public class BasicPackageRecipeInfo implements ITablePackageRecipeInfo {
 		Int2ObjectMap<ItemStack> map = new Int2ObjectOpenHashMap<>();
 		int[] slotArray = BasicPackageRecipeType.SLOTS.toIntArray();
 		for(int i = 0; i < 9; ++i) {
-			map.put(slotArray[i], matrix.getStackInSlot(i));
+			map.put(slotArray[i], matrix.getItem(i));
 		}
 		return map;
 	}
@@ -153,7 +153,7 @@ public class BasicPackageRecipeInfo implements ITablePackageRecipeInfo {
 				return false;
 			}
 			for(int i = 0; i < input.size(); ++i) {
-				if(!ItemStack.areItemStackTagsEqual(input.get(i), other.input.get(i))) {
+				if(!ItemStack.matches(input.get(i), other.input.get(i))) {
 					return false;
 				}
 			}

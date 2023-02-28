@@ -23,11 +23,11 @@ import thelm.packagedexcrafting.tile.MarkedPedestalTile;
 public class MarkedPedestalBlock extends BaseBlock {
 
 	public static final MarkedPedestalBlock INSTANCE = new MarkedPedestalBlock();
-	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().group(PackagedExCrafting.ITEM_GROUP)).setRegistryName("packagedexcrafting:marked_pedestal");
-	public static final VoxelShape SHAPE = VoxelShapes.or(makeCuboidShape(1, 0, 1, 15, 2, 15), makeCuboidShape(3, 2, 3, 13, 14, 13), makeCuboidShape(2, 14, 2, 14, 16, 14));
+	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().tab(PackagedExCrafting.ITEM_GROUP)).setRegistryName("packagedexcrafting:marked_pedestal");
+	public static final VoxelShape SHAPE = VoxelShapes.or(box(1, 0, 1, 15, 2, 15), box(3, 2, 3, 13, 14, 13), box(2, 14, 2, 14, 16, 14));
 
 	public MarkedPedestalBlock() {
-		super(AbstractBlock.Properties.create(Material.IRON).hardnessAndResistance(15F, 25F).notSolid().sound(SoundType.METAL));
+		super(AbstractBlock.Properties.of(Material.METAL).strength(15F, 25F).noOcclusion().sound(SoundType.METAL));
 		setRegistryName("packagedexcrafting:marked_pedestal");
 	}
 
@@ -42,7 +42,7 @@ public class MarkedPedestalBlock extends BaseBlock {
 	}
 
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockRayTraceResult rayTraceResult) {
+	public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockRayTraceResult rayTraceResult) {
 		return ActionResultType.PASS;
 	}
 }

@@ -14,10 +14,10 @@ import thelm.packagedexcrafting.tile.AdvancedCrafterTile;
 public class AdvancedCrafterBlock extends BaseBlock {
 
 	public static final AdvancedCrafterBlock INSTANCE = new AdvancedCrafterBlock();
-	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().group(PackagedExCrafting.ITEM_GROUP)).setRegistryName("packagedexcrafting:advanced_crafter");
+	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().tab(PackagedExCrafting.ITEM_GROUP)).setRegistryName("packagedexcrafting:advanced_crafter");
 
 	public AdvancedCrafterBlock() {
-		super(AbstractBlock.Properties.create(Material.IRON).hardnessAndResistance(15F, 25F).sound(SoundType.METAL));
+		super(AbstractBlock.Properties.of(Material.METAL).strength(15F, 25F).sound(SoundType.METAL));
 		setRegistryName("packagedexcrafting:advanced_crafter");
 	}
 

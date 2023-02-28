@@ -23,15 +23,15 @@ public class CombinationCrafterRenderer extends TileEntityRenderer<CombinationCr
 		Minecraft minecraft = Minecraft.getInstance();
 		ItemStack stack = tile.getItemHandler().getStackInSlot(tile.isWorking ? 0 : 1);
 		if(!stack.isEmpty()) {
-			matrixStack.push();
+			matrixStack.pushPose();
 			matrixStack.translate(0.5, 1.2, 0.5);
 			float scale = stack.getItem() instanceof BlockItem ? 0.9F : 0.65F;
 			matrixStack.scale(scale, scale, scale);
 			double tick = System.currentTimeMillis() / 800D;
 			matrixStack.translate(0, Math.sin(tick % (Math.PI*2)) * 0.065, 0);
-			matrixStack.rotate(Vector3f.YP.rotationDegrees((float)(tick*40 % 360)));
-			minecraft.getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND, combinedLight, combinedOverlay, matrixStack, buffer);
-			matrixStack.pop();
+			matrixStack.mulPose(Vector3f.YP.rotationDegrees((float)(tick*40 % 360)));
+			minecraft.getItemRenderer().renderStatic(stack, ItemCameraTransforms.TransformType.GROUND, combinedLight, combinedOverlay, matrixStack, buffer);
+			matrixStack.popPose();
 		}
 	}
 }

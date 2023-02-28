@@ -45,7 +45,7 @@ import thelm.packagedexcrafting.recipe.ICombinationPackageRecipeInfo;
 public class CombinationCrafterTile extends BaseTile implements ITickableTileEntity, IPackageCraftingMachine {
 
 	public static final TileEntityType<CombinationCrafterTile> TYPE_INSTANCE = (TileEntityType<CombinationCrafterTile>)TileEntityType.Builder.
-			create(MiscHelper.INSTANCE.conditionalSupplier(()->ModList.get().isLoaded("appliedenergistics2"),
+			of(MiscHelper.INSTANCE.conditionalSupplier(()->ModList.get().isLoaded("appliedenergistics2"),
 					()->AECombinationCrafterTile::new, ()->CombinationCrafterTile::new), CombinationCrafterBlock.INSTANCE).
 			build(null).setRegistryName("packagedexcrafting:combination_crafter");
 
@@ -72,7 +72,7 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 
 	@Override
 	public void tick() {
-		if(!world.isRemote) {
+		if(!level.isClientSide) {
 			if(isWorking) {
 				tickProcess();
 				if(remainingProgress <= 0) {
@@ -81,7 +81,7 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 				}
 			}
 			chargeEnergy();
-			if(world.getGameTime() % 8 == 0) {
+			if(level.getGameTime() % 8 == 0) {
 				ejectItems();
 			}
 			energyStorage.updateIfChanged();
@@ -103,11 +103,11 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 				energyUsage = recipe.getEnergyUsage();
 				itemHandler.setStackInSlot(0, recipe.getCoreInput());
 				for(int i = 0; i < pedestals.size(); ++i) {
-					((MarkedPedestalTile)world.getTileEntity(pedestals.get(i))).getItemHandler().
+					((MarkedPedestalTile)level.getBlockEntity(pedestals.get(i))).getItemHandler().
 					setStackInSlot(0, pedestalInputs.get(i).copy());
 				}
 				syncTile(false);
-				markDirty();
+				setChanged();
 				return true;
 			}
 		}
@@ -120,17 +120,17 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 	}
 
 	protected void tickProcess() {
-		if(pedestals.stream().map(world::getTileEntity).anyMatch(tile->!(tile instanceof MarkedPedestalTile) || tile.isRemoved())) {
+		if(pedestals.stream().map(level::getBlockEntity).anyMatch(tile->!(tile instanceof MarkedPedestalTile) || tile.isRemoved())) {
 			endProcess();
 		}
 		else {
 			int energy = energyStorage.extractEnergy((int)Math.min(energyUsage, remainingProgress), false);
 			remainingProgress -= energy;
-			if(!world.isRemote) {
-				spawnParticles(ParticleTypes.ENTITY_EFFECT, pos, 1.15, 2);
+			if(!level.isClientSide) {
+				spawnParticles(ParticleTypes.ENTITY_EFFECT, worldPosition, 1.15, 2);
 				if(shouldSpawnItemParticles()) {
 					for(BlockPos pedestalPos : pedestals) {
-						ItemStack stack = ((MarkedPedestalTile)world.getTileEntity(pedestalPos)).getItemHandler().getStackInSlot(0);
+						ItemStack stack = ((MarkedPedestalTile)level.getBlockEntity(pedestalPos)).getItemHandler().getStackInSlot(0);
 						spawnItemParticles(pedestalPos, stack);
 					}
 				}
@@ -143,17 +143,17 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 			endProcess();
 			return;
 		}
-		if(pedestals.stream().map(world::getTileEntity).anyMatch(tile->!(tile instanceof MarkedPedestalTile) || tile.isRemoved())) {
+		if(pedestals.stream().map(level::getBlockEntity).anyMatch(tile->!(tile instanceof MarkedPedestalTile) || tile.isRemoved())) {
 			endProcess();
 			return;
 		}
 		for(BlockPos pedestalPos : pedestals) {
-			ItemStackHandler pedestalInv = ((MarkedPedestalTile)world.getTileEntity(pedestalPos)).getItemHandler();
+			ItemStackHandler pedestalInv = ((MarkedPedestalTile)level.getBlockEntity(pedestalPos)).getItemHandler();
 			pedestalInv.setStackInSlot(0, MiscHelper.INSTANCE.getContainerItem(pedestalInv.getStackInSlot(0)));
 			spawnParticles(ParticleTypes.SMOKE, pedestalPos, 1.1, 20);
 		}
 		itemHandler.setStackInSlot(0, ItemStack.EMPTY);
-		spawnParticles(ParticleTypes.END_ROD, pos, 1.1, 50);
+		spawnParticles(ParticleTypes.END_ROD, worldPosition, 1.1, 50);
 		itemHandler.setStackInSlot(1, currentRecipe.getOutput());
 		endProcess();
 	}
@@ -162,22 +162,22 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 		energyReq = 0;
 		remainingProgress = 0;
 		energyUsage = 0;
-		pedestals.stream().map(world::getTileEntity).
+		pedestals.stream().map(level::getBlockEntity).
 		filter(tile->tile instanceof MarkedPedestalTile && !tile.isRemoved()).
 		forEach(tile->((MarkedPedestalTile)tile).spawnItem());
 		pedestals.clear();
 		isWorking = false;
 		currentRecipe = null;
 		syncTile(false);
-		markDirty();
+		setChanged();
 	}
 
 	protected List<BlockPos> getEmptyPedestals() {
-		return BlockPos.getAllInBox(pos.add(-3, 0, -3), pos.add(3, 0, 3)).map(pos->{
-			TileEntity tile = world.getTileEntity(pos);
+		return BlockPos.betweenClosedStream(worldPosition.offset(-3, 0, -3), worldPosition.offset(3, 0, 3)).map(pos->{
+			TileEntity tile = level.getBlockEntity(pos);
 			if(tile instanceof MarkedPedestalTile) {
 				if(((MarkedPedestalTile)tile).getItemHandler().getStackInSlot(0).isEmpty()) {
-					return pos.toImmutable();
+					return pos.immutable();
 				}
 			}
 			return null;
@@ -187,7 +187,7 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 	protected void ejectItems() {
 		int endIndex = isWorking ? 1 : 0;
 		for(Direction direction : Direction.values()) {
-			TileEntity tile = world.getTileEntity(pos.offset(direction));
+			TileEntity tile = level.getBlockEntity(worldPosition.relative(direction));
 			if(tile != null && !(tile instanceof UnpackagerTile) && tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction.getOpposite()).isPresent()) {
 				IItemHandler itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction.getOpposite()).resolve().get();
 				boolean flag = true;
@@ -228,28 +228,28 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 	}
 
 	protected <T extends IParticleData> void spawnParticles(T particle, BlockPos pos, double yOffset, int count) {
-		if(world == null || world.isRemote()) {
+		if(level == null || level.isClientSide) {
 			return;
 		}
-		ServerWorld world = (ServerWorld)this.world;
+		ServerWorld world = (ServerWorld)level;
 		double x = pos.getX()+0.5;
 		double y = pos.getY()+yOffset;
 		double z = pos.getZ()+0.5;
-		world.spawnParticle(particle, x, y, z, count, 0, 0, 0, 0.1);
+		world.sendParticles(particle, x, y, z, count, 0, 0, 0, 0.1);
 	}
 
 	protected void spawnItemParticles(BlockPos pedestalPos, ItemStack stack) {
-		if(world == null || world.isRemote()) {
+		if(level == null || level.isClientSide) {
 			return;
 		}
-		ServerWorld world = (ServerWorld)this.world;
+		ServerWorld world = (ServerWorld)level;
 		double x = pedestalPos.getX() + world.getRandom().nextDouble()*0.2 + 0.4;
 		double y = pedestalPos.getY() + world.getRandom().nextDouble()*0.2 + 1.4;
 		double z = pedestalPos.getZ() + world.getRandom().nextDouble()*0.2 + 0.4;
-		double velX = pos.getX() - pedestalPos.getX();
+		double velX = worldPosition.getX() - pedestalPos.getX();
 		double velY = 0.25;
-		double velZ = pos.getZ() - pedestalPos.getZ();
-		world.spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), x, y, z, 0, velX, velY, velZ, 0.18);
+		double velZ = worldPosition.getZ() - pedestalPos.getZ();
+		world.sendParticles(new ItemParticleData(ParticleTypes.ITEM, stack), x, y, z, 0, velX, velY, velZ, 0.18);
 	}
 
 	protected boolean shouldSpawnItemParticles() {
@@ -257,14 +257,14 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 	}
 
 	@Override
-	public void remove() {
-		super.remove();
+	public void setRemoved() {
+		super.setRemoved();
 		endProcess();
 	}
 
 	@Override
-	public void read(BlockState blockState, CompoundNBT nbt) {
-		super.read(blockState, nbt);
+	public void load(BlockState blockState, CompoundNBT nbt) {
+		super.load(blockState, nbt);
 		currentRecipe = null;
 		if(nbt.contains("Recipe")) {
 			CompoundNBT tag = nbt.getCompound("Recipe");
@@ -283,8 +283,8 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 	}
 
 	@Override
-	public CompoundNBT write(CompoundNBT nbt) {
-		super.write(nbt);
+	public CompoundNBT save(CompoundNBT nbt) {
+		super.save(nbt);
 		if(currentRecipe != null) {
 			CompoundNBT tag = MiscHelper.INSTANCE.writeRecipe(new CompoundNBT(), currentRecipe);
 			nbt.put("Recipe", tag);

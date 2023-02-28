@@ -36,12 +36,12 @@ public class ClientEventHandler {
 
 	@SubscribeEvent
 	public void onClientSetup(FMLClientSetupEvent event) {
-		ScreenManager.registerFactory(BasicCrafterContainer.TYPE_INSTANCE, BasicCrafterScreen::new);
-		ScreenManager.registerFactory(AdvancedCrafterContainer.TYPE_INSTANCE, AdvancedCrafterScreen::new);
-		ScreenManager.registerFactory(EliteCrafterContainer.TYPE_INSTANCE, EliteCrafterScreen::new);
-		ScreenManager.registerFactory(UltimateCrafterContainer.TYPE_INSTANCE, UltimateCrafterScreen::new);
-		ScreenManager.registerFactory(EnderCrafterContainer.TYPE_INSTANCE, EnderCrafterScreen::new);
-		ScreenManager.registerFactory(CombinationCrafterContainer.TYPE_INSTANCE, CombinationCrafterScreen::new);
+		ScreenManager.register(BasicCrafterContainer.TYPE_INSTANCE, BasicCrafterScreen::new);
+		ScreenManager.register(AdvancedCrafterContainer.TYPE_INSTANCE, AdvancedCrafterScreen::new);
+		ScreenManager.register(EliteCrafterContainer.TYPE_INSTANCE, EliteCrafterScreen::new);
+		ScreenManager.register(UltimateCrafterContainer.TYPE_INSTANCE, UltimateCrafterScreen::new);
+		ScreenManager.register(EnderCrafterContainer.TYPE_INSTANCE, EnderCrafterScreen::new);
+		ScreenManager.register(CombinationCrafterContainer.TYPE_INSTANCE, CombinationCrafterScreen::new);
 
 		ClientRegistry.bindTileEntityRenderer(CombinationCrafterTile.TYPE_INSTANCE, CombinationCrafterRenderer::new);
 		ClientRegistry.bindTileEntityRenderer(MarkedPedestalTile.TYPE_INSTANCE, MarkedPedestalRenderer::new);

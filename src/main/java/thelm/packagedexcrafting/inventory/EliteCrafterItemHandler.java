@@ -48,7 +48,7 @@ public class EliteCrafterItemHandler extends BaseItemHandler<EliteCrafterTile> {
 	}
 
 	@Override
-	public int size() {
+	public int getCount() {
 		return 2;
 	}
 }

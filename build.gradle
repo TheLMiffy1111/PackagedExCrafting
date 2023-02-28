@@ -68,8 +68,7 @@ archivesBaseName = "PackagedExCrafting-1.16.5"
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = "1.8"
 
 minecraft {
-    mappings channel: "snapshot", version: "20201028-1.16.3"
-    accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
+    mappings channel: "parchment", version: "2022.03.06-1.16.5"
     runs {
         client = {
             properties "forge.logging.markers": "SCAN,REGISTRIES,REGISTRYDUMP"
@@ -91,11 +90,11 @@ minecraft {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:1.16.5-36.2.30"
+    minecraft "net.minecraftforge:forge:1.16.5-36.2.39"
 
     implementation fg.deobf("appeng:appliedenergistics2:8.4.7")
     implementation fg.deobf("mezz.jei:jei-1.16.5:7.7.1.1004")
-    implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-1.16.5:7.1.2.515")
+    implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-1.16.5:7.1.2.516")
     implementation fg.deobf("vazkii.patchouli:Patchouli:1.16.4-53.3")
     implementation fg.deobf("com.jozufozu.flywheel:Flywheel:1.16-0.2.5.53")
     implementation fg.deobf("com.simibubi.create:Create:mc1.16.5_v0.3.2g+480")

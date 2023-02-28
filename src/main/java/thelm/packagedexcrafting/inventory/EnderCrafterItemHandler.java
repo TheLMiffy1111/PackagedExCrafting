@@ -52,7 +52,7 @@ public class EnderCrafterItemHandler extends BaseItemHandler<EnderCrafterTile> {
 	}
 
 	@Override
-	public int size() {
+	public int getCount() {
 		return 3;
 	}
 }

@@ -38,10 +38,10 @@ public class CombinationPackageRecipeInfo implements ICombinationPackageRecipeIn
 		inputPedestal.clear();
 		input.clear();
 		output = ItemStack.EMPTY;
-		inputCore = ItemStack.read(nbt.getCompound("InputCore"));
+		inputCore = ItemStack.of(nbt.getCompound("InputCore"));
 		MiscHelper.INSTANCE.loadAllItems(nbt.getList("InputPedestal", 10), inputPedestal);
 		patterns.clear();
-		IRecipe recipe = MiscHelper.INSTANCE.getRecipeManager().getRecipe(new ResourceLocation(nbt.getString("Recipe"))).orElse(null);
+		IRecipe recipe = MiscHelper.INSTANCE.getRecipeManager().byKey(new ResourceLocation(nbt.getString("Recipe"))).orElse(null);
 		if(inputPedestal.isEmpty()) {
 			return;
 		}
@@ -51,11 +51,11 @@ public class CombinationPackageRecipeInfo implements ICombinationPackageRecipeIn
 			toCondense.add(inputCore);
 			input.addAll(MiscHelper.INSTANCE.condenseStacks(toCondense));
 			Inventory matrix = new Inventory(inputPedestal.size()+1);
-			matrix.setInventorySlotContents(0, inputCore);
+			matrix.setItem(0, inputCore);
 			for(int i = 0; i < inputPedestal.size(); ++i) {
-				matrix.setInventorySlotContents(i+1, inputPedestal.get(i));
+				matrix.setItem(i+1, inputPedestal.get(i));
 			}
-			output = this.recipe.getCraftingResult(matrix).copy();
+			output = this.recipe.assemble(matrix).copy();
 			for(int i = 0; i*9 < input.size(); ++i) {
 				patterns.add(new PackagePattern(this, i));
 			}
@@ -67,7 +67,7 @@ public class CombinationPackageRecipeInfo implements ICombinationPackageRecipeIn
 		if(recipe != null) {
 			nbt.putString("Recipe", recipe.getId().toString());
 		}
-		CompoundNBT inputCoreTag = inputCore.write(new CompoundNBT());
+		CompoundNBT inputCoreTag = inputCore.save(new CompoundNBT());
 		ListNBT inputPedestalTag = MiscHelper.INSTANCE.saveAllItems(new ListNBT(), inputPedestal);
 		nbt.put("InputCore", inputCoreTag);
 		nbt.put("InputPedestal", inputPedestalTag);
@@ -149,17 +149,17 @@ public class CombinationPackageRecipeInfo implements ICombinationPackageRecipeIn
 			}
 		}
 		Inventory matrix = new Inventory(inputPedestal.size()+1);
-		matrix.setInventorySlotContents(0, inputCore);
+		matrix.setItem(0, inputCore);
 		for(int i = 0; i < inputPedestal.size(); ++i) {
-			matrix.setInventorySlotContents(i+1, inputPedestal.get(i));
+			matrix.setItem(i+1, inputPedestal.get(i));
 		}
-		ICombinationRecipe recipe = MiscHelper.INSTANCE.getRecipeManager().getRecipe(RecipeTypes.COMBINATION, matrix, world).orElse(null);
+		ICombinationRecipe recipe = MiscHelper.INSTANCE.getRecipeManager().getRecipeFor(RecipeTypes.COMBINATION, matrix, world).orElse(null);
 		if(recipe != null) {
 			this.recipe = recipe;
 			List<ItemStack> toCondense = new ArrayList<>(inputPedestal);
 			toCondense.add(inputCore);
 			this.input.addAll(MiscHelper.INSTANCE.condenseStacks(toCondense));
-			this.output = recipe.getCraftingResult(matrix).copy();
+			this.output = recipe.assemble(matrix).copy();
 			for(int i = 0; i*9 < this.input.size(); ++i) {
 				patterns.add(new PackagePattern(this, i));
 			}
@@ -187,7 +187,7 @@ public class CombinationPackageRecipeInfo implements ICombinationPackageRecipeIn
 				return false;
 			}
 			for(int i = 0; i < input.size(); ++i) {
-				if(!ItemStack.areItemStackTagsEqual(input.get(i), other.input.get(i))) {
+				if(!ItemStack.matches(input.get(i), other.input.get(i))) {
 					return false;
 				}
 			}

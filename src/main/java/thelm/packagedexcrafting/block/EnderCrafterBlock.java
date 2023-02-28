@@ -14,10 +14,10 @@ import thelm.packagedexcrafting.tile.EnderCrafterTile;
 public class EnderCrafterBlock extends BaseBlock {
 
 	public static final EnderCrafterBlock INSTANCE = new EnderCrafterBlock();
-	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().group(PackagedExCrafting.ITEM_GROUP)).setRegistryName("packagedexcrafting:ender_crafter");
+	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().tab(PackagedExCrafting.ITEM_GROUP)).setRegistryName("packagedexcrafting:ender_crafter");
 
 	public EnderCrafterBlock() {
-		super(AbstractBlock.Properties.create(Material.IRON).hardnessAndResistance(15F, 25F).sound(SoundType.METAL));
+		super(AbstractBlock.Properties.of(Material.METAL).strength(15F, 25F).sound(SoundType.METAL));
 		setRegistryName("packagedexcrafting:ender_crafter");
 	}
 
