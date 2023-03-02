@@ -105,7 +105,7 @@ dependencies {
     implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-1.18.2:0.6.8.a-99")
     implementation fg.deobf("com.simibubi.create:create-1.18.2:0.5.0.h-243:all")
     implementation fg.deobf("mekanism:Mekanism:1.18.2-10.2.5.465")
-    implementation fg.deobf("codechicken:CodeChickenLib:1.18.2-4.1.2.475:universal")
+    implementation fg.deobf("mekanism:Mekanism:1.18.2-10.2.5.465:generators")
 
     //JitPack
 
@@ -115,7 +115,6 @@ dependencies {
     implementation fg.deobf("curse.maven:applied-mekanistics-574300:3968835")
     implementation fg.deobf("curse.maven:cucumber-272335:4005476")
     implementation fg.deobf("curse.maven:extended-crafting-268387:3885707")
-    implementation fg.deobf("curse.maven:avaritia-1-10-261348:4074018")
     implementation fg.deobf("curse.maven:ato-405593:3975599")
 }
 
