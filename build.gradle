@@ -61,7 +61,7 @@ sourceSets {
     main
 }
 
-version = "3.2.1.5"
+version = "3.2.1.6"
 group = "thelm.packagedexcrafting"
 archivesBaseName = "PackagedExCrafting-1.19.2"
 
@@ -104,7 +104,7 @@ dependencies {
 
     //CurseMaven
     implementation fg.deobf("curse.maven:shutup-experimental-settings-407174:3759881")
-    implementation fg.deobf("curse.maven:packagedauto-308380:4415263")
+    implementation fg.deobf("curse.maven:packagedauto-308380:4420220")
     implementation fg.deobf("curse.maven:applied-mekanistics-574300:4058235")
     implementation fg.deobf("curse.maven:cucumber-272335:4055932")
     implementation fg.deobf("curse.maven:extended-crafting-268387:4166929")
