@@ -33,7 +33,7 @@ import thelm.packagedexcrafting.recipe.ITablePackageRecipeInfo;
 public class UltimateCrafterTile extends BaseTile implements ITickableTileEntity, IPackageCraftingMachine {
 
 	public static final TileEntityType<UltimateCrafterTile> TYPE_INSTANCE = (TileEntityType<UltimateCrafterTile>)TileEntityType.Builder.
-			create(MiscHelper.INSTANCE.conditionalSupplier(()->ModList.get().isLoaded("appliedenergistics2"),
+			of(MiscHelper.INSTANCE.conditionalSupplier(()->ModList.get().isLoaded("appliedenergistics2"),
 					()->AEUltimateCrafterTile::new, ()->UltimateCrafterTile::new), UltimateCrafterBlock.INSTANCE).
 			build(null).setRegistryName("packagedexcrafting:ultimate_crafter");
 
@@ -59,7 +59,7 @@ public class UltimateCrafterTile extends BaseTile implements ITickableTileEntity
 
 	@Override
 	public void tick() {
-		if(!world.isRemote) {
+		if(!level.isClientSide) {
 			if(isWorking) {
 				tickProcess();
 				if(remainingProgress <= 0) {
@@ -68,7 +68,7 @@ public class UltimateCrafterTile extends BaseTile implements ITickableTileEntity
 				}
 			}
 			chargeEnergy();
-			if(world.getGameTime() % 8 == 0) {
+			if(level.getGameTime() % 8 == 0) {
 				ejectItems();
 			}
 			energyStorage.updateIfChanged();
@@ -82,14 +82,14 @@ public class UltimateCrafterTile extends BaseTile implements ITickableTileEntity
 			if(recipe.getTier() == 4) {
 				ItemStack slotStack = itemHandler.getStackInSlot(81);
 				ItemStack outputStack = recipe.getOutput();
-				if(slotStack.isEmpty() || slotStack.getItem() == outputStack.getItem() && ItemStack.areItemStackTagsEqual(slotStack, outputStack) && slotStack.getCount()+outputStack.getCount() <= outputStack.getMaxStackSize()) {
+				if(slotStack.isEmpty() || slotStack.getItem() == outputStack.getItem() && ItemStack.tagMatches(slotStack, outputStack) && slotStack.getCount()+outputStack.getCount() <= outputStack.getMaxStackSize()) {
 					currentRecipe = recipe;
 					isWorking = true;
 					remainingProgress = energyReq;
 					for(int i = 0; i < 81; ++i) {
-						itemHandler.setStackInSlot(i, recipe.getMatrix().getStackInSlot(i).copy());
+						itemHandler.setStackInSlot(i, recipe.getMatrix().getItem(i).copy());
 					}
-					markDirty();
+					setChanged();
 					return true;
 				}
 			}
@@ -129,13 +129,13 @@ public class UltimateCrafterTile extends BaseTile implements ITickableTileEntity
 		remainingProgress = 0;
 		isWorking = false;
 		currentRecipe = null;
-		markDirty();
+		setChanged();
 	}
 
 	protected void ejectItems() {
 		int endIndex = isWorking ? 81 : 0;
 		for(Direction direction : Direction.values()) {
-			TileEntity tile = world.getTileEntity(pos.offset(direction));
+			TileEntity tile = level.getBlockEntity(worldPosition.relative(direction));
 			if(tile != null && !(tile instanceof UnpackagerTile) && tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction.getOpposite()).isPresent()) {
 				IItemHandler itemHandler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, direction.getOpposite()).resolve().get();
 				boolean flag = true;
@@ -176,8 +176,8 @@ public class UltimateCrafterTile extends BaseTile implements ITickableTileEntity
 	}
 
 	@Override
-	public void read(BlockState blockState, CompoundNBT nbt) {
-		super.read(blockState, nbt);
+	public void load(BlockState blockState, CompoundNBT nbt) {
+		super.load(blockState, nbt);
 		currentRecipe = null;
 		if(nbt.contains("Recipe")) {
 			CompoundNBT tag = nbt.getCompound("Recipe");
@@ -189,8 +189,8 @@ public class UltimateCrafterTile extends BaseTile implements ITickableTileEntity
 	}
 
 	@Override
-	public CompoundNBT write(CompoundNBT nbt) {
-		super.write(nbt);
+	public CompoundNBT save(CompoundNBT nbt) {
+		super.save(nbt);
 		if(currentRecipe != null) {
 			CompoundNBT tag = MiscHelper.INSTANCE.writeRecipe(new CompoundNBT(), currentRecipe);
 			nbt.put("Recipe", tag);
