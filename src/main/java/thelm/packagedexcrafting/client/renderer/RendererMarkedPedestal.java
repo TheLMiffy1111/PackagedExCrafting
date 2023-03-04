@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import thelm.packagedauto.client.RenderTimer;
 import thelm.packagedexcrafting.tile.TileMarkedPedestal;
 
 public class RendererMarkedPedestal extends TileEntitySpecialRenderer<TileMarkedPedestal> {
@@ -18,8 +19,8 @@ public class RendererMarkedPedestal extends TileEntitySpecialRenderer<TileMarked
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(x+0.5, y+1.4, z+0.5);
 			GlStateManager.scale(0.5, 0.5, 0.5);
-			double tick = te.getWorld().getTotalWorldTime()+partialTicks;
-			GlStateManager.translate(0, Math.sin(tick/20 % (Math.PI*2)) * 0.065, 0);
+			double tick = RenderTimer.INSTANCE.getTicks()+partialTicks;
+			GlStateManager.translate(0, Math.sin(tick/20 % (Math.PI*2))*0.065, 0);
 			GlStateManager.rotate((float)tick*2 % 360, 0F, 1F, 0F);
 			GlStateManager.disableLighting();
 			GlStateManager.pushAttrib();
