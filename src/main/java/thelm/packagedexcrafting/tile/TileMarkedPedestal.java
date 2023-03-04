@@ -26,7 +26,7 @@ public class TileMarkedPedestal extends TileBase {
 		inventory.setInventorySlotContents(0, ItemStack.EMPTY);
 		if(!world.isRemote && !stack.isEmpty()) {
 			double dx = world.rand.nextFloat()/2+0.25;
-			double dy = world.rand.nextFloat()/2+0.25;
+			double dy = world.rand.nextFloat()/2+0.75;
 			double dz = world.rand.nextFloat()/2+0.25;
 			EntityItem entityitem = new EntityItem(world, pos.getX()+dx, pos.getY()+dy, pos.getZ()+dz, stack);
 			entityitem.setDefaultPickupDelay();
