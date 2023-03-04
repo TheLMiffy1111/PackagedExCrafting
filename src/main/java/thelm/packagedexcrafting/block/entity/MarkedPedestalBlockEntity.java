@@ -36,7 +36,7 @@ public class MarkedPedestalBlockEntity extends BaseBlockEntity {
 		itemHandler.setStackInSlot(0, ItemStack.EMPTY);
 		if(!level.isClientSide && !stack.isEmpty()) {
 			double dx = level.random.nextFloat()/2+0.25;
-			double dy = level.random.nextFloat()/2+0.25;
+			double dy = level.random.nextFloat()/2+0.75;
 			double dz = level.random.nextFloat()/2+0.25;
 			ItemEntity itemEntity = new ItemEntity(level, worldPosition.getX()+dx, worldPosition.getY()+dy, worldPosition.getZ()+dz, stack);
 			itemEntity.setDefaultPickUpDelay();
