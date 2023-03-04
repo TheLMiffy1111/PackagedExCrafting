@@ -28,9 +28,9 @@ public class MarkedPedestalRenderer implements BlockEntityRenderer<MarkedPedesta
 			poseStack.translate(0.5, 1.2, 0.5);
 			float scale = stack.getItem() instanceof BlockItem ? 0.9F : 0.65F;
 			poseStack.scale(scale, scale, scale);
-			double tick = RenderTimer.INSTANCE.getTicks()+partialTick;
-			poseStack.translate(0, Math.sin(tick/20 % (Math.PI*2))*0.065, 0);
-			poseStack.mulPose(Vector3f.YP.rotationDegrees((float)(tick*2 % 360)));
+			double tick = (RenderTimer.INSTANCE.getTicks()+partialTick)/16D;
+			poseStack.translate(0, Math.sin(tick % (Math.PI*2))*0.065, 0);
+			poseStack.mulPose(Vector3f.YP.rotationDegrees((float)(tick*40 % 360)));
 			minecraft.getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND, packedLight, packedOverlay, poseStack, bufferSource, 0);
 			poseStack.popPose();
 		}
