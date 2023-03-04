@@ -61,7 +61,7 @@ sourceSets {
     main
 }
 
-version = "3.3.0.2"
+version = "3.3.0.3"
 group = "thelm.packagedexcrafting"
 archivesBaseName = "PackagedExCrafting-1.19.3"
 
@@ -94,17 +94,17 @@ dependencies {
 
     implementation fg.deobf("appeng:appliedenergistics2-forge:13.0.9-beta")
     implementation fg.deobf("mezz.jei:jei-1.19.3-forge:12.1.1.9")
-    //implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-1.19.2:10.0.29")
+    //implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-1.19.2:10.1.35")
     implementation fg.deobf("vazkii.patchouli:Patchouli:1.19.3-78")
-    //implementation fg.deobf("com.simibubi.create:create-1.19.2:0.5.0.h-21:all")
-    //implementation fg.deobf("mekanism:Mekanism:1.19.2-10.3.5.474")
-    //implementation fg.deobf("mekanism:Mekanism:1.19.2-10.3.5.474:generators")
+    //implementation fg.deobf("com.simibubi.create:create-1.19.2:0.5.0.i-23:all")
+    //implementation fg.deobf("mekanism:Mekanism:1.19.2-10.3.8.477")
+    //implementation fg.deobf("mekanism:Mekanism:1.19.2-10.3.8.477:generators")
 
     //JitPack
 
     //CurseMaven
     implementation fg.deobf("curse.maven:shutup-experimental-settings-407174:3759881")
-    implementation fg.deobf("curse.maven:packagedauto-308380:4415265")
+    implementation fg.deobf("curse.maven:packagedauto-308380:4420228")
     //implementation fg.deobf("curse.maven:applied-mekanistics-574300:4058235")
     implementation fg.deobf("curse.maven:cucumber-272335:4284311")
     implementation fg.deobf("curse.maven:extended-crafting-268387:4344021")

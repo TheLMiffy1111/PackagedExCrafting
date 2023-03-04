@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import thelm.packagedauto.client.RenderTimer;
 import thelm.packagedexcrafting.block.entity.MarkedPedestalBlockEntity;
 
 public class MarkedPedestalRenderer implements BlockEntityRenderer<MarkedPedestalBlockEntity> {
@@ -27,8 +28,8 @@ public class MarkedPedestalRenderer implements BlockEntityRenderer<MarkedPedesta
 			poseStack.translate(0.5, 1.2, 0.5);
 			float scale = stack.getItem() instanceof BlockItem ? 0.9F : 0.65F;
 			poseStack.scale(scale, scale, scale);
-			double tick = System.currentTimeMillis() / 800D;
-			poseStack.translate(0, Math.sin(tick % (Math.PI*2)) * 0.065, 0);
+			double tick = (RenderTimer.INSTANCE.getTicks()+partialTick)/16D;
+			poseStack.translate(0, Math.sin(tick % (Math.PI*2))*0.065, 0);
 			poseStack.mulPose(Axis.YP.rotationDegrees((float)(tick*40 % 360)));
 			minecraft.getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND, packedLight, packedOverlay, poseStack, bufferSource, 0);
 			poseStack.popPose();
