@@ -19,9 +19,9 @@ public class RendererMarkedPedestal extends TileEntitySpecialRenderer<TileMarked
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(x+0.5, y+1.4, z+0.5);
 			GlStateManager.scale(0.5, 0.5, 0.5);
-			double tick = RenderTimer.INSTANCE.getTicks()+partialTicks;
-			GlStateManager.translate(0, Math.sin(tick/20 % (Math.PI*2))*0.065, 0);
-			GlStateManager.rotate((float)tick*2 % 360, 0F, 1F, 0F);
+			double tick = (RenderTimer.INSTANCE.getTicks()+partialTicks)/16D;
+			GlStateManager.translate(0, Math.sin(tick % (Math.PI*2))*0.065, 0);
+			GlStateManager.rotate((float)tick*40 % 360, 0F, 1F, 0F);
 			GlStateManager.disableLighting();
 			GlStateManager.pushAttrib();
 			RenderHelper.enableStandardItemLighting();
