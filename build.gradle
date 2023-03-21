@@ -70,7 +70,7 @@ dependencies {
     deobfCompile "CraftTweaker2:CraftTweaker2-API:4.1.20.683"
     deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.683"
 
-    deobfCompile "curse.maven:packagedauto-308380:4449378"
+    deobfCompile "curse.maven:packagedauto-308380:4449683"
     deobfCompile "curse.maven:applied-energistics-2-223794:2747063"
     deobfCompile "curse.maven:cucumber-272335:2645867"
     deobfCompile "curse.maven:extended-crafting-268387:2777071"
