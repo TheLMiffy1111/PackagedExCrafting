@@ -40,6 +40,18 @@ public class CombinationCrafterBlock extends BaseBlock {
 	}
 
 	@Override
+	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
+		if(state.getBlock() == newState.getBlock()) {
+			return;
+		}
+		BlockEntity blockEntity = level.getBlockEntity(pos);
+		if(blockEntity instanceof CombinationCrafterBlockEntity crafter && crafter.isWorking) {
+			crafter.endProcess();
+		}
+		super.onRemove(state, level, pos, newState, isMoving);
+	}
+
+	@Override
 	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}

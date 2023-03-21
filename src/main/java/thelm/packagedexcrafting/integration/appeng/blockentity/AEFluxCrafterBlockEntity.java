@@ -60,9 +60,10 @@ public class AEFluxCrafterBlockEntity extends FluxCrafterBlockEntity implements 
 	}
 
 	@Override
-	public void setPlacer(Player placer) {
-		if(placer instanceof ServerPlayer serverPlacer) {
-			placerID = IPlayerRegistry.getPlayerId(serverPlacer);
+	public void onChunkUnloaded() {
+		super.onChunkUnloaded();
+		if(gridNode != null) {
+			gridNode.destroy();
 		}
 	}
 
@@ -94,7 +95,9 @@ public class AEFluxCrafterBlockEntity extends FluxCrafterBlockEntity implements 
 			gridNode.setGridColor(AEColor.TRANSPARENT);
 			gridNode.setIdlePowerUsage(1);
 			gridNode.setInWorldNode(true);
-			gridNode.setOwningPlayerId(placerID);
+			if(ownerUUID != null) {
+				gridNode.setOwningPlayerId(IPlayerRegistry.getMapping(level).getPlayerId(ownerUUID));
+			}
 		}
 		return gridNode;
 	}
