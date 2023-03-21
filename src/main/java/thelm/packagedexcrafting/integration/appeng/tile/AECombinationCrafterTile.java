@@ -55,6 +55,14 @@ public class AECombinationCrafterTile extends CombinationCrafterTile implements 
 	}
 
 	@Override
+	public void onChunkUnloaded() {
+		super.onChunkUnloaded();
+		if(gridNode != null) {
+			gridNode.destroy();
+		}
+	}
+
+	@Override
 	public IGridNode getGridNode(AEPartLocation dir) {
 		return getActionableNode();
 	}

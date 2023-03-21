@@ -56,6 +56,14 @@ public class AEEnderCrafterTile extends EnderCrafterTile implements IGridHost, I
 	}
 
 	@Override
+	public void onChunkUnloaded() {
+		super.onChunkUnloaded();
+		if(gridNode != null) {
+			gridNode.destroy();
+		}
+	}
+
+	@Override
 	public IGridNode getGridNode(AEPartLocation dir) {
 		return getActionableNode();
 	}
