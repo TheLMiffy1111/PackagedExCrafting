@@ -257,12 +257,6 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 	}
 
 	@Override
-	public void setRemoved() {
-		super.setRemoved();
-		endProcess();
-	}
-
-	@Override
 	public void load(BlockState blockState, CompoundNBT nbt) {
 		super.load(blockState, nbt);
 		currentRecipe = null;

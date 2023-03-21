@@ -6,11 +6,13 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
 import thelm.packagedauto.block.BaseBlock;
 import thelm.packagedexcrafting.PackagedExCrafting;
 import thelm.packagedexcrafting.tile.CombinationCrafterTile;
@@ -29,6 +31,21 @@ public class CombinationCrafterBlock extends BaseBlock {
 	@Override
 	public CombinationCrafterTile createTileEntity(BlockState state, IBlockReader worldIn) {
 		return CombinationCrafterTile.TYPE_INSTANCE.create();
+	}
+
+	@Override
+	public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+		if(state.getBlock() == newState.getBlock()) {
+			return;
+		}
+		TileEntity tileentity = worldIn.getBlockEntity(pos);
+		if(tileentity instanceof CombinationCrafterTile) {
+			CombinationCrafterTile crafter = (CombinationCrafterTile)tileentity;
+			if(crafter.isWorking) {
+				crafter.endProcess();
+			}
+		}
+		super.onRemove(state, worldIn, pos, newState, isMoving);
 	}
 
 	@Override
