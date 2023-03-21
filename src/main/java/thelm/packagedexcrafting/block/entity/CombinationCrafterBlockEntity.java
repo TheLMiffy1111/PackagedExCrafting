@@ -251,12 +251,6 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 	}
 
 	@Override
-	public void setRemoved() {
-		super.setRemoved();
-		endProcess();
-	}
-
-	@Override
 	public void load(CompoundTag nbt) {
 		super.load(nbt);
 		currentRecipe = null;
