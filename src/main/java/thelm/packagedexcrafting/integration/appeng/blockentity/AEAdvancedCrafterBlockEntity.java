@@ -21,8 +21,6 @@ import appeng.me.helpers.MachineSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import thelm.packagedexcrafting.block.AdvancedCrafterBlock;
@@ -60,9 +58,10 @@ public class AEAdvancedCrafterBlockEntity extends AdvancedCrafterBlockEntity imp
 	}
 
 	@Override
-	public void setPlacer(Player placer) {
-		if(placer instanceof ServerPlayer serverPlacer) {
-			placerID = IPlayerRegistry.getPlayerId(serverPlacer);
+	public void onChunkUnloaded() {
+		super.onChunkUnloaded();
+		if(gridNode != null) {
+			gridNode.destroy();
 		}
 	}
 
@@ -94,7 +93,9 @@ public class AEAdvancedCrafterBlockEntity extends AdvancedCrafterBlockEntity imp
 			gridNode.setGridColor(AEColor.TRANSPARENT);
 			gridNode.setIdlePowerUsage(1);
 			gridNode.setInWorldNode(true);
-			gridNode.setOwningPlayerId(placerID);
+			if(ownerUUID != null) {
+				gridNode.setOwningPlayerId(IPlayerRegistry.getMapping(level).getPlayerId(ownerUUID));
+			}
 		}
 		return gridNode;
 	}
