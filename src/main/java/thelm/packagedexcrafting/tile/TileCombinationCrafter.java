@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import com.google.common.collect.Streams;
 
-import appeng.api.AEApi;
 import appeng.api.networking.IGridHost;
 import appeng.api.networking.IGridNode;
 import appeng.api.networking.security.IActionHost;
@@ -25,6 +24,9 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -57,6 +59,7 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 	public static int energyCapacity = 5000000;
 	public static boolean drawMEEnergy = false;
 
+	public int requiredPedestals = -1;
 	public boolean isWorking = false;
 	public long energyReq = 0;
 	public long remainingProgress = 0;
@@ -75,6 +78,19 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 	@Override
 	protected String getLocalizedName() {
 		return I18n.translateToLocal("tile.packagedexcrafting.combination_crafter.name");
+	}
+
+	public ITextComponent getMessage() {
+		if(isWorking) {
+			return null;
+		}
+		int availablePedestals = getEmptyPedestals().size();
+		ITextComponent message = new TextComponentTranslation("tile.packagedexcrafting.combination_crafter.pedestals.available", availablePedestals);
+		if(requiredPedestals >= 0) {
+			message.appendText("\n");
+			message.appendSibling(new TextComponentTranslation("tile.packagedexcrafting.combination_crafter.pedestals.required", requiredPedestals));
+		}
+		return message;
 	}
 
 	@Override
@@ -114,6 +130,7 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 			IRecipeInfoCombination recipe = (IRecipeInfoCombination)recipeInfo;
 			List<ItemStack> pedestalInputs = recipe.getPedestalInputs();
 			List<BlockPos> emptyPedestals = getEmptyPedestals();
+			requiredPedestals = Math.max(requiredPedestals, pedestalInputs.size());
 			if(emptyPedestals.size() >= pedestalInputs.size()) {
 				pedestals.clear();
 				pedestals.addAll(emptyPedestals.subList(0, pedestalInputs.size()));
