@@ -61,7 +61,7 @@ sourceSets {
     main
 }
 
-version = "3.3.0.4"
+version = "3.3.0.5"
 group = "thelm.packagedexcrafting"
 archivesBaseName = "PackagedExCrafting-1.19.3"
 

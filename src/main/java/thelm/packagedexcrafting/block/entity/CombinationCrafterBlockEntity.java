@@ -15,6 +15,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntArrayTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -50,6 +51,7 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 	public static int energyCapacity = 5000000;
 	public static boolean drawMEEnergy = false;
 
+	public int requiredPedestals = -1;
 	public boolean isWorking = false;
 	public long energyReq = 0;
 	public long remainingProgress = 0;
@@ -66,6 +68,19 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 	@Override
 	protected Component getDefaultName() {
 		return Component.translatable("block.packagedexcrafting.combination_crafter");
+	}
+
+	public Component getMessage() {
+		if(isWorking) {
+			return null;
+		}
+		int availablePedestals = getEmptyPedestals().size();
+		MutableComponent message = Component.translatable("block.packagedexcrafting.combination_crafter.pedestals.available", availablePedestals);
+		if(requiredPedestals >= 0) {
+			message.append("\n");
+			message.append(Component.translatable("block.packagedexcrafting.combination_crafter.pedestals.required", requiredPedestals));
+		}
+		return message;
 	}
 
 	@Override
@@ -91,6 +106,7 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 		if(!isBusy() && recipeInfo instanceof ICombinationPackageRecipeInfo recipe) {
 			List<ItemStack> pedestalInputs = recipe.getPedestalInputs();
 			List<BlockPos> emptyPedestals = getEmptyPedestals();
+			requiredPedestals = Math.max(requiredPedestals, pedestalInputs.size());
 			if(emptyPedestals.size() >= pedestalInputs.size()) {
 				pedestals.clear();
 				pedestals.addAll(emptyPedestals.subList(0, pedestalInputs.size()));

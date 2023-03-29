@@ -8,6 +8,8 @@
     "block.packagedexcrafting.ender_crafter": "末影封包合成器",
     "block.packagedexcrafting.flux_crafter": "通量封包合成器",
     "block.packagedexcrafting.combination_crafter": "组合封包合成器",
+    "block.packagedexcrafting.combination_crafter.pedestals.available": "可用标记基座: %s",
+    "block.packagedexcrafting.combination_crafter.pedestals.required": "所需标记基座: %s",
     "block.packagedexcrafting.marked_pedestal": "标记基座",
 
     "recipe.packagedexcrafting.basic": "基础合成",
