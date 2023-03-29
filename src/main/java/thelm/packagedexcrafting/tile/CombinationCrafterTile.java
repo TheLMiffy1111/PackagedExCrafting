@@ -22,6 +22,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.server.ServerWorld;
@@ -52,6 +53,7 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 	public static int energyCapacity = 5000000;
 	public static boolean drawMEEnergy = false;
 
+	public int requiredPedestals = -1;
 	public boolean isWorking = false;
 	public long energyReq = 0;
 	public long remainingProgress = 0;
@@ -68,6 +70,19 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 	@Override
 	protected ITextComponent getDefaultName() {
 		return new TranslationTextComponent("block.packagedexcrafting.combination_crafter");
+	}
+
+	public ITextComponent getMessage() {
+		if(isWorking) {
+			return null;
+		}
+		int availablePedestals = getEmptyPedestals().size();
+		IFormattableTextComponent message = new TranslationTextComponent("block.packagedexcrafting.combination_crafter.pedestals.available", availablePedestals);
+		if(requiredPedestals >= 0) {
+			message.append("\n");
+			message.append(new TranslationTextComponent("block.packagedexcrafting.combination_crafter.pedestals.required", requiredPedestals));
+		}
+		return message;
 	}
 
 	@Override
@@ -94,6 +109,7 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 			ICombinationPackageRecipeInfo recipe = (ICombinationPackageRecipeInfo)recipeInfo;
 			List<ItemStack> pedestalInputs = recipe.getPedestalInputs();
 			List<BlockPos> emptyPedestals = getEmptyPedestals();
+			requiredPedestals = Math.max(requiredPedestals, pedestalInputs.size());
 			if(emptyPedestals.size() >= pedestalInputs.size()) {
 				pedestals.clear();
 				pedestals.addAll(emptyPedestals.subList(0, pedestalInputs.size()));
