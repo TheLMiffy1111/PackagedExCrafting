@@ -53,7 +53,7 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 	public static int energyCapacity = 5000000;
 	public static boolean drawMEEnergy = false;
 
-	public int requiredPedestals = -1;
+	public int requiredPedestals = 0;
 	public boolean isWorking = false;
 	public long energyReq = 0;
 	public long remainingProgress = 0;
@@ -78,7 +78,7 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 		}
 		int availablePedestals = getEmptyPedestals().size();
 		IFormattableTextComponent message = new TranslationTextComponent("block.packagedexcrafting.combination_crafter.pedestals.available", availablePedestals);
-		if(requiredPedestals >= 0) {
+		if(requiredPedestals > 0) {
 			message.append("\n");
 			message.append(new TranslationTextComponent("block.packagedexcrafting.combination_crafter.pedestals.required", requiredPedestals));
 		}
