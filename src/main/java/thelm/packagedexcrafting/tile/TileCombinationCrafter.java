@@ -59,7 +59,7 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 	public static int energyCapacity = 5000000;
 	public static boolean drawMEEnergy = false;
 
-	public int requiredPedestals = -1;
+	public int requiredPedestals = 0;
 	public boolean isWorking = false;
 	public long energyReq = 0;
 	public long remainingProgress = 0;
@@ -86,7 +86,7 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 		}
 		int availablePedestals = getEmptyPedestals().size();
 		ITextComponent message = new TextComponentTranslation("tile.packagedexcrafting.combination_crafter.pedestals.available", availablePedestals);
-		if(requiredPedestals >= 0) {
+		if(requiredPedestals > 0) {
 			message.appendText("\n");
 			message.appendSibling(new TextComponentTranslation("tile.packagedexcrafting.combination_crafter.pedestals.required", requiredPedestals));
 		}
