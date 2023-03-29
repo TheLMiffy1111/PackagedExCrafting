@@ -1,6 +1,11 @@
 package thelm.packagedexcrafting.block;
 
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
@@ -12,6 +17,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -39,6 +45,23 @@ public class CombinationCrafterBlock extends BaseBlock {
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
 		return BaseBlockEntity::tick;
+	}
+
+	@Override
+	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+		if(player.isShiftKeyDown()) {
+			BlockEntity blockEntity = level.getBlockEntity(pos);
+			if(blockEntity instanceof CombinationCrafterBlockEntity crafter && !crafter.isWorking) {
+				if(!level.isClientSide) {
+					Component message = crafter.getMessage();
+					if(message != null) {
+						player.sendMessage(message, Util.NIL_UUID);
+					}
+				}
+				return InteractionResult.SUCCESS;
+			}
+		}
+		return super.use(state, level, pos, player, hand, hitResult);
 	}
 
 	@Override
