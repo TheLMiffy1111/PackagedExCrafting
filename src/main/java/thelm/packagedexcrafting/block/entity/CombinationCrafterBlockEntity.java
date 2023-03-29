@@ -51,7 +51,7 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 	public static int energyCapacity = 5000000;
 	public static boolean drawMEEnergy = false;
 
-	public int requiredPedestals = -1;
+	public int requiredPedestals = 0;
 	public boolean isWorking = false;
 	public long energyReq = 0;
 	public long remainingProgress = 0;
@@ -76,7 +76,7 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 		}
 		int availablePedestals = getEmptyPedestals().size();
 		MutableComponent message = Component.translatable("block.packagedexcrafting.combination_crafter.pedestals.available", availablePedestals);
-		if(requiredPedestals >= 0) {
+		if(requiredPedestals > 0) {
 			message.append("\n");
 			message.append(Component.translatable("block.packagedexcrafting.combination_crafter.pedestals.required", requiredPedestals));
 		}
