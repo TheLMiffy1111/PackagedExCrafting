@@ -76,8 +76,8 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 		if(isWorking) {
 			return null;
 		}
-		int availablePedestals = getEmptyPedestals().size();
-		IFormattableTextComponent message = new TranslationTextComponent("block.packagedexcrafting.combination_crafter.pedestals.available", availablePedestals);
+		int usablePedestals = getEmptyPedestals().size();
+		IFormattableTextComponent message = new TranslationTextComponent("block.packagedexcrafting.combination_crafter.pedestals.usable", usablePedestals);
 		if(requiredPedestals > 0) {
 			message.append("\n");
 			message.append(new TranslationTextComponent("block.packagedexcrafting.combination_crafter.pedestals.required", requiredPedestals));
