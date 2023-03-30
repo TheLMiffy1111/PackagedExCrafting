@@ -8,8 +8,8 @@
     "block.packagedexcrafting.ender_crafter": "終界封包合成器",
     "block.packagedexcrafting.flux_crafter": "通量封包合成器",
     "block.packagedexcrafting.combination_crafter": "組合封包合成器",
-    "block.packagedexcrafting.combination_crafter.pedestals.available": "可用標記基座: %s",
-    "block.packagedexcrafting.combination_crafter.pedestals.required": "所需標記基座: %s",
+    "block.packagedexcrafting.combination_crafter.pedestals.usable": "目前可用標記基座: %s",
+    "block.packagedexcrafting.combination_crafter.pedestals.required": "最低所需標記基座: %s",
     "block.packagedexcrafting.marked_pedestal": "標記基座",
 
     "recipe.packagedexcrafting.basic": "基礎合成",
