@@ -77,8 +77,8 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 		if(isWorking) {
 			return null;
 		}
-		int availablePedestals = getEmptyPedestals().size();
-		MutableComponent message = new TranslatableComponent("block.packagedexcrafting.combination_crafter.pedestals.available", availablePedestals);
+		int usablePedestals = getEmptyPedestals().size();
+		MutableComponent message = new TranslatableComponent("block.packagedexcrafting.combination_crafter.pedestals.usable", usablePedestals);
 		if(requiredPedestals > 0) {
 			message.append("\n");
 			message.append(new TranslatableComponent("block.packagedexcrafting.combination_crafter.pedestals.required", requiredPedestals));
