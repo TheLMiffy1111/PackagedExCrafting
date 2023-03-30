@@ -25,7 +25,6 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.WorldServer;
@@ -84,8 +83,8 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 		if(isWorking) {
 			return null;
 		}
-		int availablePedestals = getEmptyPedestals().size();
-		ITextComponent message = new TextComponentTranslation("tile.packagedexcrafting.combination_crafter.pedestals.available", availablePedestals);
+		int usablePedestals = getEmptyPedestals().size();
+		ITextComponent message = new TextComponentTranslation("tile.packagedexcrafting.combination_crafter.pedestals.usable", usablePedestals);
 		if(requiredPedestals > 0) {
 			message.appendText("\n");
 			message.appendSibling(new TextComponentTranslation("tile.packagedexcrafting.combination_crafter.pedestals.required", requiredPedestals));

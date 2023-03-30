@@ -6,8 +6,8 @@ tile.packagedexcrafting.elite_crafter.name=精英封包合成器
 tile.packagedexcrafting.ultimate_crafter.name=終極封包合成器
 tile.packagedexcrafting.ender_crafter.name=終界封包合成器
 tile.packagedexcrafting.combination_crafter.name=組合封包合成器
-tile.packagedexcrafting.combination_crafter.pedestals.available=可用標記基座: %s
-tile.packagedexcrafting.combination_crafter.pedestals.required=所需標記基座: %s
+tile.packagedexcrafting.combination_crafter.pedestals.usable=目前可用標記基座: %s
+tile.packagedexcrafting.combination_crafter.pedestals.required=最低所需標記基座: %s
 tile.packagedexcrafting.marked_pedestal.name=標記基座
 
 recipe.packagedexcrafting.basic=基礎合成
