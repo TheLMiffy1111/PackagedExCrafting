@@ -13,6 +13,7 @@ public class InventoryCombinationCrafter extends InventoryTileBase {
 	public InventoryCombinationCrafter(TileCombinationCrafter tile) {
 		super(tile, 3);
 		this.tile = tile;
+		slots = new int[] {0, 1};
 	}
 
 	@Override
