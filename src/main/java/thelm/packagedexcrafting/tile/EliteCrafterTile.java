@@ -176,6 +176,17 @@ public class EliteCrafterTile extends BaseTile implements ITickableTileEntity, I
 	}
 
 	@Override
+	public int getComparatorSignal() {
+		if(isWorking) {
+			return 1;
+		}
+		if(!itemHandler.getStacks().subList(0, 50).stream().allMatch(ItemStack::isEmpty)) {
+			return 15;
+		}
+		return 0;
+	}
+
+	@Override
 	public void load(BlockState blockState, CompoundNBT nbt) {
 		super.load(blockState, nbt);
 		currentRecipe = null;

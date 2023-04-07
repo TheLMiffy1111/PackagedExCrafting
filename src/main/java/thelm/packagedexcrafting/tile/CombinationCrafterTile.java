@@ -273,6 +273,17 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 	}
 
 	@Override
+	public int getComparatorSignal() {
+		if(isWorking) {
+			return 1;
+		}
+		if(!itemHandler.getStacks().subList(0, 2).stream().allMatch(ItemStack::isEmpty)) {
+			return 15;
+		}
+		return 0;
+	}
+
+	@Override
 	public void load(BlockState blockState, CompoundNBT nbt) {
 		super.load(blockState, nbt);
 		currentRecipe = null;
