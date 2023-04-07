@@ -1,5 +1,7 @@
 package thelm.packagedexcrafting.inventory;
 
+import java.util.stream.IntStream;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -13,6 +15,7 @@ public class InventoryEliteCrafter extends InventoryTileBase {
 	public InventoryEliteCrafter(TileEliteCrafter tile) {
 		super(tile, 51);
 		this.tile = tile;
+		slots = IntStream.rangeClosed(0, 49).toArray();
 	}
 
 	@Override
