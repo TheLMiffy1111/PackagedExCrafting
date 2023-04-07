@@ -199,6 +199,17 @@ public class TileEliteCrafter extends TileBase implements ITickable, IPackageCra
 		}
 	}
 
+	@Override
+	public int getComparatorSignal() {
+		if(isWorking) {
+			return 1;
+		}
+		if(!inventory.stacks.subList(0, 50).stream().allMatch(ItemStack::isEmpty)) {
+			return 15;
+		}
+		return 0;
+	}
+
 	public HostHelperTileEliteCrafter hostHelper;
 
 	@Override

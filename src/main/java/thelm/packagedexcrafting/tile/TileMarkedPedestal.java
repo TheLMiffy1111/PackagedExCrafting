@@ -35,6 +35,11 @@ public class TileMarkedPedestal extends TileBase {
 	}
 
 	@Override
+	public int getComparatorSignal() {
+		return inventory.getStackInSlot(0).isEmpty() ? 0 : 15;
+	}
+
+	@Override
 	public void readSyncNBT(NBTTagCompound nbt) {
 		super.readSyncNBT(nbt);
 		inventory.readFromNBT(nbt);
