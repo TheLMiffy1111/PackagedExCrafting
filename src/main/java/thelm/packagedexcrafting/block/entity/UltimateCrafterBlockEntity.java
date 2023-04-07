@@ -177,6 +177,17 @@ public class UltimateCrafterBlockEntity extends BaseBlockEntity implements IPack
 	}
 
 	@Override
+	public int getComparatorSignal() {
+		if(isWorking) {
+			return 1;
+		}
+		if(!itemHandler.getStacks().subList(0, 82).stream().allMatch(ItemStack::isEmpty)) {
+			return 15;
+		}
+		return 0;
+	}
+
+	@Override
 	public void load(CompoundTag nbt) {
 		super.load(nbt);
 		currentRecipe = null;
