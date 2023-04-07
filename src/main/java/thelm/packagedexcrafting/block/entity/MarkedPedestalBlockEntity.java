@@ -43,6 +43,11 @@ public class MarkedPedestalBlockEntity extends BaseBlockEntity {
 	}
 
 	@Override
+	public int getComparatorSignal() {
+		return itemHandler.getStackInSlot(0).isEmpty() ? 0 : 15;
+	}
+
+	@Override
 	public void loadSync(CompoundTag nbt) {
 		super.loadSync(nbt);
 		itemHandler.load(nbt);
