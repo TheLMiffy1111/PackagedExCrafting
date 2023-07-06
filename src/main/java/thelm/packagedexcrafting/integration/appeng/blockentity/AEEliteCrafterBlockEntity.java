@@ -21,8 +21,6 @@ import appeng.me.helpers.MachineSource;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import thelm.packagedexcrafting.block.EliteCrafterBlock;
@@ -75,11 +73,6 @@ public class AEEliteCrafterBlockEntity extends EliteCrafterBlockEntity implement
 	@Override
 	public AECableType getCableConnectionType(Direction dir) {
 		return AECableType.SMART;
-	}
-
-	@Override
-	public void onSecurityBreak(AEEliteCrafterBlockEntity nodeOwner, IGridNode node) {
-		level.destroyBlock(worldPosition, true);
 	}
 
 	@Override

@@ -2,13 +2,12 @@ package thelm.packagedexcrafting.event;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
@@ -103,6 +102,24 @@ public class CommonEventHandler {
 		menuRegister.register("ender_crafter", ()->EnderCrafterMenu.TYPE_INSTANCE);
 		menuRegister.register("flux_crafter", ()->FluxCrafterMenu.TYPE_INSTANCE);
 		menuRegister.register("combination_crafter", ()->CombinationCrafterMenu.TYPE_INSTANCE);
+
+		DeferredRegister<CreativeModeTab> creativeTabRegister = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, "packagedexcrafting");
+		creativeTabRegister.register(modEventBus);
+		creativeTabRegister.register("tab",
+				()->CreativeModeTab.builder().
+				title(Component.translatable("itemGroup.packagedexcrafting")).
+				icon(()->new ItemStack(UltimateCrafterBlock.ITEM_INSTANCE)).
+				displayItems((parameters, output)->{
+					output.accept(BasicCrafterBlock.ITEM_INSTANCE);
+					output.accept(AdvancedCrafterBlock.ITEM_INSTANCE);
+					output.accept(EliteCrafterBlock.ITEM_INSTANCE);
+					output.accept(UltimateCrafterBlock.ITEM_INSTANCE);
+					output.accept(EnderCrafterBlock.ITEM_INSTANCE);
+					output.accept(FluxCrafterBlock.ITEM_INSTANCE);
+					output.accept(CombinationCrafterBlock.ITEM_INSTANCE);
+					output.accept(MarkedPedestalBlock.ITEM_INSTANCE);
+				}).
+				build());
 	}
 
 	@SubscribeEvent
@@ -114,25 +131,6 @@ public class CommonEventHandler {
 		ApiImpl.INSTANCE.registerRecipeType(EnderPackageRecipeType.INSTANCE);
 		ApiImpl.INSTANCE.registerRecipeType(FluxPackageRecipeType.INSTANCE);
 		ApiImpl.INSTANCE.registerRecipeType(CombinationPackageRecipeType.INSTANCE);
-	}
-
-	@SubscribeEvent
-	public void onCreativeModeTabRegister(CreativeModeTabEvent.Register event) {
-		event.registerCreativeModeTab(new ResourceLocation("packagedexcrafting:tab"),
-				builder->builder.
-				title(Component.translatable("itemGroup.packagedexcrafting")).
-				icon(()->new ItemStack(UltimateCrafterBlock.ITEM_INSTANCE)).
-				displayItems((enabledFeatures, output, displayOperatorCreativeTab)->{
-					output.accept(BasicCrafterBlock.ITEM_INSTANCE);
-					output.accept(AdvancedCrafterBlock.ITEM_INSTANCE);
-					output.accept(EliteCrafterBlock.ITEM_INSTANCE);
-					output.accept(UltimateCrafterBlock.ITEM_INSTANCE);
-					output.accept(EnderCrafterBlock.ITEM_INSTANCE);
-					output.accept(FluxCrafterBlock.ITEM_INSTANCE);
-					output.accept(CombinationCrafterBlock.ITEM_INSTANCE);
-					output.accept(MarkedPedestalBlock.ITEM_INSTANCE);
-				}).
-				build());
 	}
 
 	@SubscribeEvent

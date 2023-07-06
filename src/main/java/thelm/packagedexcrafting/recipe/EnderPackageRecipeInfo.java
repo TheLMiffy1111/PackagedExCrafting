@@ -45,7 +45,7 @@ public class EnderPackageRecipeInfo implements IEnderPackageRecipeInfo {
 		if(recipe instanceof IEnderCrafterRecipe enderRecipe) {
 			this.recipe = enderRecipe;
 			input.addAll(MiscHelper.INSTANCE.condenseStacks(matrix));
-			output = recipe.assemble(matrix).copy();
+			output = recipe.assemble(matrix, MiscHelper.INSTANCE.getRegistryAccess()).copy();
 			for(int i = 0; i*9 < input.size(); ++i) {
 				patterns.add(new PackagePattern(this, i));
 			}
@@ -125,7 +125,7 @@ public class EnderPackageRecipeInfo implements IEnderPackageRecipeInfo {
 		if(recipe != null) {
 			this.recipe = recipe;
 			this.input.addAll(MiscHelper.INSTANCE.condenseStacks(matrix));
-			this.output = recipe.assemble(matrix).copy();
+			this.output = recipe.assemble(matrix, level.registryAccess()).copy();
 			for(int i = 0; i*9 < this.input.size(); ++i) {
 				patterns.add(new PackagePattern(this, i));
 			}

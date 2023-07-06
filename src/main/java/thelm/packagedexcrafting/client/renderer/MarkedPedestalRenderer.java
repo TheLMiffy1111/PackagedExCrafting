@@ -5,10 +5,10 @@ import com.mojang.math.Axis;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import thelm.packagedauto.client.RenderTimer;
 import thelm.packagedexcrafting.block.entity.MarkedPedestalBlockEntity;
@@ -31,7 +31,7 @@ public class MarkedPedestalRenderer implements BlockEntityRenderer<MarkedPedesta
 			double tick = (RenderTimer.INSTANCE.getTicks()+partialTick)/16D;
 			poseStack.translate(0, Math.sin(tick % (Math.PI*2))*0.065, 0);
 			poseStack.mulPose(Axis.YP.rotationDegrees((float)(tick*40 % 360)));
-			minecraft.getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND, packedLight, packedOverlay, poseStack, bufferSource, 0);
+			minecraft.getItemRenderer().renderStatic(stack, ItemDisplayContext.GROUND, packedLight, packedOverlay, poseStack, bufferSource, blockEntity.getLevel(), 0);
 			poseStack.popPose();
 		}
 	}
