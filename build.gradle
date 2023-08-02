@@ -44,7 +44,7 @@ sourceSets {
 	main
 }
 
-version = "3.3.0.7"
+version = "3.3.0.8"
 group = "thelm.packagedexcrafting"
 archivesBaseName = "PackagedExCrafting-1.19.3"
 
@@ -85,7 +85,7 @@ dependencies {
 	implementation fg.deobf("vazkii.patchouli:Patchouli:1.19.3-78")
 
 	//CurseMaven
-	implementation fg.deobf("curse.maven:packagedauto-308380:4677008")
+	implementation fg.deobf("curse.maven:packagedauto-308380:4678914")
 }
 
 jar {
