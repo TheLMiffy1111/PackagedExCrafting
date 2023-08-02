@@ -99,7 +99,6 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 			if(level.getGameTime() % 8 == 0) {
 				ejectItems();
 			}
-			energyStorage.updateIfChanged();
 		}
 	}
 

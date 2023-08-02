@@ -71,7 +71,6 @@ public class AdvancedCrafterTile extends BaseTile implements ITickableTileEntity
 			if(level.getGameTime() % 8 == 0) {
 				ejectItems();
 			}
-			energyStorage.updateIfChanged();
 		}
 	}
 

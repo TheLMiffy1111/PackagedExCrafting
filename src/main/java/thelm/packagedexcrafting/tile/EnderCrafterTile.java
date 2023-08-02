@@ -78,7 +78,6 @@ public class EnderCrafterTile extends BaseTile implements ITickableTileEntity, I
 			if(level.getGameTime() % 8 == 0) {
 				ejectItems();
 			}
-			energyStorage.updateIfChanged();
 		}
 	}
 

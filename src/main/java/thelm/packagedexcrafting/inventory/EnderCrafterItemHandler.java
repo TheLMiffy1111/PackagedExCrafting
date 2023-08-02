@@ -32,6 +32,7 @@ public class EnderCrafterItemHandler extends BaseItemHandler<EnderCrafterTile> {
 		case 0: return tile.progress;
 		case 1: return tile.actualProgressReq;
 		case 2: return tile.isWorking ? 1 : 0;
+		case 3: return tile.getEnergyStorage().getEnergyStored();
 		default: return 0;
 		}
 	}
@@ -48,11 +49,14 @@ public class EnderCrafterItemHandler extends BaseItemHandler<EnderCrafterTile> {
 		case 2:
 			tile.isWorking = value != 0;
 			break;
+		case 3:
+			tile.getEnergyStorage().setEnergyStored(value);
+			break;
 		}
 	}
 
 	@Override
 	public int getCount() {
-		return 3;
+		return 4;
 	}
 }
