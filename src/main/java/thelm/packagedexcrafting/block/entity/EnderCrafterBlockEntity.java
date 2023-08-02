@@ -237,6 +237,10 @@ public class EnderCrafterBlockEntity extends BaseBlockEntity implements IPackage
 	@Override
 	public void load(CompoundTag nbt) {
 		super.load(nbt);
+		isWorking = nbt.getBoolean("Working");
+		progressReq = nbt.getInt("ProgressReq");
+		progress = nbt.getInt("Progress");
+		remainingProgress = nbt.getInt("EnergyProgress");
 		currentRecipe = null;
 		if(nbt.contains("Recipe")) {
 			CompoundTag tag = nbt.getCompound("Recipe");
@@ -250,29 +254,14 @@ public class EnderCrafterBlockEntity extends BaseBlockEntity implements IPackage
 	@Override
 	public void saveAdditional(CompoundTag nbt) {
 		super.saveAdditional(nbt);
-		if(currentRecipe != null) {
-			CompoundTag tag = MiscHelper.INSTANCE.saveRecipe(new CompoundTag(), currentRecipe);
-			nbt.put("Recipe", tag);
-		}
-	}
-
-	@Override
-	public void loadSync(CompoundTag nbt) {
-		super.loadSync(nbt);
-		isWorking = nbt.getBoolean("Working");
-		progressReq = nbt.getInt("ProgressReq");
-		progress = nbt.getInt("Progress");
-		remainingProgress = nbt.getInt("EnergyProgress");
-	}
-
-	@Override
-	public CompoundTag saveSync(CompoundTag nbt) {
-		super.saveSync(nbt);
 		nbt.putBoolean("Working", isWorking);
 		nbt.putInt("ProgressReq", progressReq);
 		nbt.putInt("Progress", progress);
 		nbt.putInt("EnergyProgress", remainingProgress);
-		return nbt;
+		if(currentRecipe != null) {
+			CompoundTag tag = MiscHelper.INSTANCE.saveRecipe(new CompoundTag(), currentRecipe);
+			nbt.put("Recipe", tag);
+		}
 	}
 
 	public int getScaledEnergy(int scale) {
