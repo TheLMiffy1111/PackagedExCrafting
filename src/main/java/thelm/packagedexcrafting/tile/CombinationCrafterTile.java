@@ -285,6 +285,10 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 	@Override
 	public void load(BlockState blockState, CompoundNBT nbt) {
 		super.load(blockState, nbt);
+		isWorking = nbt.getBoolean("Working");
+		remainingProgress = nbt.getLong("Progress");
+		energyReq = nbt.getLong("EnergyReq");
+		energyUsage = nbt.getInt("EnergyUsage");
 		currentRecipe = null;
 		if(nbt.contains("Recipe")) {
 			CompoundNBT tag = nbt.getCompound("Recipe");
@@ -305,6 +309,10 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 	@Override
 	public CompoundNBT save(CompoundNBT nbt) {
 		super.save(nbt);
+		nbt.putBoolean("Working", isWorking);
+		nbt.putLong("Progress", remainingProgress);
+		nbt.putLong("EnergyReq", energyReq);
+		nbt.putInt("EnergyUsage", energyUsage);
 		if(currentRecipe != null) {
 			CompoundNBT tag = MiscHelper.INSTANCE.writeRecipe(new CompoundNBT(), currentRecipe);
 			nbt.put("Recipe", tag);
@@ -319,20 +327,12 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 	@Override
 	public void readSync(CompoundNBT nbt) {
 		super.readSync(nbt);
-		isWorking = nbt.getBoolean("Working");
-		remainingProgress = nbt.getLong("Progress");
-		energyReq = nbt.getLong("EnergyReq");
-		energyUsage = nbt.getInt("EnergyUsage");
 		itemHandler.read(nbt);
 	}
 
 	@Override
 	public CompoundNBT writeSync(CompoundNBT nbt) {
 		super.writeSync(nbt);
-		nbt.putBoolean("Working", isWorking);
-		nbt.putLong("Progress", remainingProgress);
-		nbt.putLong("EnergyReq", energyReq);
-		nbt.putInt("EnergyUsage", energyUsage);
 		itemHandler.write(nbt);
 		return nbt;
 	}

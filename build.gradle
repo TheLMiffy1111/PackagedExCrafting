@@ -41,7 +41,7 @@ sourceSets {
 	main
 }
 
-version = "2.0.0.12"
+version = "2.0.0.13"
 group = "thelm.packagedexcrafting"
 archivesBaseName = "PackagedExCrafting-1.16.5"
 
@@ -86,7 +86,7 @@ dependencies {
 	implementation fg.deobf("mekanism:Mekanism:1.16.5-10.1.2.457:generators")
 
 	//CurseMaven
-	implementation fg.deobf("curse.maven:packagedauto-308380:4677003")
+	implementation fg.deobf("curse.maven:packagedauto-308380:4678908")
 	implementation fg.deobf("curse.maven:ato-405593:3405905")
 }
 

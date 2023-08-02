@@ -213,6 +213,10 @@ public class EnderCrafterTile extends BaseTile implements ITickableTileEntity, I
 	@Override
 	public void load(BlockState blockState, CompoundNBT nbt) {
 		super.load(blockState, nbt);
+		isWorking = nbt.getBoolean("Working");
+		progressReq = nbt.getInt("ProgressReq");
+		progress = nbt.getInt("Progress");
+		remainingProgress = nbt.getInt("EnergyProgress");
 		currentRecipe = null;
 		if(nbt.contains("Recipe")) {
 			CompoundNBT tag = nbt.getCompound("Recipe");
@@ -226,29 +230,14 @@ public class EnderCrafterTile extends BaseTile implements ITickableTileEntity, I
 	@Override
 	public CompoundNBT save(CompoundNBT nbt) {
 		super.save(nbt);
-		if(currentRecipe != null) {
-			CompoundNBT tag = MiscHelper.INSTANCE.writeRecipe(new CompoundNBT(), currentRecipe);
-			nbt.put("Recipe", tag);
-		}
-		return nbt;
-	}
-
-	@Override
-	public void readSync(CompoundNBT nbt) {
-		super.readSync(nbt);
-		isWorking = nbt.getBoolean("Working");
-		progressReq = nbt.getInt("ProgressReq");
-		progress = nbt.getInt("Progress");
-		remainingProgress = nbt.getInt("EnergyProgress");
-	}
-
-	@Override
-	public CompoundNBT writeSync(CompoundNBT nbt) {
-		super.writeSync(nbt);
 		nbt.putBoolean("Working", isWorking);
 		nbt.putInt("ProgressReq", progressReq);
 		nbt.putInt("Progress", progress);
 		nbt.putInt("EnergyProgress", remainingProgress);
+		if(currentRecipe != null) {
+			CompoundNBT tag = MiscHelper.INSTANCE.writeRecipe(new CompoundNBT(), currentRecipe);
+			nbt.put("Recipe", tag);
+		}
 		return nbt;
 	}
 
