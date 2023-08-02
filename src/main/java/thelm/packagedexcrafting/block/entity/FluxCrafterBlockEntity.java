@@ -79,7 +79,6 @@ public class FluxCrafterBlockEntity extends BaseBlockEntity implements IPackageC
 			if(level.getGameTime() % 8 == 0) {
 				ejectItems();
 			}
-			energyStorage.updateIfChanged();
 		}
 	}
 
