@@ -97,7 +97,6 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 			if(level.getGameTime() % 8 == 0) {
 				ejectItems();
 			}
-			energyStorage.updateIfChanged();
 		}
 	}
 
