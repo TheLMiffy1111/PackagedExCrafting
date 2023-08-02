@@ -29,9 +29,9 @@ public class FluxCrafterItemHandler extends BaseItemHandler<FluxCrafterBlockEnti
 	@Override
 	public int get(int id) {
 		return switch(id) {
-		case 0 -> blockEntity.energyReq;
-		case 1 -> blockEntity.remainingProgress;
-		case 2 -> blockEntity.isWorking ? 1 : 0;
+		case 0 -> blockEntity.remainingProgress;
+		case 1 -> blockEntity.isWorking ? 1 : 0;
+		case 2 -> blockEntity.getEnergyStorage().getEnergyStored();
 		default -> 0;
 		};
 	}
@@ -39,9 +39,9 @@ public class FluxCrafterItemHandler extends BaseItemHandler<FluxCrafterBlockEnti
 	@Override
 	public void set(int id, int value) {
 		switch(id) {
-		case 0 -> blockEntity.energyReq = value;
-		case 1 -> blockEntity.remainingProgress = value;
-		case 2 -> blockEntity.isWorking = value != 0;
+		case 0 -> blockEntity.remainingProgress = value;
+		case 1 -> blockEntity.isWorking = value != 0;
+		case 2 -> blockEntity.getEnergyStorage().setEnergyStored(value);
 		}
 	}
 
