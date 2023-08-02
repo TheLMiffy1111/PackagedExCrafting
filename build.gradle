@@ -50,7 +50,7 @@ sourceSets {
 	main
 }
 
-version = "1.0.2.11"
+version = "1.0.2.12"
 group = "thelm.packagedexcrafting"
 archivesBaseName = "PackagedExCrafting-1.12.2"
 
@@ -105,7 +105,7 @@ dependencies {
 	implementation fg.deobf("CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.690")
 
 	//CurseMaven
-	implementation fg.deobf("curse.maven:packagedauto-308380:4677000")
+	implementation fg.deobf("curse.maven:packagedauto-308380:4678906")
 	implementation fg.deobf("curse.maven:applied-energistics-2-223794:2747063")
 	implementation fg.deobf("curse.maven:redstone-flux-270789:2920436")
 	implementation fg.deobf("curse.maven:cofh-core-69162:2920433")

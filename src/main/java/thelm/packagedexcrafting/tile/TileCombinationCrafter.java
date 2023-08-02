@@ -315,6 +315,10 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
+		isWorking = nbt.getBoolean("Working");
+		remainingProgress = nbt.getLong("Progress");
+		energyReq = nbt.getLong("EnergyReq");
+		energyUsage = nbt.getInteger("EnergyUsage");
 		currentRecipe = null;
 		if(nbt.hasKey("Recipe")) {
 			NBTTagCompound tag = nbt.getCompoundTag("Recipe");
@@ -338,6 +342,10 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
+		nbt.setBoolean("Working", isWorking);
+		nbt.setLong("Progress", remainingProgress);
+		nbt.setLong("EnergyReq", energyReq);
+		nbt.setInteger("EnergyUsage", energyUsage);
 		if(currentRecipe != null) {
 			NBTTagCompound tag = MiscUtil.writeRecipeToNBT(new NBTTagCompound(), currentRecipe);
 			nbt.setTag("Recipe", tag);
@@ -355,20 +363,12 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 	@Override
 	public void readSyncNBT(NBTTagCompound nbt) {
 		super.readSyncNBT(nbt);
-		isWorking = nbt.getBoolean("Working");
-		remainingProgress = nbt.getLong("Progress");
-		energyReq = nbt.getLong("EnergyReq");
-		energyUsage = nbt.getInteger("EnergyUsage");
 		inventory.readFromNBT(nbt);
 	}
 
 	@Override
 	public NBTTagCompound writeSyncNBT(NBTTagCompound nbt) {
 		super.writeSyncNBT(nbt);
-		nbt.setBoolean("Working", isWorking);
-		nbt.setLong("Progress", remainingProgress);
-		nbt.setLong("EnergyReq", energyReq);
-		nbt.setInteger("EnergyUsage", energyUsage);
 		inventory.writeToNBT(nbt);
 		return nbt;
 	}
