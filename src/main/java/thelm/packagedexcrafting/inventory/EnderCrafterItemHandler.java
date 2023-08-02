@@ -32,6 +32,7 @@ public class EnderCrafterItemHandler extends BaseItemHandler<EnderCrafterBlockEn
 		case 0 -> blockEntity.progress;
 		case 1 -> blockEntity.actualProgressReq;
 		case 2 -> blockEntity.isWorking ? 1 : 0;
+		case 3 -> blockEntity.getEnergyStorage().getEnergyStored();
 		default -> 0;
 		};
 	}
@@ -42,11 +43,12 @@ public class EnderCrafterItemHandler extends BaseItemHandler<EnderCrafterBlockEn
 		case 0 -> blockEntity.progress = value;
 		case 1 -> blockEntity.actualProgressReq = value;
 		case 2 -> blockEntity.isWorking = value != 0;
+		case 3 -> blockEntity.getEnergyStorage().setEnergyStored(value);
 		}
 	}
 
 	@Override
 	public int getCount() {
-		return 3;
+		return 4;
 	}
 }
