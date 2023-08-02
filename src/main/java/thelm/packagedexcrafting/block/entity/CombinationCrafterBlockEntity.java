@@ -279,6 +279,10 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 	@Override
 	public void load(CompoundTag nbt) {
 		super.load(nbt);
+		isWorking = nbt.getBoolean("Working");
+		remainingProgress = nbt.getLong("Progress");
+		energyReq = nbt.getLong("EnergyReq");
+		energyUsage = nbt.getInt("EnergyUsage");
 		currentRecipe = null;
 		if(nbt.contains("Recipe")) {
 			CompoundTag tag = nbt.getCompound("Recipe");
@@ -299,6 +303,10 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 	@Override
 	public void saveAdditional(CompoundTag nbt) {
 		super.saveAdditional(nbt);
+		nbt.putBoolean("Working", isWorking);
+		nbt.putLong("Progress", remainingProgress);
+		nbt.putLong("EnergyReq", energyReq);
+		nbt.putInt("EnergyUsage", energyUsage);
 		if(currentRecipe != null) {
 			CompoundTag tag = MiscHelper.INSTANCE.saveRecipe(new CompoundTag(), currentRecipe);
 			nbt.put("Recipe", tag);
@@ -312,20 +320,12 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 	@Override
 	public void loadSync(CompoundTag nbt) {
 		super.loadSync(nbt);
-		isWorking = nbt.getBoolean("Working");
-		remainingProgress = nbt.getLong("Progress");
-		energyReq = nbt.getLong("EnergyReq");
-		energyUsage = nbt.getInt("EnergyUsage");
 		itemHandler.load(nbt);
 	}
 
 	@Override
 	public CompoundTag saveSync(CompoundTag nbt) {
 		super.saveSync(nbt);
-		nbt.putBoolean("Working", isWorking);
-		nbt.putLong("Progress", remainingProgress);
-		nbt.putLong("EnergyReq", energyReq);
-		nbt.putInt("EnergyUsage", energyUsage);
 		itemHandler.save(nbt);
 		return nbt;
 	}
