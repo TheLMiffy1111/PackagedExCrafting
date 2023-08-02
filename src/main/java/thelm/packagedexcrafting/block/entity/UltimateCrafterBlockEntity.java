@@ -187,6 +187,8 @@ public class UltimateCrafterBlockEntity extends BaseBlockEntity implements IPack
 	public void load(CompoundTag nbt) {
 		super.load(nbt);
 		currentRecipe = null;
+		isWorking = nbt.getBoolean("Working");
+		remainingProgress = nbt.getInt("Progress");
 		if(nbt.contains("Recipe")) {
 			CompoundTag tag = nbt.getCompound("Recipe");
 			IPackageRecipeInfo recipe = MiscHelper.INSTANCE.loadRecipe(tag);
@@ -199,25 +201,12 @@ public class UltimateCrafterBlockEntity extends BaseBlockEntity implements IPack
 	@Override
 	public void saveAdditional(CompoundTag nbt) {
 		super.saveAdditional(nbt);
+		nbt.putBoolean("Working", isWorking);
+		nbt.putInt("Progress", remainingProgress);
 		if(currentRecipe != null) {
 			CompoundTag tag = MiscHelper.INSTANCE.saveRecipe(new CompoundTag(), currentRecipe);
 			nbt.put("Recipe", tag);
 		}
-	}
-
-	@Override
-	public void loadSync(CompoundTag nbt) {
-		super.loadSync(nbt);
-		isWorking = nbt.getBoolean("Working");
-		remainingProgress = nbt.getInt("Progress");
-	}
-
-	@Override
-	public CompoundTag saveSync(CompoundTag nbt) {
-		super.saveSync(nbt);
-		nbt.putBoolean("Working", isWorking);
-		nbt.putInt("Progress", remainingProgress);
-		return nbt;
 	}
 
 	public int getScaledEnergy(int scale) {
