@@ -119,7 +119,6 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 					ejectItems();
 				}
 			}
-			energyStorage.updateIfChanged();
 		}
 	}
 

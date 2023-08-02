@@ -32,6 +32,7 @@ public class InventoryCombinationCrafter extends InventoryTileBase {
 		case 2: return (int)(tile.energyReq >>> 32);
 		case 3: return (int)(tile.remainingProgress >>> 32);
 		case 4: return tile.isWorking ? 1 : 0;
+		case 5: return tile.getEnergyStorage().getEnergyStored();
 		default: return 0;
 		}
 	}
@@ -54,12 +55,15 @@ public class InventoryCombinationCrafter extends InventoryTileBase {
 		case 4:
 			tile.isWorking = value != 0;
 			break;
+		case 5:
+			tile.getEnergyStorage().setEnergyStored(value);
+			break;
 		}
 	}
 
 	@Override
 	public int getFieldCount() {
-		return 5;
+		return 6;
 	}
 
 	@Override

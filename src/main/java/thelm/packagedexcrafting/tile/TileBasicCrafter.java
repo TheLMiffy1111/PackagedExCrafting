@@ -96,7 +96,6 @@ public class TileBasicCrafter extends TileBase implements ITickable, IPackageCra
 					ejectItems();
 				}
 			}
-			energyStorage.updateIfChanged();
 		}
 	}
 
