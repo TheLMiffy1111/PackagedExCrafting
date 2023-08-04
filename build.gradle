@@ -18,7 +18,7 @@ repositories {
 		url = "https://repo.spongepowered.org/maven/"
 	}
 	maven {
-		url = "https://dvs1.progwml6.com/files/maven/"
+		url = "https://maven.tterrag.com/"
 	}
 	maven {
 		url = "https://maven.blamejared.com/"
