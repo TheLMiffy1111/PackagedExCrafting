@@ -48,7 +48,7 @@ def specVersion = "2"
 def vendor = "thelm"
 
 group = "thelm.packagedexcrafting"
-version = "2.0.0.13"
+version = "2.0.0.14"
 
 archivesBaseName = "${modName}-${mcVersion}"
 
@@ -87,9 +87,9 @@ dependencies {
 
 	implementation fg.deobf("appeng:appliedenergistics2:8.4.7")
 	implementation fg.deobf("com.blakebr0.cucumber:Cucumber:1.16.5-4.1.12")
-	implementation fg.deobf("com.blakebr0.extendedcrafting:ExtendedCrafting:1.16.5-3.1.9")
+	implementation fg.deobf("com.blakebr0.extendedcrafting:ExtendedCrafting:1.16.5-3.1.13")
 	implementation fg.deobf("mezz.jei:jei-1.16.5:7.8.0.1009")
-	implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-1.16.5:7.1.2.521")
+	implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-1.16.5:7.1.2.522")
 	implementation fg.deobf("vazkii.patchouli:Patchouli:1.16.4-53.3")
 	implementation fg.deobf("com.jozufozu.flywheel:Flywheel:1.16-0.2.5.53")
 	implementation fg.deobf("com.simibubi.create:Create:mc1.16.5_v0.3.2g+480")
@@ -97,7 +97,7 @@ dependencies {
 	implementation fg.deobf("mekanism:Mekanism:1.16.5-10.1.2.457:generators")
 
 	//CurseMaven
-	implementation fg.deobf("curse.maven:packagedauto-308380:4684056")
+	implementation fg.deobf("curse.maven:packagedauto-308380:4768233")
 	implementation fg.deobf("curse.maven:ato-405593:3405905")
 }
 
