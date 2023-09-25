@@ -130,7 +130,9 @@ public class AEUltimateCrafterBlockEntity extends UltimateCrafterBlockEntity imp
 				}
 			}
 		}
-		super.ejectItems();
+		else {
+			super.ejectItems();
+		}
 	}
 
 	protected void chargeMEEnergy() {
