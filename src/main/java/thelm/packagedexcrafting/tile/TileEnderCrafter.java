@@ -5,7 +5,6 @@ import java.util.List;
 import com.blakebr0.extendedcrafting.block.BlockEnderAlternator;
 import com.google.common.collect.Streams;
 
-import appeng.api.AEApi;
 import appeng.api.networking.IGridHost;
 import appeng.api.networking.IGridNode;
 import appeng.api.networking.security.IActionHost;
