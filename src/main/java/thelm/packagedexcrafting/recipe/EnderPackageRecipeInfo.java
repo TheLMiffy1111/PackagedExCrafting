@@ -36,7 +36,7 @@ public class EnderPackageRecipeInfo implements IEnderPackageRecipeInfo {
 		input.clear();
 		output = ItemStack.EMPTY;
 		patterns.clear();
-		IRecipe recipe = MiscHelper.INSTANCE.getRecipeManager().byKey(new ResourceLocation(nbt.getString("Recipe"))).orElse(null);
+		IRecipe<?> recipe = MiscHelper.INSTANCE.getRecipeManager().byKey(new ResourceLocation(nbt.getString("Recipe"))).orElse(null);
 		List<ItemStack> matrixList = new ArrayList<>();
 		MiscHelper.INSTANCE.loadAllItems(nbt.getList("Matrix", 10), matrixList);
 		for(int i = 0; i < 9 && i < matrixList.size(); ++i) {
@@ -45,7 +45,7 @@ public class EnderPackageRecipeInfo implements IEnderPackageRecipeInfo {
 		if(recipe instanceof IEnderCrafterRecipe) {
 			this.recipe = (IEnderCrafterRecipe)recipe;
 			input.addAll(MiscHelper.INSTANCE.condenseStacks(matrix));
-			output = recipe.assemble(matrix).copy();
+			output = this.recipe.assemble(matrix).copy();
 			for(int i = 0; i*9 < input.size(); ++i) {
 				patterns.add(new PackagePattern(this, i));
 			}

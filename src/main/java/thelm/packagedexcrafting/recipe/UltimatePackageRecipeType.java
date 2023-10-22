@@ -87,7 +87,6 @@ public class UltimatePackageRecipeType implements IPackageRecipeType {
 			Int2ObjectMap<ItemStack> map = new Int2ObjectOpenHashMap<>();
 			Map<Integer, IGuiIngredientWrapper<ItemStack>> ingredients = recipeLayoutWrapper.getItemStackIngredients();
 			int index = 0;
-			int[] slotArray = SLOTS.toIntArray();
 			for(Map.Entry<Integer, IGuiIngredientWrapper<ItemStack>> entry : ingredients.entrySet()) {
 				IGuiIngredientWrapper<ItemStack> ingredient = entry.getValue();
 				if(ingredient.isInput()) {
