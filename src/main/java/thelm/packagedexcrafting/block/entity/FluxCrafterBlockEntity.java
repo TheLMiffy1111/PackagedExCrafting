@@ -197,7 +197,6 @@ public class FluxCrafterBlockEntity extends BaseBlockEntity implements IPackageC
 	}
 
 	protected void chargeEnergy() {
-		int prevStored = energyStorage.getEnergyStored();
 		ItemStack energyStack = itemHandler.getStackInSlot(10);
 		if(energyStack.getCapability(ForgeCapabilities.ENERGY, null).isPresent()) {
 			int energyRequest = Math.min(energyStorage.getMaxReceive(), energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored());
