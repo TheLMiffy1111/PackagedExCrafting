@@ -248,7 +248,6 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 	}
 
 	protected void chargeEnergy() {
-		int prevStored = energyStorage.getEnergyStored();
 		ItemStack energyStack = inventory.getStackInSlot(2);
 		if(energyStack.hasCapability(CapabilityEnergy.ENERGY, null)) {
 			int energyRequest = Math.min(energyStorage.getMaxReceive(), energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored());
