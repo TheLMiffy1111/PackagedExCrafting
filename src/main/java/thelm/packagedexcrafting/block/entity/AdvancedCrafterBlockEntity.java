@@ -161,7 +161,6 @@ public class AdvancedCrafterBlockEntity extends BaseBlockEntity implements IPack
 	}
 
 	protected void chargeEnergy() {
-		int prevStored = energyStorage.getEnergyStored();
 		ItemStack energyStack = itemHandler.getStackInSlot(26);
 		if(energyStack.getCapability(ForgeCapabilities.ENERGY, null).isPresent()) {
 			int energyRequest = Math.min(energyStorage.getMaxReceive(), energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored());
