@@ -164,7 +164,6 @@ public class EliteCrafterBlockEntity extends BaseBlockEntity implements IPackage
 	}
 
 	protected void chargeEnergy() {
-		int prevStored = energyStorage.getEnergyStored();
 		ItemStack energyStack = itemHandler.getStackInSlot(50);
 		if(energyStack.getCapability(CapabilityEnergy.ENERGY, null).isPresent()) {
 			int energyRequest = Math.min(energyStorage.getMaxReceive(), energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored());
