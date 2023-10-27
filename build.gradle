@@ -48,7 +48,7 @@ def specVersion = "3"
 def vendor = "thelm"
 
 group = "thelm.packagedexcrafting"
-version = "3.2.1.12"
+version = "3.2.1.13"
 
 archivesBaseName = "${modName}-${mcVersion}"
 
@@ -99,7 +99,7 @@ dependencies {
 
 	//CurseMaven
 	implementation fg.deobf("curse.maven:shutup-experimental-settings-407174:3759881")
-	implementation fg.deobf("curse.maven:packagedauto-308380:4819136")
+	implementation fg.deobf("curse.maven:packagedauto-308380:4819410")
 	implementation fg.deobf("curse.maven:applied-mekanistics-574300:4734608")
 	implementation fg.deobf("curse.maven:ato-405593:4046926")
 }
