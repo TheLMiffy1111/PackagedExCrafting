@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[44,)"
+loaderVersion="[46,)"
 license="MIT"
 issueTrackerURL="https://github.com/TheLMiffy1111/PackagedExCrafting/issues"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/packagedexcrafting"
@@ -13,20 +13,20 @@ description="A PackagedAuto addon that adds ExtendedCrafting autocrafting."
 [[dependencies.packagedexcrafting]]
     modId="forge"
     mandatory=true
-    versionRange="[44,)"
+    versionRange="[46,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.packagedexcrafting]]
     modId="extendedcrafting"
     mandatory=true
-    versionRange="[5.2,)"
+    versionRange="[6,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.packagedexcrafting]]
     modId="packagedauto"
     mandatory=true
-    versionRange="[3.3.2,)"
+    versionRange="[3.4.2,)"
     ordering="NONE"
     side="BOTH"
