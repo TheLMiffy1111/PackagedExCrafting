@@ -65,16 +65,6 @@ public class CombinationPackageRecipeType implements IPackageRecipeType {
 	}
 
 	@Override
-	public boolean canSetOutput() {
-		return false;
-	}
-
-	@Override
-	public boolean hasMachine() {
-		return true;
-	}
-
-	@Override
 	public boolean hasContainerItem() {
 		return false;
 	}

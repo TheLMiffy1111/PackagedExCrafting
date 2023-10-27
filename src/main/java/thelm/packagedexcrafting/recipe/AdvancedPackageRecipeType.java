@@ -66,21 +66,6 @@ public class AdvancedPackageRecipeType implements IPackageRecipeType {
 	}
 
 	@Override
-	public boolean canSetOutput() {
-		return false;
-	}
-
-	@Override
-	public boolean hasMachine() {
-		return true;
-	}
-
-	@Override
-	public boolean hasContainerItem() {
-		return true;
-	}
-
-	@Override
 	public List<ResourceLocation> getJEICategories() {
 		return CATEGORIES;
 	}
