@@ -27,6 +27,6 @@ description="A PackagedAuto addon that adds ExtendedCrafting autocrafting."
 [[dependencies.packagedexcrafting]]
     modId="packagedauto"
     mandatory=true
-    versionRange="[2.0.3,)"
+    versionRange="[2.0.5,)"
     ordering="NONE"
     side="BOTH"

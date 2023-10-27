@@ -67,16 +67,6 @@ public class UltimatePackageRecipeType implements IPackageRecipeType {
 	}
 
 	@Override
-	public boolean canSetOutput() {
-		return false;
-	}
-
-	@Override
-	public boolean hasMachine() {
-		return true;
-	}
-
-	@Override
 	public List<ResourceLocation> getJEICategories() {
 		return CATEGORIES;
 	}
