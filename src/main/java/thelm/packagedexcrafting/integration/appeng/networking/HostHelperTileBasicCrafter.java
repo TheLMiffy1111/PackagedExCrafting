@@ -26,6 +26,7 @@ public class HostHelperTileBasicCrafter extends HostHelperTile<TileBasicCrafter>
 		if(isActive()) {
 			IGrid grid = getNode().getGrid();
 			IStorageGrid storageGrid = grid.getCache(IStorageGrid.class);
+			IEnergyGrid energyGrid = grid.getCache(IEnergyGrid.class);
 			IItemStorageChannel storageChannel = AEApi.instance().storage().getStorageChannel(IItemStorageChannel.class);
 			IMEMonitor<IAEItemStack> inventory = storageGrid.getInventory(storageChannel);
 			int endIndex = tile.isWorking ? 9 : 0;
@@ -35,13 +36,12 @@ public class HostHelperTileBasicCrafter extends HostHelperTile<TileBasicCrafter>
 					continue;
 				}
 				IAEItemStack stack = storageChannel.createStack(is);
-				IAEItemStack rem = inventory.injectItems(stack, Actionable.SIMULATE, source);
+				IAEItemStack rem = AEApi.instance().storage().poweredInsert(energyGrid, inventory, stack, source, Actionable.MODULATE);
 				if(rem == null || rem.getStackSize() == 0) {
-					inventory.injectItems(stack, Actionable.MODULATE, source);
 					tile.getInventory().setInventorySlotContents(i, ItemStack.EMPTY);
 				}
 				else if(rem.getStackSize() < stack.getStackSize()) {
-					tile.getInventory().setInventorySlotContents(i, inventory.injectItems(stack, Actionable.MODULATE, source).createItemStack());
+					tile.getInventory().setInventorySlotContents(i, rem.createItemStack());
 				}
 			}
 		}
