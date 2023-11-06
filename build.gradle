@@ -97,6 +97,7 @@ dependencies {
 	implementation fg.deobf("mekanism:Mekanism:1.20.1-10.4.2.16:generators")
 
 	//CurseMaven
+	implementation fg.deobf("curse.maven:yeetusexperimentus-635427:4680832")
 	implementation fg.deobf("curse.maven:packagedauto-308380:4819412")
 	implementation fg.deobf("curse.maven:applied-mekanistics-574300:4776865")
 	implementation fg.deobf("curse.maven:ato-405593:4751952")
