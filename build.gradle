@@ -101,7 +101,7 @@ dependencies {
 	implementation fg.deobf("mekanism:Mekanism:1.18.2-10.2.5.465:generators")
 
 	//CurseMaven
-	implementation fg.deobf("curse.maven:shutup-experimental-settings-407174:3759881")
+	implementation fg.deobf("curse.maven:yeetusexperimentus-635427:4377180")
 	implementation fg.deobf("curse.maven:packagedauto-308380:4819408")
 	implementation fg.deobf("curse.maven:applied-mekanistics-574300:3968835")
 	implementation fg.deobf("curse.maven:ato-405593:3975599")
