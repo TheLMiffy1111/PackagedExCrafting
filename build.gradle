@@ -95,8 +95,12 @@ dependencies {
 	implementation fg.deobf("vazkii.patchouli:Patchouli:1.19.3-78")
 
 	//CurseMaven
-	implementation fg.deobf("curse.maven:yeetusexperimentus-635427:3909789")
 	implementation fg.deobf("curse.maven:packagedauto-308380:4819411")
+
+	//Performance
+	implementation fg.deobf("curse.maven:yeetusexperimentus-635427:3909789")
+	implementation fg.deobf("curse.maven:ferritecore-429235:4147336")
+	implementation fg.deobf("curse.maven:lazy-dfu-forge-460819:4327266")
 }
 
 def manifestAttributes = [
