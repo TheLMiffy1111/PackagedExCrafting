@@ -101,10 +101,15 @@ dependencies {
 	implementation fg.deobf("mekanism:Mekanism:1.18.2-10.2.5.465:generators")
 
 	//CurseMaven
-	implementation fg.deobf("curse.maven:yeetusexperimentus-635427:4377180")
 	implementation fg.deobf("curse.maven:packagedauto-308380:4819408")
 	implementation fg.deobf("curse.maven:applied-mekanistics-574300:3968835")
 	implementation fg.deobf("curse.maven:ato-405593:3975599")
+
+	//Performance
+	implementation fg.deobf("curse.maven:yeetusexperimentus-635427:4377180")
+	implementation fg.deobf("curse.maven:modernfix-790626:4980942")
+	implementation fg.deobf("curse.maven:ferritecore-429235:4074294")
+	implementation fg.deobf("curse.maven:lazy-dfu-forge-460819:3544496")
 }
 
 def manifestAttributes = [
