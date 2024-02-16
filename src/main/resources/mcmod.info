@@ -1,0 +1,11 @@
+[
+	{
+		"modid": "packagedexcrafting",
+		"version": "0@VERSION@",
+		"name": "PackagedExCrafting",
+		"description": "A PackagedAuto addon that adds ExtendedCrafting autocrafting.",
+		"logoFile": "packagedexcrafting.logo.png",
+		"authorList": ["TheLMiffy1111"],
+		"url": "https://www.curseforge.com/minecraft/mc-mods/packagedexcrafting"
+	}
+]
