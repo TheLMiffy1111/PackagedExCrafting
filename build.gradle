@@ -1,9 +1,10 @@
 plugins {
-	id "net.neoforged.gradle" version "[6.0.13,7)"
-	id "org.parchmentmc.librarian.forgegradle" version "[1,)"
+	id "com.crystaelix.loom" version "jitpack-a0afe362"
 	id "eclipse"
 	id "idea"
 	id "maven-publish"
+	id "net.kyori.blossom" version "[1,2)"
+	id "me.modmuss50.mod-publish-plugin" version "0.5.0"
 }
 
 repositories {
@@ -11,29 +12,59 @@ repositories {
 	flatDir {
 		dirs "libs"
 	}
-	maven {
-		url = "https://maven.minecraftforge.net/"
+	exclusiveContent {
+		forRepository {
+			maven {
+				url = "https://maven.parchmentmc.net/"
+			}
+		}
+		filter {
+			includeGroup "org.parchmentmc.data"
+		}
 	}
-	maven {
-		url = "https://repo.spongepowered.org/maven/"
+	exclusiveContent {
+		forRepository {
+			maven {
+				url = "https://maven.blamejared.com/"
+			}
+		}
+		filter {
+			includeGroup "mezz.jei"
+			includeGroup "vazkii.patchouli"
+		}
 	}
-	maven {
-		url = "https://maven.tterrag.com/"
+	exclusiveContent {
+		forRepository {
+			maven {
+				url = "https://maven.tterrag.com/"
+			}
+		}
+		filter {
+			includeGroup "com.tterrag.registrate"
+			includeGroup "com.jozufozu.flywheel"
+			includeGroup "com.simibubi.create"
+		}
 	}
-	maven {
-		url = "https://maven.blamejared.com/"
-	}
-	maven {
-		url = "https://maven.blakesmods.com/releases/"
-	}
-	maven {
-		url = "https://cursemaven.com/"
-		content {
+	exclusiveContent {
+		forRepository {
+			maven {
+				url = "https://cursemaven.com/"
+			}
+		}
+		filter {
 			includeGroup "curse.maven"
 		}
 	}
-	maven {
-		url = "https://modmaven.dev/"
+	exclusiveContent {
+		forRepository {
+			maven {
+				url = "https://modmaven.dev/"
+			}
+		}
+		filter {
+			includeGroup "appeng"
+			includeGroup "mekanism"
+		}
 	}
 }
 
@@ -48,7 +79,7 @@ def specVersion = "3"
 def vendor = "thelm"
 
 group = "thelm.packagedexcrafting"
-version = "3.2.1.13"
+version = "3.2.1.14"
 
 archivesBaseName = "${modName}-${mcVersion}"
 
@@ -61,21 +92,12 @@ tasks.withType(JavaCompile).configureEach {
 	options.encoding = "UTF-8"
 }
 
-minecraft {
-	mappings channel: "parchment", version: "2022.11.27-1.19.2"
-	generateRunFolders = true
+loom {
+	silentMojangMappingsLicense()
+	interfaceInjection.enableDependencyInterfaceInjection = false
 	runs {
 		configureEach {
-			workingDirectory project.file("run")
-			property "forge.logging.markers", "SCAN,REGISTRIES,REGISTRYDUMP"
-			property "forge.logging.console.level", "debug"
-			property "mixin.env.remapRefMap", "true"
-			property "mixin.env.refMapRemappingFile", "${buildDir}/createSrgToMcp/output.srg"
-			mods {
-				"${modId}" {
-					source sourceSets.main
-				}
-			}
+			property "fabric.log.console.level", "debug"
 		}
 		client
 		server
@@ -83,30 +105,52 @@ minecraft {
 }
 
 dependencies {
-	minecraft "net.minecraftforge:forge:1.19.2-43.3.5"
+	// Log4j
+	implementation "org.apache.logging.log4j:log4j-core:2.22.1"
 
-	implementation fg.deobf("appeng:appliedenergistics2-forge:12.9.8")
-	implementation fg.deobf("com.blakebr0.cucumber:Cucumber:1.19.2-6.0.10")
-	implementation fg.deobf("com.blakebr0.extendedcrafting:ExtendedCrafting:1.19.2-5.1.9")
-	implementation fg.deobf("mezz.jei:jei-1.19.2-forge:11.6.0.1018")
-	implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-1.19.2:10.1.52")
-	implementation fg.deobf("vazkii.patchouli:Patchouli:1.19.2-77")
-	implementation fg.deobf("com.simibubi.create:create-1.19.2:0.5.1.f-46:all") {
-		transitive = false
+	// Minecraft
+	minecraft "com.mojang:minecraft:1.19.2"
+	mappings loom.layered() {
+		officialMojangMappings()
+		parchment "org.parchmentmc.data:parchment-1.19.2:2022.11.27@zip"
 	}
-	implementation fg.deobf("mekanism:Mekanism:1.19.2-10.3.9.13")
-	implementation fg.deobf("mekanism:Mekanism:1.19.2-10.3.9.13:generators")
+	forge "net.minecraftforge:forge:1.19.2-43.3.8"
 
-	//CurseMaven
-	implementation fg.deobf("curse.maven:packagedauto-308380:4819410")
-	implementation fg.deobf("curse.maven:applied-mekanistics-574300:4734608")
-	implementation fg.deobf("curse.maven:ato-405593:4046926")
+	// Dependencies
+	modImplementation "curse.maven:packagedauto-308380:5110893"
+	modImplementation "curse.maven:cucumber-272335:4773184"
+	modImplementation "curse.maven:extended-crafting-268387:4991289"
+	modImplementation("mezz.jei:jei-1.19.2-forge:11.6.0.1018") {transitive = false}
+	modImplementation "appeng:appliedenergistics2-forge:12.9.8"
+	modImplementation "vazkii.patchouli:Patchouli:1.19.2-77"
 
-	//Performance
-	implementation fg.deobf("curse.maven:yeetusexperimentus-635427:3909789")
-	implementation fg.deobf("curse.maven:modernfix-790626:4980941")
-	implementation fg.deobf("curse.maven:ferritecore-429235:4117906")
-	implementation fg.deobf("curse.maven:lazy-dfu-forge-460819:4327266")
+	// Testing
+	modImplementation "mekanism:Mekanism:1.19.2-10.3.9.13"
+	modImplementation "curse.maven:applied-mekanistics-574300:4734608"
+
+	// Performance
+	modImplementation "curse.maven:yeetusexperimentus-635427:3909789"
+	implementation "io.github.llamalad7:mixinextras-forge:0.3.5"
+	modImplementation "curse.maven:modernfix-790626:5077300"
+	modImplementation "curse.maven:ferritecore-429235:4117906"
+	modImplementation "curse.maven:lazy-dfu-forge-460819:4327266"
+}
+
+def replacements = [
+	"0@VERSION@": version
+]
+
+blossom {
+	replaceToken(replacements)
+}
+
+processResources {
+	inputs.properties(replacements)
+	filesMatching(["mcmod.info", "META-INF/mods.toml"]) {
+		filter {
+			it.replace(replacements)
+		}
+	}
 }
 
 def manifestAttributes = [
@@ -120,9 +164,33 @@ def manifestAttributes = [
 
 jar {
 	manifest.attributes(manifestAttributes)
-	finalizedBy("reobfJar")
 }
 
 sourcesJar {
 	manifest.attributes(manifestAttributes)
+}
+
+publishMods {
+	file = remapJar.archiveFile
+	version = displayName = "${mcVersion}-${project.version}"
+	changelog = file("changelog.md").text
+	type = STABLE
+	modLoaders.add("forge")
+	additionalFiles.from(remapSourcesJar.archiveFile)
+
+	curseforge {
+		accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+		projectId = "322861"
+		minecraftVersions.add(mcVersion)
+		requires "packagedauto", "extended-crafting"
+		optional "applied-energistics-2"
+	}
+
+	modrinth {
+		accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+		projectId = "qO33ACjS"
+		minecraftVersions.add(mcVersion)
+		requires "packagedauto", "extended-crafting"
+		optional "ae2"
+	}
 }
