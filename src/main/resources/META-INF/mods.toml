@@ -1,32 +1,28 @@
-modLoader="javafml"
-loaderVersion="[46,)"
-license="MIT"
-issueTrackerURL="https://github.com/TheLMiffy1111/PackagedExCrafting/issues"
-displayURL="https://www.curseforge.com/minecraft/mc-mods/packagedexcrafting"
-authors="TheLMiffy1111"
+modLoader = "javafml"
+loaderVersion = "[46,)"
+license = "MIT"
+issueTrackerURL = "https://github.com/TheLMiffy1111/PackagedExCrafting/issues"
+
 [[mods]]
-modId="packagedexcrafting"
-version="${file.jarVersion}"
-displayName="PackagedExCrafting"
-description="A PackagedAuto addon that adds ExtendedCrafting autocrafting."
+	modId = "packagedexcrafting"
+	version = "0@VERSION@"
+	displayName = "PackagedExCrafting"
+	description = "A PackagedAuto addon that adds ExtendedCrafting autocrafting."
+	logoFile = "packagedexcrafting.logo.png"
+	authors = "TheLMiffy1111"
+	displayURL = "https://www.curseforge.com/minecraft/mc-mods/packagedexcrafting"
 
 [[dependencies.packagedexcrafting]]
-    modId="forge"
-    mandatory=true
-    versionRange="[46,)"
-    ordering="NONE"
-    side="BOTH"
+	modId = "forge"
+	versionRange = "[46,)"
+	mandatory = true
 
 [[dependencies.packagedexcrafting]]
-    modId="extendedcrafting"
-    mandatory=true
-    versionRange="[6,)"
-    ordering="NONE"
-    side="BOTH"
+	modId = "packagedauto"
+	versionRange = "[3.4.2,)"
+	mandatory = true
 
 [[dependencies.packagedexcrafting]]
-    modId="packagedauto"
-    mandatory=true
-    versionRange="[3.4.2,)"
-    ordering="NONE"
-    side="BOTH"
+	modId = "extendedcrafting"
+	versionRange = "[6,)"
+	mandatory = true
