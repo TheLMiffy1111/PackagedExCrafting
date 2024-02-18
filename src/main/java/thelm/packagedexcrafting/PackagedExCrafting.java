@@ -19,12 +19,10 @@ public class PackagedExCrafting {
 			return new ItemStack(UltimateCrafterBlock.INSTANCE);
 		}
 	};
-	public static PackagedExCrafting core;
 
 	public PackagedExCrafting() {
-		core = this;
 		CommonEventHandler.getInstance().onConstruct();
-		DistExecutor.runWhenOn(Dist.CLIENT, ()->()->{
+		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, ()->()->{
 			ClientEventHandler.getInstance().onConstruct();
 		});
 	}
