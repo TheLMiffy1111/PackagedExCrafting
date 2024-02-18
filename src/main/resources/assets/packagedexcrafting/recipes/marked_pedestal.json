@@ -1,22 +1,22 @@
 {
-    "conditions": [
-        {
-            "type": "minecraft:item_exists",
-            "item": "packagedexcrafting:marked_pedestal"
-        }
-    ],
-    "type": "forge:ore_shapeless",
-    "result": {
-        "item": "packagedexcrafting:marked_pedestal",
-        "count": 1
-    },
-    "ingredients": [
-        {
-            "item": "extendedcrafting:pedestal"
-        },
-        {
-            "item": "extendedcrafting:material",
-            "data": 16
-        }
-    ]
+	"conditions": [
+		{
+			"type": "minecraft:item_exists",
+			"item": "packagedexcrafting:marked_pedestal"
+		}
+	],
+	"type": "forge:ore_shapeless",
+	"result": {
+		"item": "packagedexcrafting:marked_pedestal",
+		"count": 1
+	},
+	"ingredients": [
+		{
+			"item": "extendedcrafting:pedestal"
+		},
+		{
+			"item": "extendedcrafting:material",
+			"data": 16
+		}
+	]
 }

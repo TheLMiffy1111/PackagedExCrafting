@@ -1,37 +1,37 @@
 {
-    "conditions": [
-        {
-            "type": "minecraft:item_exists",
-            "item": "packagedexcrafting:elite_crafter"
-        }
-    ],
-    "type": "forge:ore_shaped",
-    "result": {
-        "item": "packagedexcrafting:elite_crafter",
-        "count": 1
-    },
-    "pattern": [
-        "CIC",
-        "STS",
-        "CPC"
-    ],
-    "key": {
-        "P": {
-            "item": "#machine_package_component"
-        },
-        "T": {
-            "item": "extendedcrafting:table_elite"
-        },
-        "I": {
-            "item": "extendedcrafting:interface"
-        },
-        "C": {
-            "item": "extendedcrafting:material",
-            "data": 16
-        },
-        "S": {
-            "item": "extendedcrafting:material",
-            "data": 2
-        }
-    }
+	"conditions": [
+		{
+			"type": "minecraft:item_exists",
+			"item": "packagedexcrafting:elite_crafter"
+		}
+	],
+	"type": "forge:ore_shaped",
+	"result": {
+		"item": "packagedexcrafting:elite_crafter",
+		"count": 1
+	},
+	"pattern": [
+		"CIC",
+		"STS",
+		"CPC"
+	],
+	"key": {
+		"P": {
+			"item": "#machine_package_component"
+		},
+		"T": {
+			"item": "extendedcrafting:table_elite"
+		},
+		"I": {
+			"item": "extendedcrafting:interface"
+		},
+		"C": {
+			"item": "extendedcrafting:material",
+			"data": 16
+		},
+		"S": {
+			"item": "extendedcrafting:material",
+			"data": 2
+		}
+	}
 }
