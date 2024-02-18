@@ -63,7 +63,10 @@ public class PackagedExCrafting {
 			return ItemStack.EMPTY;
 		}
 	};
-	@SidedProxy(clientSide = "thelm.packagedexcrafting.proxy.ClientProxy", serverSide = "thelm.packagedexcrafting.proxy.CommonProxy", modId = PackagedExCrafting.MOD_ID)
+	@SidedProxy(
+			clientSide = "thelm.packagedexcrafting.proxy.ClientProxy",
+			serverSide = "thelm.packagedexcrafting.proxy.CommonProxy",
+			modId = PackagedExCrafting.MOD_ID)
 	public static CommonProxy proxy;
 
 	@EventHandler
