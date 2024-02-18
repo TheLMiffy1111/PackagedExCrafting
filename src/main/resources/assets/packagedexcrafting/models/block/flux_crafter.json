@@ -1,8 +1,8 @@
 {
-    "parent": "block/cube_bottom_top",
-    "textures": {
-        "side": "packagedexcrafting:block/flux_crafter_side",
-        "top": "packagedexcrafting:block/flux_crafter_top",
-        "bottom": "packagedexcrafting:block/flux_crafter_bottom"
-    }
+	"parent": "block/cube_bottom_top",
+	"textures": {
+		"side": "packagedexcrafting:block/flux_crafter_side",
+		"top": "packagedexcrafting:block/flux_crafter_top",
+		"bottom": "packagedexcrafting:block/flux_crafter_bottom"
+	}
 }

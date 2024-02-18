@@ -1,35 +1,35 @@
 {
-    "conditions": [
-        {
-            "type": "forge:mod_loaded",
-            "modid": "ae2"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "result": {
-        "item": "packagedexcrafting:basic_crafter",
-        "count": 1
-    },
-    "pattern": [
-        "ICI",
-        "YTY",
-        "IRI"
-    ],
-    "key": {
-        "C": {
-            "item": "packagedauto:me_package_component"
-        },
-        "T": {
-            "item": "extendedcrafting:basic_auto_table"
-        },
-        "I": {
-            "item": "extendedcrafting:black_iron_ingot"
-        },
-        "Y": {
-            "item": "extendedcrafting:crystaltine_component"
-        },
-        "R": {
-            "item": "extendedcrafting:redstone_catalyst"
-        }
-    }
+	"conditions": [
+		{
+			"type": "forge:mod_loaded",
+			"modid": "ae2"
+		}
+	],
+	"type": "minecraft:crafting_shaped",
+	"result": {
+		"item": "packagedexcrafting:basic_crafter",
+		"count": 1
+	},
+	"pattern": [
+		"ICI",
+		"YTY",
+		"IRI"
+	],
+	"key": {
+		"C": {
+			"item": "packagedauto:me_package_component"
+		},
+		"T": {
+			"item": "extendedcrafting:basic_auto_table"
+		},
+		"I": {
+			"item": "extendedcrafting:black_iron_ingot"
+		},
+		"Y": {
+			"item": "extendedcrafting:crystaltine_component"
+		},
+		"R": {
+			"item": "extendedcrafting:redstone_catalyst"
+		}
+	}
 }

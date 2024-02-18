@@ -1,8 +1,8 @@
 {
-    "parent": "block/cube_bottom_top",
-    "textures": {
-        "side": "packagedexcrafting:block/ultimate_crafter_side",
-        "top": "packagedexcrafting:block/ultimate_crafter_top",
-        "bottom": "packagedexcrafting:block/ultimate_crafter_bottom"
-    }
+	"parent": "block/cube_bottom_top",
+	"textures": {
+		"side": "packagedexcrafting:block/ultimate_crafter_side",
+		"top": "packagedexcrafting:block/ultimate_crafter_top",
+		"bottom": "packagedexcrafting:block/ultimate_crafter_bottom"
+	}
 }

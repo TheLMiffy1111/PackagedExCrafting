@@ -1,5 +1,5 @@
 {
-    "variants": {
-        "": { "model": "packagedexcrafting:block/basic_crafter" }
-    }
+	"variants": {
+		"": { "model": "packagedexcrafting:block/basic_crafter" }
+	}
 }
