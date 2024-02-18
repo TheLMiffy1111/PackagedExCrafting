@@ -1,8 +1,8 @@
 {
-    "parent": "block/cube_bottom_top",
-    "textures": {
-        "side": "packagedexcrafting:blocks/basic_crafter_side",
-        "top": "packagedexcrafting:blocks/basic_crafter_top",
-        "bottom": "packagedexcrafting:blocks/basic_crafter_bottom"
-    }
+	"parent": "block/cube_bottom_top",
+	"textures": {
+		"side": "packagedexcrafting:blocks/basic_crafter_side",
+		"top": "packagedexcrafting:blocks/basic_crafter_top",
+		"bottom": "packagedexcrafting:blocks/basic_crafter_bottom"
+	}
 }

@@ -1,35 +1,35 @@
 {
-    "conditions": [
-        {
-            "type": "forge:mod_loaded",
-            "modid": "ae2"
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "result": {
-        "item": "packagedexcrafting:ender_crafter",
-        "count": 1
-    },
-    "pattern": [
-        "ECE",
-        "YTY",
-        "ERE"
-    ],
-    "key": {
-        "C": {
-            "item": "packagedauto:me_package_component"
-        },
-        "T": {
-            "item": "extendedcrafting:auto_ender_crafter"
-        },
-        "E": {
-            "item": "extendedcrafting:enhanced_ender_ingot"
-        },
-        "Y": {
-            "item": "extendedcrafting:crystaltine_component"
-        },
-        "R": {
-            "item": "extendedcrafting:redstone_catalyst"
-        }
-    }
+	"conditions": [
+		{
+			"type": "forge:mod_loaded",
+			"modid": "ae2"
+		}
+	],
+	"type": "minecraft:crafting_shaped",
+	"result": {
+		"item": "packagedexcrafting:ender_crafter",
+		"count": 1
+	},
+	"pattern": [
+		"ECE",
+		"YTY",
+		"ERE"
+	],
+	"key": {
+		"C": {
+			"item": "packagedauto:me_package_component"
+		},
+		"T": {
+			"item": "extendedcrafting:auto_ender_crafter"
+		},
+		"E": {
+			"item": "extendedcrafting:enhanced_ender_ingot"
+		},
+		"Y": {
+			"item": "extendedcrafting:crystaltine_component"
+		},
+		"R": {
+			"item": "extendedcrafting:redstone_catalyst"
+		}
+	}
 }
