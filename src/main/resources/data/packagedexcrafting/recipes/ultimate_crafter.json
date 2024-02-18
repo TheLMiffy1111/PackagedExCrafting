@@ -1,38 +1,38 @@
 {
-    "conditions": [
-        {
-            "type": "forge:not",
-            "value": {
-                "type": "forge:mod_loaded",
-                "modid": "appliedenergistics2"
-            }
-        }
-    ],
-    "type": "minecraft:crafting_shaped",
-    "result": {
-        "item": "packagedexcrafting:ultimate_crafter",
-        "count": 1
-    },
-    "pattern": [
-        "ICI",
-        "YTY",
-        "IRI"
-    ],
-    "key": {
-        "C": {
-            "item": "packagedauto:package_component"
-        },
-        "T": {
-            "item": "extendedcrafting:ultimate_auto_table"
-        },
-        "I": {
-            "item": "extendedcrafting:black_iron_ingot"
-        },
-        "Y": {
-            "item": "extendedcrafting:crystaltine_component"
-        },
-        "R": {
-            "item": "extendedcrafting:redstone_catalyst"
-        }
-    }
+	"conditions": [
+		{
+			"type": "forge:not",
+			"value": {
+				"type": "forge:mod_loaded",
+				"modid": "appliedenergistics2"
+			}
+		}
+	],
+	"type": "minecraft:crafting_shaped",
+	"result": {
+		"item": "packagedexcrafting:ultimate_crafter",
+		"count": 1
+	},
+	"pattern": [
+		"ICI",
+		"YTY",
+		"IRI"
+	],
+	"key": {
+		"C": {
+			"item": "packagedauto:package_component"
+		},
+		"T": {
+			"item": "extendedcrafting:ultimate_auto_table"
+		},
+		"I": {
+			"item": "extendedcrafting:black_iron_ingot"
+		},
+		"Y": {
+			"item": "extendedcrafting:crystaltine_component"
+		},
+		"R": {
+			"item": "extendedcrafting:redstone_catalyst"
+		}
+	}
 }

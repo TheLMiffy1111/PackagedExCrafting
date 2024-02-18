@@ -1,5 +1,5 @@
 {
-    "variants": {
-        "": { "model": "packagedexcrafting:block/marked_pedestal" }
-    }
+	"variants": {
+		"": { "model": "packagedexcrafting:block/marked_pedestal" }
+	}
 }
