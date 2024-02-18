@@ -108,7 +108,7 @@ dependencies {
 	forge "net.minecraftforge:forge:1.20.1-47.2.20"
 
 	// Dependencies
-	modImplementation "curse.maven:packagedauto-308380:5112600"
+	modImplementation "curse.maven:packagedauto-308380:5118653"
 	modImplementation "curse.maven:cucumber-272335:4990314"
 	modImplementation "curse.maven:extended-crafting-268387:4991290"
 	modImplementation("mezz.jei:jei-1.20.1-forge:15.3.0.1") {transitive = false}
