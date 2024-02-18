@@ -10,12 +10,10 @@ import thelm.packagedexcrafting.event.CommonEventHandler;
 public class PackagedExCrafting {
 
 	public static final String MOD_ID = "packagedexcrafting";
-	public static PackagedExCrafting core;
 
 	public PackagedExCrafting() {
-		core = this;
 		CommonEventHandler.getInstance().onConstruct();
-		DistExecutor.runWhenOn(Dist.CLIENT, ()->()->{
+		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, ()->()->{
 			ClientEventHandler.getInstance().onConstruct();
 		});
 	}
