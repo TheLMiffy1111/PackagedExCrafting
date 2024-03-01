@@ -175,8 +175,7 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 			endProcess();
 			return;
 		}
-		if(pedestals.stream().map(world::getTileEntity).
-				anyMatch(tile->!(tile instanceof TileMarkedPedestal) || tile.isInvalid())) {
+		if(pedestals.stream().map(world::getTileEntity).anyMatch(tile->!(tile instanceof TileMarkedPedestal) || tile.isInvalid())) {
 			endProcess();
 			return;
 		}
@@ -199,7 +198,7 @@ public class TileCombinationCrafter extends TileBase implements ITickable, IPack
 		energyUsage = 0;
 		pedestals.stream().map(world::getTileEntity).
 		filter(tile->tile instanceof TileMarkedPedestal && !tile.isInvalid()).
-		forEach(tile->((TileMarkedPedestal)tile).spawnItem());
+		forEach(tile->((TileMarkedPedestal)tile).ejectItem());
 		pedestals.clear();
 		isWorking = false;
 		currentRecipe = null;
