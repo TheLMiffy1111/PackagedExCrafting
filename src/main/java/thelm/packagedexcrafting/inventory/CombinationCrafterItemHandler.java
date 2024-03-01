@@ -29,8 +29,8 @@ public class CombinationCrafterItemHandler extends BaseItemHandler<CombinationCr
 	@Override
 	public int get(int id) {
 		switch(id) {
-		case 0: return (int)(tile.energyReq & 0xFFFFFFFF);
-		case 1: return (int)(tile.remainingProgress & 0xFFFFFFFF);
+		case 0: return (int)(tile.energyReq & 0xFFFFFFFFL);
+		case 1: return (int)(tile.remainingProgress & 0xFFFFFFFFL);
 		case 2: return (int)(tile.energyReq >>> 32);
 		case 3: return (int)(tile.remainingProgress >>> 32);
 		case 4: return tile.isWorking ? 1 : 0;
@@ -43,16 +43,16 @@ public class CombinationCrafterItemHandler extends BaseItemHandler<CombinationCr
 	public void set(int id, int value) {
 		switch(id) {
 		case 0:
-			tile.energyReq = tile.energyReq | 0xFFFFFFFF & value;
+			tile.energyReq = (tile.energyReq | 0xFFFFFFFFL) & value;
 			break;
 		case 1:
-			tile.remainingProgress = tile.remainingProgress | 0xFFFFFFFF & value;
+			tile.remainingProgress = (tile.remainingProgress | 0xFFFFFFFFL) & value;
 			break;
 		case 2:
-			tile.energyReq = (tile.energyReq | 0xFFFFFFFF00000000L) & (((long)value << 32) | 0xFFFFFFFF);
+			tile.energyReq = (tile.energyReq | 0xFFFFFFFF00000000L) & ((long)value << 32 | 0xFFFFFFFFL);
 			break;
 		case 3:
-			tile.remainingProgress = (tile.remainingProgress | 0xFFFFFFFF00000000L) & (((long)value << 32) | 0xFFFFFFFF);
+			tile.remainingProgress = (tile.remainingProgress | 0xFFFFFFFF00000000L) & ((long)value << 32 | 0xFFFFFFFFL);
 			break;
 		case 4:
 			tile.isWorking = value != 0;

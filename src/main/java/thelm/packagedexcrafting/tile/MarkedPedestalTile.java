@@ -9,14 +9,18 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.fml.ModList;
 import thelm.packagedauto.tile.BaseTile;
+import thelm.packagedauto.util.MiscHelper;
 import thelm.packagedexcrafting.block.MarkedPedestalBlock;
+import thelm.packagedexcrafting.integration.appeng.tile.AEMarkedPedestalTile;
 import thelm.packagedexcrafting.inventory.MarkedPedestalItemHandler;
 
 public class MarkedPedestalTile extends BaseTile {
 
 	public static final TileEntityType<MarkedPedestalTile> TYPE_INSTANCE = (TileEntityType<MarkedPedestalTile>)TileEntityType.Builder.
-			of(MarkedPedestalTile::new, MarkedPedestalBlock.INSTANCE).
+			of(MiscHelper.INSTANCE.conditionalSupplier(()->ModList.get().isLoaded("appliedenergistics2"),
+					()->AEMarkedPedestalTile::new, ()->MarkedPedestalTile::new), MarkedPedestalBlock.INSTANCE).
 			build(null).setRegistryName("packagedexcrafting:marked_pedestal");
 
 	public MarkedPedestalTile() {
@@ -29,10 +33,10 @@ public class MarkedPedestalTile extends BaseTile {
 		return new TranslationTextComponent("block.packagedexcrafting.marked_pedestal");
 	}
 
-	public void spawnItem() {
+	public void ejectItem() {
 		ItemStack stack = itemHandler.getStackInSlot(0);
 		itemHandler.setStackInSlot(0, ItemStack.EMPTY);
-		if(!level.isClientSide && !stack.isEmpty()) {
+		if(!stack.isEmpty()) {
 			double dx = level.random.nextFloat()/2+0.25;
 			double dy = level.random.nextFloat()/2+0.75;
 			double dz = level.random.nextFloat()/2+0.25;

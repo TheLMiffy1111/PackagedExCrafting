@@ -180,7 +180,7 @@ public class CombinationCrafterTile extends BaseTile implements ITickableTileEnt
 		energyUsage = 0;
 		pedestals.stream().map(level::getBlockEntity).
 		filter(tile->tile instanceof MarkedPedestalTile && !tile.isRemoved()).
-		forEach(tile->((MarkedPedestalTile)tile).spawnItem());
+		forEach(tile->((MarkedPedestalTile)tile).ejectItem());
 		pedestals.clear();
 		isWorking = false;
 		currentRecipe = null;
