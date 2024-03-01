@@ -177,7 +177,7 @@ public class CombinationCrafterBlockEntity extends BaseBlockEntity implements IP
 		energyUsage = 0;
 		pedestals.stream().map(level::getBlockEntity).
 		filter(be->be instanceof MarkedPedestalBlockEntity && !be.isRemoved()).
-		forEach(be->((MarkedPedestalBlockEntity)be).spawnItem());
+		forEach(be->((MarkedPedestalBlockEntity)be).ejectItem());
 		pedestals.clear();
 		isWorking = false;
 		currentRecipe = null;

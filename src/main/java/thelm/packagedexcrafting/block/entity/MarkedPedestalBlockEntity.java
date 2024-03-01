@@ -10,14 +10,20 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.fml.ModList;
 import thelm.packagedauto.block.entity.BaseBlockEntity;
+import thelm.packagedauto.util.MiscHelper;
 import thelm.packagedexcrafting.block.MarkedPedestalBlock;
+import thelm.packagedexcrafting.integration.appeng.blockentity.AEMarkedPedestalBlockEntity;
 import thelm.packagedexcrafting.inventory.MarkedPedestalItemHandler;
 
 public class MarkedPedestalBlockEntity extends BaseBlockEntity {
 
 	public static final BlockEntityType<MarkedPedestalBlockEntity> TYPE_INSTANCE = BlockEntityType.Builder.
-			of(MarkedPedestalBlockEntity::new, MarkedPedestalBlock.INSTANCE).build(null);
+			of(MiscHelper.INSTANCE.<BlockEntityType.BlockEntitySupplier<MarkedPedestalBlockEntity>>conditionalSupplier(
+					()->ModList.get().isLoaded("ae2"),
+					()->()->AEMarkedPedestalBlockEntity::new, ()->()->MarkedPedestalBlockEntity::new).get(),
+					MarkedPedestalBlock.INSTANCE).build(null);
 
 	public MarkedPedestalBlockEntity(BlockPos pos, BlockState state) {
 		super(TYPE_INSTANCE, pos, state);
@@ -29,10 +35,10 @@ public class MarkedPedestalBlockEntity extends BaseBlockEntity {
 		return Component.translatable("block.packagedexcrafting.marked_pedestal");
 	}
 
-	public void spawnItem() {
+	public void ejectItem() {
 		ItemStack stack = itemHandler.getStackInSlot(0);
 		itemHandler.setStackInSlot(0, ItemStack.EMPTY);
-		if(!level.isClientSide && !stack.isEmpty()) {
+		if(!stack.isEmpty()) {
 			double dx = level.random.nextFloat()/2+0.25;
 			double dy = level.random.nextFloat()/2+0.75;
 			double dz = level.random.nextFloat()/2+0.25;
