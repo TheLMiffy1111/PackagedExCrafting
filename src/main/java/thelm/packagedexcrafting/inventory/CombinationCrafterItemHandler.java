@@ -29,8 +29,8 @@ public class CombinationCrafterItemHandler extends BaseItemHandler<CombinationCr
 	@Override
 	public int get(int id) {
 		return switch(id) {
-		case 0 -> (int)(blockEntity.energyReq & 0xFFFFFFFF);
-		case 1 -> (int)(blockEntity.remainingProgress & 0xFFFFFFFF);
+		case 0 -> (int)(blockEntity.energyReq & 0xFFFFFFFFL);
+		case 1 -> (int)(blockEntity.remainingProgress & 0xFFFFFFFFL);
 		case 2 -> (int)(blockEntity.energyReq >>> 32);
 		case 3 -> (int)(blockEntity.remainingProgress >>> 32);
 		case 4 -> blockEntity.isWorking ? 1 : 0;
@@ -42,10 +42,10 @@ public class CombinationCrafterItemHandler extends BaseItemHandler<CombinationCr
 	@Override
 	public void set(int id, int value) {
 		switch(id) {
-		case 0 -> blockEntity.energyReq = blockEntity.energyReq | 0xFFFFFFFF & value;
-		case 1 -> blockEntity.remainingProgress = blockEntity.remainingProgress | 0xFFFFFFFF & value;
-		case 2 -> blockEntity.energyReq = (blockEntity.energyReq | 0xFFFFFFFF00000000L) & (((long)value << 32) | 0xFFFFFFFF);
-		case 3 -> blockEntity.remainingProgress = (blockEntity.remainingProgress | 0xFFFFFFFF00000000L) & (((long)value << 32) | 0xFFFFFFFF);
+		case 0 -> blockEntity.energyReq = (blockEntity.energyReq | 0xFFFFFFFFL) & value;
+		case 1 -> blockEntity.remainingProgress = (blockEntity.remainingProgress | 0xFFFFFFFFL) & value;
+		case 2 -> blockEntity.energyReq = (blockEntity.energyReq | 0xFFFFFFFF00000000L) & ((long)value << 32 | 0xFFFFFFFFL);
+		case 3 -> blockEntity.remainingProgress = (blockEntity.remainingProgress | 0xFFFFFFFF00000000L) & ((long)value << 32 | 0xFFFFFFFFL);
 		case 4 -> blockEntity.isWorking = value != 0;
 		case 5 -> blockEntity.getEnergyStorage().setEnergyStored(value);
 		}
