@@ -6,23 +6,23 @@ issueTrackerURL = "https://github.com/TheLMiffy1111/PackagedExCrafting/issues"
 [[mods]]
 	modId="packagedexcrafting"
 	version = "0@VERSION@"
-	displayName="PackagedExCrafting"
-	description="A PackagedAuto addon that adds ExtendedCrafting autocrafting."
+	displayName = "PackagedExCrafting"
+	description = "A PackagedAuto addon that adds ExtendedCrafting autocrafting."
 	logoFile = "packagedexcrafting.logo.png"
 	authors = "TheLMiffy1111"
 	displayURL = "https://www.curseforge.com/minecraft/mc-mods/packagedexcrafting"
 
 [[dependencies.packagedexcrafting]]
-	modId="forge"
-	versionRange="[34,)"
-	mandatory=true
+	modId = "forge"
+	versionRange = "[34,)"
+	mandatory = true
 
 [[dependencies.packagedexcrafting]]
-	modId="packagedauto"
-	versionRange="[2.0.6,)"
-	mandatory=true
+	modId = "packagedauto"
+	versionRange = "[2.0.6,)"
+	mandatory = true
 
 [[dependencies.packagedexcrafting]]
-	modId="extendedcrafting"
-	versionRange="[3.1,)"
-	mandatory=true
+	modId = "extendedcrafting"
+	versionRange = "[3.1,)"
+	mandatory = true
