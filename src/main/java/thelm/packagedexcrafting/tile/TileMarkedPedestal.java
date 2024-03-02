@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
@@ -22,7 +23,9 @@ import thelm.packagedexcrafting.inventory.InventoryMarkedPedestal;
 	@Optional.Interface(iface="appeng.api.networking.IGridHost", modid="appliedenergistics2"),
 	@Optional.Interface(iface="appeng.api.networking.security.IActionHost", modid="appliedenergistics2"),
 })
-public class TileMarkedPedestal extends TileBase implements IGridHost, IActionHost {
+public class TileMarkedPedestal extends TileBase implements ITickable, IGridHost, IActionHost {
+
+	public boolean firstTick = true;
 
 	public TileMarkedPedestal() {
 		setInventory(new InventoryMarkedPedestal(this));
@@ -34,6 +37,16 @@ public class TileMarkedPedestal extends TileBase implements IGridHost, IActionHo
 	@Override
 	protected String getLocalizedName() {
 		return I18n.translateToLocal("tile.packagedexcrafting.marked_pedestal.name");
+	}
+
+	@Override
+	public void update() {
+		if(firstTick) {
+			firstTick = false;
+			if(!world.isRemote && hostHelper != null) {
+				hostHelper.isActive();
+			}
+		}
 	}
 
 	public void ejectItem() {
