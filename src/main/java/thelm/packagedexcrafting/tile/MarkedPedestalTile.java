@@ -6,6 +6,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -16,7 +17,7 @@ import thelm.packagedexcrafting.block.MarkedPedestalBlock;
 import thelm.packagedexcrafting.integration.appeng.tile.AEMarkedPedestalTile;
 import thelm.packagedexcrafting.inventory.MarkedPedestalItemHandler;
 
-public class MarkedPedestalTile extends BaseTile {
+public class MarkedPedestalTile extends BaseTile implements ITickableTileEntity {
 
 	public static final TileEntityType<MarkedPedestalTile> TYPE_INSTANCE = (TileEntityType<MarkedPedestalTile>)TileEntityType.Builder.
 			of(MiscHelper.INSTANCE.conditionalSupplier(()->ModList.get().isLoaded("appliedenergistics2"),
@@ -32,6 +33,9 @@ public class MarkedPedestalTile extends BaseTile {
 	protected ITextComponent getDefaultName() {
 		return new TranslationTextComponent("block.packagedexcrafting.marked_pedestal");
 	}
+
+	@Override
+	public void tick() {}
 
 	public void ejectItem() {
 		ItemStack stack = itemHandler.getStackInSlot(0);

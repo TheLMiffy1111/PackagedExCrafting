@@ -26,6 +26,7 @@ import thelm.packagedexcrafting.tile.MarkedPedestalTile;
 
 public class AEMarkedPedestalTile extends MarkedPedestalTile implements IGridHost, IActionHost {
 
+	public boolean firstTick = true;
 	public BaseGridBlock<AEMarkedPedestalTile> gridBlock;
 	public MachineSource source;
 	public IGridNode gridNode;
@@ -35,6 +36,15 @@ public class AEMarkedPedestalTile extends MarkedPedestalTile implements IGridHos
 		gridBlock = new BaseGridBlock<>(this);
 		source = new MachineSource(this);
 		gridBlock.flags.remove(GridFlags.REQUIRE_CHANNEL);
+	}
+
+	@Override
+	public void tick() {
+		if(firstTick) {
+			firstTick = false;
+			getActionableNode();
+		}
+		super.tick();
 	}
 
 	@Override

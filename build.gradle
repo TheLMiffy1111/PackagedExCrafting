@@ -67,7 +67,7 @@ def specVersion = "2"
 def vendor = "thelm"
 
 group = "thelm.packagedexcrafting"
-version = "2.0.0.18"
+version = "2.0.0.19"
 
 archivesBaseName = "${modName}-${mcVersion}"
 
