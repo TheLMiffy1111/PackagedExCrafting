@@ -15,6 +15,8 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import thelm.packagedauto.tile.TileBase;
 import thelm.packagedexcrafting.integration.appeng.networking.HostHelperTileMarkedPedestal;
 import thelm.packagedexcrafting.inventory.InventoryMarkedPedestal;
@@ -142,6 +144,7 @@ public class TileMarkedPedestal extends TileBase implements ITickable, IGridHost
 		return nbt;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public GuiContainer getClientGuiElement(EntityPlayer player, Object... args) {
 		return null;
