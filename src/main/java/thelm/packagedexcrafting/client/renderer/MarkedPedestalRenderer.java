@@ -15,9 +15,7 @@ import thelm.packagedexcrafting.block.entity.MarkedPedestalBlockEntity;
 
 public class MarkedPedestalRenderer implements BlockEntityRenderer<MarkedPedestalBlockEntity> {
 
-	public MarkedPedestalRenderer(BlockEntityRendererProvider.Context context) {
-
-	}
+	public MarkedPedestalRenderer(BlockEntityRendererProvider.Context context) {}
 
 	@Override
 	public void render(MarkedPedestalBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
