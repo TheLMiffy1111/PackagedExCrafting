@@ -1,5 +1,5 @@
 plugins {
-	id "com.crystaelix.loom" version "jitpack-f4853e7a"
+	id "com.crystaelix.loom" version "jitpack-e3412050"
 	id "eclipse"
 	id "idea"
 	id "maven-publish"
@@ -112,7 +112,7 @@ dependencies {
 	forge "net.minecraftforge:forge:1.16.5-36.2.39"
 
 	// Dependencies
-	modImplementation "curse.maven:packagedauto-308380:5148834"
+	modImplementation "curse.maven:packagedauto-308380:5174883"
 	modImplementation "curse.maven:cucumber-272335:3507886"
 	modImplementation "curse.maven:extended-crafting-268387:4430385"
 	modImplementation "mezz.jei:jei-1.16.5:7.8.0.1009"
