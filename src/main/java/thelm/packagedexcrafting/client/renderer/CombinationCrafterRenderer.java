@@ -15,9 +15,7 @@ import thelm.packagedexcrafting.block.entity.CombinationCrafterBlockEntity;
 
 public class CombinationCrafterRenderer implements BlockEntityRenderer<CombinationCrafterBlockEntity> {
 
-	public CombinationCrafterRenderer(BlockEntityRendererProvider.Context context) {
-
-	}
+	public CombinationCrafterRenderer(BlockEntityRendererProvider.Context context) {}
 
 	@Override
 	public void render(CombinationCrafterBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
