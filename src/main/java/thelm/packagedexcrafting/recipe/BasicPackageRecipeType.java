@@ -3,7 +3,6 @@ package thelm.packagedexcrafting.recipe;
 import java.util.Collections;
 import java.util.List;
 
-import com.blakebr0.extendedcrafting.api.crafting.ITableRecipe;
 import com.blakebr0.extendedcrafting.init.ModBlocks;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -74,24 +73,21 @@ public class BasicPackageRecipeType implements IPackageRecipeType {
 	public Int2ObjectMap<ItemStack> getRecipeTransferMap(IRecipeSlotsViewWrapper recipeLayoutWrapper) {
 		Int2ObjectMap<ItemStack> map = new Int2ObjectOpenHashMap<>();
 		List<IRecipeSlotViewWrapper> slotViews = recipeLayoutWrapper.getRecipeSlotViews();
-		if(recipeLayoutWrapper.getRecipe() instanceof ITableRecipe recipe && recipe.getTier() == 1) {
-			int index = 0;
-			int[] slotArray = SLOTS.toIntArray();
-			for(IRecipeSlotViewWrapper slotView : slotViews) {
-				if(slotView.isInput()) {
-					Object displayed = slotView.getDisplayedIngredient().orElse(null);
-					if(displayed instanceof ItemStack stack && !stack.isEmpty()) {
-						map.put(slotArray[index], stack);
-					}
-					++index;
+		int index = 0;
+		int[] slotArray = SLOTS.toIntArray();
+		for(IRecipeSlotViewWrapper slotView : slotViews) {
+			if(slotView.isInput()) {
+				Object displayed = slotView.getDisplayedIngredient().orElse(null);
+				if(displayed instanceof ItemStack stack && !stack.isEmpty()) {
+					map.put(slotArray[index], stack);
 				}
-				if(index >= 9) {
-					break;
-				}
+				++index;
 			}
-			return map;
+			if(index >= 9) {
+				break;
+			}
 		}
-		return IPackageRecipeType.super.getRecipeTransferMap(recipeLayoutWrapper);
+		return map;
 	}
 
 	@Override
