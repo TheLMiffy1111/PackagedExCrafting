@@ -3,7 +3,7 @@ package thelm.packagedexcrafting.recipe;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import com.blakebr0.extendedcrafting.api.crafting.ITableRecipe;
+import com.blakebr0.extendedcrafting.crafting.recipe.ShapelessTableRecipe;
 import com.blakebr0.extendedcrafting.init.ModBlocks;
 import com.google.common.collect.ImmutableList;
 
@@ -75,7 +75,8 @@ public class UltimatePackageRecipeType implements IPackageRecipeType {
 	public Int2ObjectMap<ItemStack> getRecipeTransferMap(IRecipeSlotsViewWrapper recipeLayoutWrapper) {
 		Int2ObjectMap<ItemStack> map = new Int2ObjectOpenHashMap<>();
 		List<IRecipeSlotViewWrapper> slotViews = recipeLayoutWrapper.getRecipeSlotViews();
-		if(recipeLayoutWrapper.getRecipe() instanceof ITableRecipe recipe && recipe.getTier() == 4) {
+		int tier = recipeLayoutWrapper.getRecipe() instanceof ShapelessTableRecipe shapelessRecipe ? shapelessRecipe.getTier() : 0;
+		if(tier == 0 && slotViews.size() == 82 || tier == 4) {
 			int index = 0;
 			int[] slotArray = SLOTS.toIntArray();
 			for(IRecipeSlotViewWrapper slotView : slotViews) {
