@@ -72,24 +72,21 @@ public class BasicPackageRecipeType implements IPackageRecipeType {
 	public Int2ObjectMap<ItemStack> getRecipeTransferMap(IRecipeSlotsViewWrapper recipeLayoutWrapper) {
 		Int2ObjectMap<ItemStack> map = new Int2ObjectOpenHashMap<>();
 		List<IRecipeSlotViewWrapper> slotViews = recipeLayoutWrapper.getRecipeSlotViews();
-		if(slotViews.size() == 10) {
-			int index = 0;
-			int[] slotArray = SLOTS.toIntArray();
-			for(IRecipeSlotViewWrapper slotView : slotViews) {
-				if(slotView.isInput()) {
-					Object displayed = slotView.getDisplayedIngredient().orElse(null);
-					if(displayed instanceof ItemStack stack && !stack.isEmpty()) {
-						map.put(slotArray[index], stack);
-					}
-					++index;
+		int index = 0;
+		int[] slotArray = SLOTS.toIntArray();
+		for(IRecipeSlotViewWrapper slotView : slotViews) {
+			if(slotView.isInput()) {
+				Object displayed = slotView.getDisplayedIngredient().orElse(null);
+				if(displayed instanceof ItemStack stack && !stack.isEmpty()) {
+					map.put(slotArray[index], stack);
 				}
-				if(index >= 9) {
-					break;
-				}
+				++index;
 			}
-			return map;
+			if(index >= 9) {
+				break;
+			}
 		}
-		return IPackageRecipeType.super.getRecipeTransferMap(recipeLayoutWrapper);
+		return map;
 	}
 
 	@Override
