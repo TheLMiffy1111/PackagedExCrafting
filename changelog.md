@@ -1,1 +1,1 @@
-Fix possible crash with marked pedestals on servers  
+Allow transferring of lower tier recipes in encoder  

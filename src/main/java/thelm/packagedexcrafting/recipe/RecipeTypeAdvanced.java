@@ -1,11 +1,11 @@
 package thelm.packagedexcrafting.recipe;
 
 import java.awt.Color;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import com.blakebr0.extendedcrafting.block.ModBlocks;
+import com.google.common.collect.ImmutableList;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -27,7 +27,9 @@ public class RecipeTypeAdvanced implements IRecipeType {
 	public static final RecipeTypeAdvanced INSTANCE = new RecipeTypeAdvanced();
 	public static final ResourceLocation NAME = new ResourceLocation("packagedexcrafting:advanced");
 	public static final IntSet SLOTS;
-	public static final List<String> CATEGORIES = Collections.singletonList("extendedcrafting:table_crafting_5x5");
+	public static final List<String> CATEGORIES = ImmutableList.of(
+			"extendedcrafting:table_crafting_5x5",
+			"extendedcrafting:table_crafting_3x3");
 	public static final Color COLOR = new Color(139, 139, 139);
 	public static final Color COLOR_DISABLED = new Color(64, 64, 64);
 
@@ -75,24 +77,27 @@ public class RecipeTypeAdvanced implements IRecipeType {
 	@Optional.Method(modid="jei")
 	@Override
 	public Int2ObjectMap<ItemStack> getRecipeTransferMap(IRecipeLayout recipeLayout, String category) {
-		Int2ObjectMap<ItemStack> map = new Int2ObjectOpenHashMap<>();
-		Map<Integer, ? extends IGuiIngredient<ItemStack>> ingredients = recipeLayout.getItemStacks().getGuiIngredients();
-		int index = 0;
-		int[] slotArray = SLOTS.toIntArray();
-		for(Map.Entry<Integer, ? extends IGuiIngredient<ItemStack>> entry : ingredients.entrySet()) {
-			IGuiIngredient<ItemStack> ingredient = entry.getValue();
-			if(ingredient.isInput()) {
-				ItemStack displayed = entry.getValue().getDisplayedIngredient();
-				if(displayed != null && !displayed.isEmpty()) {
-					map.put(slotArray[index], displayed);
+		if(category.equals(CATEGORIES.get(0))) {
+			Int2ObjectMap<ItemStack> map = new Int2ObjectOpenHashMap<>();
+			Map<Integer, ? extends IGuiIngredient<ItemStack>> ingredients = recipeLayout.getItemStacks().getGuiIngredients();
+			int index = 0;
+			int[] slotArray = SLOTS.toIntArray();
+			for(Map.Entry<Integer, ? extends IGuiIngredient<ItemStack>> entry : ingredients.entrySet()) {
+				IGuiIngredient<ItemStack> ingredient = entry.getValue();
+				if(ingredient.isInput()) {
+					ItemStack displayed = entry.getValue().getDisplayedIngredient();
+					if(displayed != null && !displayed.isEmpty()) {
+						map.put(slotArray[index], displayed);
+					}
+					++index;
 				}
-				++index;
+				if(index >= 25) {
+					break;
+				}
 			}
-			if(index >= 25) {
-				break;
-			}
+			return map;
 		}
-		return map;
+		return RecipeTypeBasic.INSTANCE.getRecipeTransferMap(recipeLayout, category);
 	}
 
 	@SideOnly(Side.CLIENT)
