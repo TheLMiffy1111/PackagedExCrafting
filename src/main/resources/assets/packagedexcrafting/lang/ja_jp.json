@@ -1,0 +1,29 @@
+{
+	"itemGroup.packagedexcrafting": "PackagedExCrafting",
+
+	"block.packagedexcrafting.basic_crafter": "基本型パッケージクラフター",
+	"block.packagedexcrafting.advanced_crafter": "発展型パッケージクラフター",
+	"block.packagedexcrafting.elite_crafter": "精鋭型パッケージクラフター",
+	"block.packagedexcrafting.ultimate_crafter": "究極型パッケージクラフター",
+	"block.packagedexcrafting.ender_crafter": "エンダーパッケージクラフター",
+	"block.packagedexcrafting.flux_crafter": "フラックスパッケージクラフター",
+	"block.packagedexcrafting.combination_crafter": "コンビネーションパッケージクラフター",
+	"block.packagedexcrafting.combination_crafter.pedestals.usable": "現在使用可能なマーク付き台座: %s",
+	"block.packagedexcrafting.combination_crafter.pedestals.required": "最低限必要なマーク付き台座: %s",
+	"block.packagedexcrafting.marked_pedestal": "マーク付き台座",
+
+	"recipe.packagedexcrafting.basic": "基本クラフト",
+	"recipe.packagedexcrafting.basic.short": "基本",
+	"recipe.packagedexcrafting.advanced": "発展クラフト",
+	"recipe.packagedexcrafting.advanced.short": "発展",
+	"recipe.packagedexcrafting.elite": "精鋭クラフト",
+	"recipe.packagedexcrafting.elite.short": "精鋭",
+	"recipe.packagedexcrafting.ultimate": "究極クラフト",
+	"recipe.packagedexcrafting.ultimate.short": "究極",
+	"recipe.packagedexcrafting.ender": "エンダークラフト",
+	"recipe.packagedexcrafting.ender.short": "エンダー",
+	"recipe.packagedexcrafting.flux": "フラックスクラフト",
+	"recipe.packagedexcrafting.flux.short": "フラックス",
+	"recipe.packagedexcrafting.combination": "コンビネーションクラフト",
+	"recipe.packagedexcrafting.combination.short": "コンビネーション"
+}
