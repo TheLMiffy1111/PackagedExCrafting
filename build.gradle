@@ -1,5 +1,5 @@
 plugins {
-	id "com.crystaelix.loom" version "jitpack-3a42c174"
+	id "com.crystaelix.loom" version "jitpack-ca3766c3"
 	id "eclipse"
 	id "idea"
 	id "maven-publish"
@@ -67,7 +67,7 @@ def specVersion = "3"
 def vendor = "thelm"
 
 group = "thelm.packagedexcrafting"
-version = "3.1.0.23"
+version = "3.1.0.24"
 
 archivesBaseName = "${modName}-${mcVersion}"
 
@@ -105,10 +105,10 @@ dependencies {
 	forge "net.minecraftforge:forge:1.18.2-40.2.21"
 
 	// Dependencies
-	modImplementation "curse.maven:packagedauto-308380:5846680"
+	modImplementation "curse.maven:packagedauto-308380:6028168"
 	modImplementation "curse.maven:cucumber-272335:4831151"
 	modImplementation "curse.maven:extended-crafting-268387:4430386"
-	modImplementation("mezz.jei:jei-1.18.2-forge:10.2.1.1008") {transitive = false}
+	modImplementation("mezz.jei:jei-1.18.2-forge:10.2.1.1009") {transitive = false}
 	modImplementation "appeng:appliedenergistics2-forge:11.7.6"
 	modImplementation "vazkii.patchouli:Patchouli:1.18.2-71.1"
 
