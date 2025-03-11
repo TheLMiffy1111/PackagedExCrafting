@@ -3,9 +3,12 @@ package thelm.packagedexcrafting.proxy;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import thelm.packagedauto.api.MiscUtil;
 import thelm.packagedauto.api.RecipeTypeRegistry;
 import thelm.packagedexcrafting.block.BlockAdvancedCrafter;
 import thelm.packagedexcrafting.block.BlockBasicCrafter;
@@ -15,6 +18,7 @@ import thelm.packagedexcrafting.block.BlockEnderCrafter;
 import thelm.packagedexcrafting.block.BlockMarkedPedestal;
 import thelm.packagedexcrafting.block.BlockUltimateCrafter;
 import thelm.packagedexcrafting.config.PackagedExCraftingConfig;
+import thelm.packagedexcrafting.integration.patchouli.PackagedExCraftingPatchouliHandler;
 import thelm.packagedexcrafting.recipe.RecipeTypeAdvanced;
 import thelm.packagedexcrafting.recipe.RecipeTypeBasic;
 import thelm.packagedexcrafting.recipe.RecipeTypeCombination;
@@ -46,6 +50,12 @@ public class CommonProxy {
 		registerModels();
 		registerTileEntities();
 		registerRecipeTypes();
+	}
+
+	public void register(FMLInitializationEvent event) {
+		MiscUtil.conditionalRunnable(()->Loader.isModLoaded("patchouli"), ()->()->{
+			PackagedExCraftingPatchouliHandler.init();
+		}, ()->()->{}).run();
 	}
 
 	protected void registerConfig(FMLPreInitializationEvent event) {

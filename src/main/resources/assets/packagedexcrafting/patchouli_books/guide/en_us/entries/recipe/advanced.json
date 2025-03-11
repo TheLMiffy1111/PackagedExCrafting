@@ -1,0 +1,27 @@
+{
+	"name": "Advanced Crafting",
+	"category": "packagedauto:recipe",
+	"icon": "packagedexcrafting:advanced_crafter",
+	"pages": [
+		{
+			"type": "text",
+			"text": "$(thing)Advanced Crafting/$ is a crafting recipe type that uses the $(item)Advanced Package Crafter/$ to craft recipes craftable in an $(item)Advanced Crafting Table/$.$(p)Items crafted by the $(item)Advanced Package Crafter/$ will be ejected into adjacent inventories.$(p)The $(item)Advanced Package Crafter/$ requires power."
+		},
+		{
+			"type": "spotlight",
+			"flag": "mod:appliedenergistics2",
+			"item": "packagedexcrafting:advanced_crafter",
+			"link_recipe": true,
+			"title": "AE2 Integration",
+			"text": "The $(item)Advanced Package Crafter/$ can be connected to an $(thing)ME Network/$.$(p)It will extract power to use, and instead eject crafted items into the network."
+		},
+		{
+			"type": "crafting",
+			"recipe": "packagedexcrafting:advanced_crafter",
+			"title": "Crafting"
+		}
+	],
+	"flag": "packagedexcrafting:advanced",
+	"read_by_default": true,
+	"sortnum": 5002
+}

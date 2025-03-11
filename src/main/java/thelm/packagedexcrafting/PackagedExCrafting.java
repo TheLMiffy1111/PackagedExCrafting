@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -34,7 +35,7 @@ public class PackagedExCrafting {
 	public static final String MOD_ID = "packagedexcrafting";
 	public static final String NAME = "PackagedExCrafting";
 	public static final String VERSION = "1.12.2-0@VERSION@";
-	public static final String DEPENDENCIES = "required-after:packagedauto@[1.12.2-1.0.11,);required-after:extendedcrafting@[1.5.6,);";
+	public static final String DEPENDENCIES = "required-after:packagedauto@[1.12.2-1.0.17,);required-after:extendedcrafting@[1.5.6,);";
 	public static final String GUI_FACTORY = "thelm.packagedexcrafting.client.gui.GuiPackagedExCraftingConfigFactory";
 	public static final CreativeTabs CREATIVE_TAB = new CreativeTabs("packagedexcrafting") {
 		@SideOnly(Side.CLIENT)
@@ -69,6 +70,11 @@ public class PackagedExCrafting {
 
 	@EventHandler
 	public void firstMovement(FMLPreInitializationEvent event) {
+		proxy.register(event);
+	}
+
+	@EventHandler
+	public void secondMovement(FMLInitializationEvent event) {
 		proxy.register(event);
 	}
 }

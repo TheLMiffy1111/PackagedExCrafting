@@ -66,7 +66,7 @@ def specVersion = "1"
 def vendor = "thelm"
 
 group = "thelm.packagedexcrafting"
-version = "1.0.2.26"
+version = "1.0.2.27"
 
 archivesBaseName = "${modName}-${mcVersion}"
 
@@ -105,7 +105,7 @@ dependencies {
 	legacyForge "net.minecraftforge:forge:1.12.2-14.23.5.2860"
 
 	// Dependencies
-	modImplementation "curse.maven:packagedauto-308380:6028154"
+	modImplementation "curse.maven:packagedauto-308380:6281503"
 	modImplementation "curse.maven:cucumber-272335:2645867"
 	modImplementation "curse.maven:extended-crafting-268387:2777071"
 	modImplementation "mezz.jei:jei_1.12.2:4.16.1.1013"
@@ -117,10 +117,10 @@ dependencies {
 	modImplementation "curse.maven:mekanism-268560:2835175"
 
 	// Performance
-	implementation("zone.rong:mixinbooter:10.2") {transitive = false}
+	implementation("zone.rong:mixinbooter:10.5") {transitive = false}
 	modImplementation "curse.maven:reid-629017:5502915"
-	modImplementation "curse.maven:vintagefix-871198:5536276"
-	modImplementation "curse.maven:lolasm-460609:5257348"
+	modImplementation "curse.maven:vintagefix-871198:6217171"
+	modImplementation "curse.maven:lolasm-460609:6217170"
 }
 
 def replacements = [

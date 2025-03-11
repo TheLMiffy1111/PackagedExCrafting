@@ -1,0 +1,27 @@
+{
+	"name": "Ultimate Crafting",
+	"category": "packagedauto:recipe",
+	"icon": "packagedexcrafting:ultimate_crafter",
+	"pages": [
+		{
+			"type": "text",
+			"text": "$(thing)Ultimate Crafting/$ is a crafting recipe type that uses the $(item)Ultimate Package Crafter/$ to craft recipes craftable in an $(item)Ultimate Crafting Table/$.$(p)Items crafted by the $(item)Ultimate Package Crafter/$ will be ejected into adjacent inventories.$(p)The $(item)Ultimate Package Crafter/$ requires power."
+		},
+		{
+			"type": "spotlight",
+			"flag": "mod:appliedenergistics2",
+			"item": "packagedexcrafting:ultimate_crafter",
+			"link_recipe": true,
+			"title": "AE2 Integration",
+			"text": "The $(item)Ultimate Package Crafter/$ can be connected to an $(thing)ME Network/$.$(p)It will extract power to use, and instead eject crafted items into the network."
+		},
+		{
+			"type": "crafting",
+			"recipe": "packagedexcrafting:ultimate_crafter",
+			"title": "Crafting"
+		}
+	],
+	"flag": "packagedexcrafting:ultimate",
+	"read_by_default": true,
+	"sortnum": 5004
+}

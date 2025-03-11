@@ -1,0 +1,32 @@
+{
+	"name": "Ender Crafting",
+	"category": "packagedauto:recipe",
+	"icon": "packagedexcrafting:ender_crafter",
+	"pages": [
+		{
+			"type": "text",
+			"text": "$(thing)Ender Crafting/$ is a crafting recipe type that uses the $(item)Ender Package Crafter/$ to craft recipes craftable in an $(item)Ender Crafting Table/$."
+		},
+		{
+			"type": "packagedauto:spotlight2",
+			"item1": "packagedexcrafting:ender_crafter",
+			"item2": "extendedcrafting:ender_alternator",
+			"title": "Usage",
+			"text": "To use the $(item)Ender Package Crafter/$, place $(item)Ender Alternators/$ in a 7x7x7 area around it.$(p)Items crafted by the $(item)Ender Package Crafter/$ will be ejected into adjacent inventories.$(p)The $(item)Ender Package Crafter/$ requires power."
+		},
+		{
+			"type": "text",
+			"flag": "mod:appliedenergistics2",
+			"title": "AE2 Integration",
+			"text": "The $(item)Ender Package Crafter/$ can be connected to an $(thing)ME Network/$.$(p)It will extract power to use, and instead eject crafted items into the network."
+		},
+		{
+			"type": "crafting",
+			"recipe": "packagedexcrafting:ender_crafter",
+			"title": "Crafting"
+		}
+	],
+	"flag": "packagedexcrafting:ender",
+	"read_by_default": true,
+	"sortnum": 5005
+}
