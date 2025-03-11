@@ -1,0 +1,38 @@
+{
+	"name": "Flux Crafting",
+	"category": "packagedauto:recipe",
+	"icon": "packagedexcrafting:flux_crafter",
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "$(thing)Flux Crafting/$ is a crafting recipe type that uses the $(item)Flux Package Crafter/$ to craft recipes craftable in an $(item)Ender Crafting Table/$."
+		},
+		{
+			"type": "packagedauto:spotlight2",
+			"item1": "packagedexcrafting:flux_crafter",
+			"item2": "extendedcrafting:flux_alternator",
+			"title": "Usage",
+			"text": "To use the $(item)Flux Package Crafter/$, place powered $(item)Flux Alternators/$ in a 7x7x7 area around it.$(p)Items crafted by the $(item)Flux Package Crafter/$ will be ejected into adjacent inventories.$(p)The $(item)Flux Package Crafter/$ also requires power."
+		},
+		{
+			"type": "patchouli:text",
+			"flag": "mod:ae2",
+			"title": "AE2 Integration",
+			"text": "The $(item)Flux Package Crafter/$ can be connected to an $(thing)ME Network/$.$(p)It will extract power to use, and instead eject crafted items into the network."
+		},
+		{
+			"type": "patchouli:crafting",
+			"flag": "!mod:ae2",
+			"recipe": "packagedexcrafting:flux_crafter",
+			"title": "Crafting"
+		},
+		{
+			"type": "patchouli:crafting",
+			"flag": "mod:ae2",
+			"recipe": "packagedexcrafting:flux_crafter_ae",
+			"title": "Crafting"
+		}
+	],
+	"read_by_default": true,
+	"sortnum": 5005
+}

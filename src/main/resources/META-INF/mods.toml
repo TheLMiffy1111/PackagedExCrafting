@@ -19,7 +19,7 @@ issueTrackerURL = "https://github.com/TheLMiffy1111/PackagedExCrafting/issues"
 
 [[dependencies.packagedexcrafting]]
 	modId = "packagedauto"
-	versionRange = "[3.2.6,)"
+	versionRange = "[3.2.14,)"
 	mandatory = true
 
 [[dependencies.packagedexcrafting]]
