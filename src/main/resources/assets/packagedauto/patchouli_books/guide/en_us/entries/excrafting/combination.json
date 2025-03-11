@@ -1,0 +1,40 @@
+{
+	"name": "Combination Crafting",
+	"category": "packagedauto:recipe",
+	"icon": "packagedexcrafting:combination_crafter",
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "$(thing)Combination Crafting/$ is a crafting recipe type that uses the $(item)Combination Package Crafter/$ to craft recipes craftable in a $(item)Crafting Core/$."
+		},
+		{
+			"type": "packagedauto:spotlight2",
+			"item1": "packagedexcrafting:combination_crafter",
+			"item2": "packagedexcrafting:marked_pedestal",
+			"title": "Usage",
+			"text": "To use the $(item)Combination Package Crafter/$, connect power to the crafter, and place $(item)Marked Pedestals/$ in a 7x7 area around it.$(p)Items crafted by the $(item)Combination Package Crafter/$ will be ejected into adjacent inventories."
+		},
+		{
+			"type": "patchouli:text",
+			"flag": "mod:ae2",
+			"title": "AE2 Integration",
+			"text": "The $(item)Combination Package Crafter/$ and $(item)Marked Pedestal/$ can be connected to an $(thing)ME Network/$.$(p)They will instead eject crafted and remaining items into the network."
+		},
+		{
+			"type": "patchouli:crafting",
+			"flag": "!mod:ae2",
+			"recipe": "packagedexcrafting:marked_pedestal",
+			"recipe2": "packagedexcrafting:combination_crafter",
+			"title": "Crafting"
+		},
+		{
+			"type": "patchouli:crafting",
+			"flag": "mod:ae2",
+			"recipe": "packagedexcrafting:marked_pedestal",
+			"recipe2": "packagedexcrafting:combination_crafter_ae",
+			"title": "Crafting"
+		}
+	],
+	"read_by_default": true,
+	"sortnum": 5006
+}

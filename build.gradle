@@ -50,7 +50,6 @@ repositories {
 			}
 		}
 		filter {
-			includeGroup "appeng"
 			includeGroup "mekanism"
 		}
 	}
@@ -67,7 +66,7 @@ def specVersion = "4"
 def vendor = "thelm"
 
 group = "thelm.packagedexcrafting"
-version = "4.0.0.2"
+version = "4.0.0.3"
 
 archivesBaseName = "${modName}-${mcVersion}"
 
@@ -102,24 +101,24 @@ dependencies {
 		officialMojangMappings()
 		parchment "org.parchmentmc.data:parchment-1.21:2024.07.28@zip"
 	}
-	neoForge "net.neoforged:neoforge:21.1.90"
+	neoForge "net.neoforged:neoforge:21.1.132"
 
 	// Dependencies
-	implementation "curse.maven:packagedauto-308380:6028193"
-	implementation "curse.maven:cucumber-272335:5920855"
-	implementation "curse.maven:extended-crafting-268387:5858321"
+	implementation "curse.maven:packagedauto-308380:6292948"
+	implementation "curse.maven:cucumber-272335:6228644"
+	implementation "curse.maven:extended-crafting-268387:6227166"
 	implementation("mezz.jei:jei-1.21.1-neoforge:19.21.0.247") {transitive = false}
-	implementation "appeng:appliedenergistics2:19.0.27"
+	implementation "org.appliedenergistics:appliedenergistics2:19.2.4"
 	implementation "curse.maven:ae2-jei-integration-1074338:5748513"
-	implementation "vazkii.patchouli:Patchouli:1.21-87-NEOFORGE"
+	implementation "vazkii.patchouli:Patchouli:1.21-88-NEOFORGE"
 
 	// Testing
-	implementation "mekanism:Mekanism:1.21.1-10.7.8.70"
+	implementation "mekanism:Mekanism:1.21.1-10.7.9.72"
 	implementation "curse.maven:applied-mekanistics-574300:5978711"
 
 	//Performance
 	implementation "curse.maven:yeetusexperimentus-635427:5444189"
-	implementation "curse.maven:modernfix-790626:5972257"
+	implementation "curse.maven:modernfix-790626:6125147"
 	implementation "curse.maven:ferritecore-429235:5850121"
 }
 

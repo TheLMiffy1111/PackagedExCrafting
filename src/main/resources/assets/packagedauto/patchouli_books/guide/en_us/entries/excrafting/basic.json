@@ -1,0 +1,33 @@
+{
+	"name": "Basic Crafting",
+	"category": "packagedauto:recipe",
+	"icon": "packagedexcrafting:basic_crafter",
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "$(thing)Basic Crafting/$ is a crafting recipe type that uses the $(item)Basic Package Crafter/$ to craft recipes craftable in a $(item)Basic Crafting Table/$.$(p)Items crafted by the $(item)Basic Package Crafter/$ will be ejected into adjacent inventories.$(p)The $(item)Basic Package Crafter/$ requires power."
+		},
+		{
+			"type": "patchouli:spotlight",
+			"flag": "mod:ae2",
+			"item": "packagedexcrafting:basic_crafter",
+			"link_recipe": true,
+			"title": "AE2 Integration",
+			"text": "The $(item)Basic Package Crafter/$ can be connected to an $(thing)ME Network/$.$(p)It will extract power to use, and instead eject crafted items into the network."
+		},
+		{
+			"type": "patchouli:crafting",
+			"flag": "!mod:ae2",
+			"recipe": "packagedexcrafting:basic_crafter",
+			"title": "Crafting"
+		},
+		{
+			"type": "patchouli:crafting",
+			"flag": "mod:ae2",
+			"recipe": "packagedexcrafting:basic_crafter_ae",
+			"title": "Crafting"
+		}
+	],
+	"read_by_default": true,
+	"sortnum": 5001
+}
