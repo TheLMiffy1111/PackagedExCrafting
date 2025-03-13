@@ -1,10 +1,10 @@
 plugins {
-	id "com.crystaelix.loom" version "jitpack-ca3766c3"
+	id "com.crystaelix.loom" version "1.9-SNAPSHOT"
 	id "eclipse"
 	id "idea"
 	id "maven-publish"
 	id "net.kyori.blossom" version "[1,2)"
-	id "me.modmuss50.mod-publish-plugin" version "0.7.4"
+	id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 }
 
 repositories {
@@ -20,6 +20,16 @@ repositories {
 		}
 		filter {
 			includeGroup "org.parchmentmc.data"
+		}
+	}
+	exclusiveContent {
+		forRepository {
+			maven {
+				url = "https://maven.crystaelix.com/releases/"
+			}
+		}
+		filter {
+			includeGroup "thelm.packagedauto"
 		}
 	}
 	exclusiveContent {
@@ -104,7 +114,7 @@ dependencies {
 	neoForge "net.neoforged:neoforge:21.1.132"
 
 	// Dependencies
-	implementation "curse.maven:packagedauto-308380:6292948"
+	implementation "thelm.packagedauto:PackagedAuto-1.21.1:4.0.4.7"
 	implementation "curse.maven:cucumber-272335:6228644"
 	implementation "curse.maven:extended-crafting-268387:6227166"
 	implementation("mezz.jei:jei-1.21.1-neoforge:19.21.0.247") {transitive = false}
@@ -156,13 +166,31 @@ sourcesJar {
 	manifest.attributes(manifestAttributes)
 }
 
+publishing {
+	publications {
+		register("mavenJava", MavenPublication) {
+			artifact remapJar
+			artifact sourcesJar
+		}
+	}
+	repositories {
+		if(project.hasProperty("CrystaelixMavenUsername") && project.hasProperty("CrystaelixMavenPassword")) {
+			maven {
+				name = "CrystaelixMaven"
+				url = "https://maven.crystaelix.com/releases/"
+				credentials(PasswordCredentials)
+			}
+		}
+	}
+}
+
 publishMods {
 	file = remapJar.archiveFile
 	version = displayName = "${mcVersion}-${project.version}"
 	changelog = file("changelog.md").text
 	type = BETA
 	modLoaders.addAll("forge", "neoforge")
-	additionalFiles.from(remapSourcesJar.archiveFile)
+	additionalFiles.from(sourcesJar.archiveFile)
 
 	curseforge {
 		accessToken = providers.gradleProperty("curseforge.token")
