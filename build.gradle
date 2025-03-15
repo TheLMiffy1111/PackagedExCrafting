@@ -114,7 +114,7 @@ dependencies {
 	neoForge "net.neoforged:neoforge:21.1.132"
 
 	// Dependencies
-	implementation "thelm.packagedauto:PackagedAuto-1.21.1:4.0.4.8"
+	implementation "thelm.packagedauto:PackagedAuto-1.21.1:4.0.4.9"
 	implementation "curse.maven:cucumber-272335:6228644"
 	implementation "curse.maven:extended-crafting-268387:6227166"
 	implementation("mezz.jei:jei-1.21.1-neoforge:19.21.0.247") {transitive = false}
