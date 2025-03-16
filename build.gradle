@@ -115,7 +115,7 @@ dependencies {
 	legacyForge "net.minecraftforge:forge:1.12.2-14.23.5.2860"
 
 	// Dependencies
-	modImplementation "thelm.packagedauto:PackagedAuto-1.12.2:1.0.17.62"
+	modImplementation "thelm.packagedauto:PackagedAuto-1.12.2:1.0.18.63"
 	modImplementation "curse.maven:cucumber-272335:2645867"
 	modImplementation "curse.maven:extended-crafting-268387:2777071"
 	modImplementation "mezz.jei:jei_1.12.2:4.16.1.1013"
