@@ -1,5 +1,6 @@
 package thelm.packagedexcrafting.config;
 
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.ModConfigSpec;
@@ -51,9 +52,9 @@ public class PackagedExCraftingConfig {
 	public static ModConfigSpec.IntValue combinationCrafterEnergyCapacity;
 	public static ModConfigSpec.BooleanValue combinationCrafterDrawMEEnergy;
 
-	public static void registerConfig() {
+	public static void registerConfig(ModContainer modContainer) {
 		buildConfig();
-		ModLoadingContext.get().getActiveContainer().registerConfig(ModConfig.Type.SERVER, serverSpec);
+		modContainer.registerConfig(ModConfig.Type.SERVER, serverSpec);
 	}
 
 	private static void buildConfig() {

@@ -1,6 +1,7 @@
 package thelm.packagedexcrafting;
 
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import thelm.packagedexcrafting.event.CommonEventHandler;
 
@@ -9,7 +10,7 @@ public class PackagedExCrafting {
 
 	public static final String MOD_ID = "packagedexcrafting";
 
-	public PackagedExCrafting(IEventBus modEventBus) {
-		CommonEventHandler.getInstance().onConstruct(modEventBus);
+	public PackagedExCrafting(IEventBus modEventBus, ModContainer modContainer) {
+		CommonEventHandler.getInstance().onConstruct(modEventBus, modContainer);
 	}
 }

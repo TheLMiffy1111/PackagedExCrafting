@@ -3,6 +3,7 @@ package thelm.packagedexcrafting.event;
 import appeng.api.AECapabilities;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -34,9 +35,9 @@ public class CommonEventHandler {
 		return INSTANCE;
 	}
 
-	public void onConstruct(IEventBus modEventBus) {
+	public void onConstruct(IEventBus modEventBus, ModContainer modContainer) {
 		modEventBus.register(this);
-		PackagedExCraftingConfig.registerConfig();
+		PackagedExCraftingConfig.registerConfig(modContainer);
 
 		PackagedExCraftingBlocks.BLOCKS.register(modEventBus);
 		PackagedExCraftingItems.ITEMS.register(modEventBus);
