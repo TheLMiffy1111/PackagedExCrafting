@@ -131,12 +131,11 @@ public class AEAdvancedCrafterBlockEntity extends AdvancedCrafterBlockEntity imp
 		}
 	}
 
-	@SuppressWarnings("removal")
 	protected void chargeMEEnergy() {
 		if(getMainNode().isActive()) {
 			IGrid grid = getMainNode().getGrid();
 			IEnergyService energyService = grid.getEnergyService();
-			double conversion = PowerUnits.RF.convertTo(PowerUnits.AE, 1);
+			double conversion = PowerUnits.FE.convertTo(PowerUnits.AE, 1);
 			int request = Math.min(energyStorage.getMaxReceive(), energyStorage.getMaxEnergyStored()-energyStorage.getEnergyStored());
 			double available = energyService.extractAEPower((request+0.5)*conversion, Actionable.SIMULATE, PowerMultiplier.CONFIG);
 			int extract = (int)(available/conversion);
