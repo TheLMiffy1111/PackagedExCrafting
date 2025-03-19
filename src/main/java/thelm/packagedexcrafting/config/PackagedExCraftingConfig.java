@@ -1,7 +1,6 @@
 package thelm.packagedexcrafting.config;
 
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import thelm.packagedexcrafting.block.entity.AdvancedCrafterBlockEntity;

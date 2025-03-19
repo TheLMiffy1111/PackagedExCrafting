@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.blakebr0.extendedcrafting.crafting.recipe.ShapelessTableRecipe;
 import com.blakebr0.extendedcrafting.init.ModBlocks;
-import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 
