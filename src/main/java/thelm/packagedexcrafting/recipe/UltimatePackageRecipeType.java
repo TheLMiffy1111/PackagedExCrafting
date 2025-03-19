@@ -31,7 +31,7 @@ public class UltimatePackageRecipeType implements IPackageRecipeType {
 	public static final UltimatePackageRecipeType INSTANCE = new UltimatePackageRecipeType();
 	public static final ResourceLocation NAME = ResourceLocation.parse("packagedexcrafting:ultimate");
 	public static final IntSet SLOTS;
-	public static final List<ResourceLocation> CATEGORIES = ImmutableList.of(
+	public static final List<ResourceLocation> CATEGORIES = List.of(
 			ResourceLocation.parse("extendedcrafting:ultimate_crafting"),
 			ResourceLocation.parse("extendedcrafting:elite_crafting"),
 			ResourceLocation.parse("extendedcrafting:advanced_crafting"),

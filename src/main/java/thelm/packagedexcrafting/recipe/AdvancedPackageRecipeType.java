@@ -30,7 +30,7 @@ public class AdvancedPackageRecipeType implements IPackageRecipeType {
 	public static final AdvancedPackageRecipeType INSTANCE = new AdvancedPackageRecipeType();
 	public static final ResourceLocation NAME = ResourceLocation.parse("packagedexcrafting:advanced");
 	public static final IntSet SLOTS;
-	public static final List<ResourceLocation> CATEGORIES = ImmutableList.of(
+	public static final List<ResourceLocation> CATEGORIES = List.of(
 			ResourceLocation.parse("extendedcrafting:advanced_crafting"),
 			ResourceLocation.parse("extendedcrafting:basic_crafting"));
 	public static final Vec3i COLOR = new Vec3i(139, 139, 139);
