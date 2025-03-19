@@ -25,7 +25,7 @@ public class ElitePackageRecipeType implements IPackageRecipeType {
 	public static final ElitePackageRecipeType INSTANCE = new ElitePackageRecipeType();
 	public static final ResourceLocation NAME = new ResourceLocation("packagedexcrafting:elite");
 	public static final IntSet SLOTS;
-	public static final List<ResourceLocation> CATEGORIES = ImmutableList.of(
+	public static final List<ResourceLocation> CATEGORIES = List.of(
 			new ResourceLocation("extendedcrafting:elite_crafting"),
 			new ResourceLocation("extendedcrafting:advanced_crafting"),
 			new ResourceLocation("extendedcrafting:basic_crafting"));
