@@ -66,10 +66,6 @@ repositories {
 	}
 }
 
-sourceSets {
-	main
-}
-
 def mcVersion = "1.19.2"
 def modName = "PackagedExCrafting"
 def modId = "packagedexcrafting"
@@ -81,8 +77,15 @@ version = "3.2.1.23"
 
 archivesBaseName = "${modName}-${mcVersion}"
 
+sourceSets {
+	main
+}
+
 java {
-	toolchain.languageVersion = JavaLanguageVersion.of(17)
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+		vendor = JvmVendorSpec.AZUL
+	}
 	withSourcesJar()
 }
 
