@@ -1,2 +1,1 @@
-Added entries to PackagedAuto Patchouli guide  
-Optimized images with oxipng  
+Mention the Combination Package Crafter's shift-right-click functionality in the guide  
