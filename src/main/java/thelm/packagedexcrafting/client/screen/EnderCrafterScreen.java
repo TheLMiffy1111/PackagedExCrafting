@@ -33,7 +33,7 @@ public class EnderCrafterScreen extends BaseScreen<EnderCrafterMenu> {
 	@Override
 	protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
 		String s = menu.blockEntity.getDisplayName().getString();
-		font.draw(poseStack, s, width/2 - font.width(s)/2, 6, 0x404040);
+		font.draw(poseStack, s, imageWidth/2 - font.width(s)/2, 6, 0x404040);
 		font.draw(poseStack, menu.inventory.getDisplayName().getString(), menu.getPlayerInvX(), menu.getPlayerInvY()-11, 0x404040);
 		if(mouseX-leftPos >= 10 && mouseY-topPos >= 10 && mouseX-leftPos <= 21 && mouseY-topPos <= 49) {
 			renderTooltip(poseStack, new TextComponent(menu.blockEntity.getEnergyStorage().getEnergyStored()+" / "+menu.blockEntity.getEnergyStorage().getMaxEnergyStored()+" FE"), mouseX-leftPos, mouseY-topPos);
