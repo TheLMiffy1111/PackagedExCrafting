@@ -73,7 +73,7 @@ def specVersion = "3"
 def vendor = "thelm"
 
 group = "thelm.packagedexcrafting"
-version = "3.4.0.15"
+version = "3.4.0.16"
 
 archivesBaseName = "${modName}-${mcVersion}"
 
@@ -172,6 +172,7 @@ sourcesJar {
 publishing {
 	publications {
 		register("mavenJava", MavenPublication) {
+			artifactId = archivesBaseName
 			artifact remapJar
 			artifact sourcesJar
 		}
