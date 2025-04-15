@@ -12,7 +12,12 @@
 			"item1": "packagedexcrafting:combination_crafter",
 			"item2": "packagedexcrafting:marked_pedestal",
 			"title": "Usage",
-			"text": "To use the $(item)Combination Package Crafter/$, connect power to the crafter, and place $(item)Marked Pedestals/$ in a 7x7 area around it.$(p)Items crafted by the $(item)Combination Package Crafter/$ will be ejected into adjacent inventories."
+			"text": "To use the $(item)Combination Package Crafter/$, connect power to the crafter, and place $(item)Marked Pedestals/$ in a 7x7 area around it."
+		},
+		{
+			"type": "patchouli:text",
+			"title": "Usage (cont.)",
+			"text": "You can $(thing)$(k:sneak) + $(k:use)/$ with an empty hand on an idle $(item)Combination Package Crafter/$ to check its currently usable and required amount of $(item)Marked Pedestals/$.$(p)Items crafted by the $(item)Combination Package Crafter/$ will be ejected into adjacent inventories."
 		},
 		{
 			"type": "patchouli:text",
