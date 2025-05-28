@@ -127,7 +127,7 @@ dependencies {
 	modImplementation "vazkii.patchouli:Patchouli:1.0-23.6"
 
 	// Testing
-	modImplementation "MCMultiPart2:MCMultiPart:2.5.3"
+	modImplementation "curse.maven:mcmultipart-239431:2615930"
 	modImplementation "curse.maven:mekanism-268560:2835175"
 
 	// Performance
