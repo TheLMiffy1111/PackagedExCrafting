@@ -190,11 +190,11 @@ public class BasicCrafterBlockEntity extends BaseBlockEntity implements IPackage
 	@Override
 	public void saveAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
 		super.saveAdditional(nbt, registries);
-		nbt.putBoolean("Working", isWorking);
-		nbt.putInt("Progress", remainingProgress);
+		nbt.putBoolean("working", isWorking);
+		nbt.putInt("progress", remainingProgress);
 		if(currentRecipe != null) {
 			CompoundTag tag = MiscHelper.INSTANCE.saveRecipe(new CompoundTag(), currentRecipe, registries);
-			nbt.put("Recipe", tag);
+			nbt.put("recipe", tag);
 		}
 	}
 

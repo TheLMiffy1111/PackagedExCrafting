@@ -1,1 +1,1 @@
-Mention the Combination Package Crafter's shift-right-click functionality in the guide  
+Move AE2-related setup actions to a separate event handler class  

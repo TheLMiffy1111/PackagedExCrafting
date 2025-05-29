@@ -1,6 +1,5 @@
 package thelm.packagedexcrafting.event;
 
-import appeng.api.AECapabilities;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -10,13 +9,13 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import thelm.packagedauto.block.entity.BaseBlockEntity;
-import thelm.packagedauto.integration.appeng.AppEngUtil;
 import thelm.packagedauto.util.ApiImpl;
 import thelm.packagedauto.util.MiscHelper;
 import thelm.packagedexcrafting.block.PackagedExCraftingBlocks;
 import thelm.packagedexcrafting.block.entity.PackagedExCraftingBlockEntities;
 import thelm.packagedexcrafting.config.PackagedExCraftingConfig;
 import thelm.packagedexcrafting.creativetab.PackagedExCraftingCreativeTabs;
+import thelm.packagedexcrafting.integration.appeng.AppEngEventHandler;
 import thelm.packagedexcrafting.item.PackagedExCraftingItems;
 import thelm.packagedexcrafting.menu.PackagedExCraftingMenus;
 import thelm.packagedexcrafting.recipe.AdvancedPackageRecipeType;
@@ -37,6 +36,9 @@ public class CommonEventHandler {
 
 	public void onConstruct(IEventBus modEventBus, ModContainer modContainer) {
 		modEventBus.register(this);
+		MiscHelper.INSTANCE.conditionalRunnable(()->ModList.get().isLoaded("ae2"), ()->()->{
+			modEventBus.register(AppEngEventHandler.getInstance());
+		}, ()->()->{}).run();
 		PackagedExCraftingConfig.registerConfig(modContainer);
 
 		PackagedExCraftingBlocks.BLOCKS.register(modEventBus);
@@ -74,17 +76,6 @@ public class CommonEventHandler {
 		event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, PackagedExCraftingBlockEntities.ENDER_CRAFTER.get(), BaseBlockEntity::getEnergyStorage);
 		event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, PackagedExCraftingBlockEntities.FLUX_CRAFTER.get(), BaseBlockEntity::getEnergyStorage);
 		event.registerBlockEntity(Capabilities.EnergyStorage.BLOCK, PackagedExCraftingBlockEntities.COMBINATION_CRAFTER.get(), BaseBlockEntity::getEnergyStorage);
-
-		MiscHelper.INSTANCE.conditionalRunnable(()->ModList.get().isLoaded("ae2"), ()->()->{
-			event.registerBlockEntity(AECapabilities.IN_WORLD_GRID_NODE_HOST, PackagedExCraftingBlockEntities.BASIC_CRAFTER.get(), (be, v)->AppEngUtil.getAsInWorldGridNodeHost(be));
-			event.registerBlockEntity(AECapabilities.IN_WORLD_GRID_NODE_HOST, PackagedExCraftingBlockEntities.ADVANCED_CRAFTER.get(), (be, v)->AppEngUtil.getAsInWorldGridNodeHost(be));
-			event.registerBlockEntity(AECapabilities.IN_WORLD_GRID_NODE_HOST, PackagedExCraftingBlockEntities.ELITE_CRAFTER.get(), (be, v)->AppEngUtil.getAsInWorldGridNodeHost(be));
-			event.registerBlockEntity(AECapabilities.IN_WORLD_GRID_NODE_HOST, PackagedExCraftingBlockEntities.ULTIMATE_CRAFTER.get(), (be, v)->AppEngUtil.getAsInWorldGridNodeHost(be));
-			event.registerBlockEntity(AECapabilities.IN_WORLD_GRID_NODE_HOST, PackagedExCraftingBlockEntities.ENDER_CRAFTER.get(), (be, v)->AppEngUtil.getAsInWorldGridNodeHost(be));
-			event.registerBlockEntity(AECapabilities.IN_WORLD_GRID_NODE_HOST, PackagedExCraftingBlockEntities.FLUX_CRAFTER.get(), (be, v)->AppEngUtil.getAsInWorldGridNodeHost(be));
-			event.registerBlockEntity(AECapabilities.IN_WORLD_GRID_NODE_HOST, PackagedExCraftingBlockEntities.COMBINATION_CRAFTER.get(), (be, v)->AppEngUtil.getAsInWorldGridNodeHost(be));
-			event.registerBlockEntity(AECapabilities.IN_WORLD_GRID_NODE_HOST, PackagedExCraftingBlockEntities.MARKED_PEDESTAL.get(), (be, v)->AppEngUtil.getAsInWorldGridNodeHost(be));
-		}, ()->()->{}).run();
 	}
 
 	@SubscribeEvent

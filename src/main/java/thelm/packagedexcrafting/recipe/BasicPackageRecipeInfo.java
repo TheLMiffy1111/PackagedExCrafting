@@ -52,7 +52,7 @@ public class BasicPackageRecipeInfo implements ITablePackageRecipeInfo {
 
 	public BasicPackageRecipeInfo(ResourceLocation id, int width, int height, List<ItemStack> matrixSer) {
 		this.id = id;
-		matrix = TableCraftingInput.of(width, height, matrixSer, 2);
+		matrix = TableCraftingInput.of(width, height, matrixSer, 1);
 		input = MiscHelper.INSTANCE.condenseStacks(matrix.items());
 		for(int i = 0; i*9 < input.size(); ++i) {
 			patterns.add(new PackagePattern(this, i));
