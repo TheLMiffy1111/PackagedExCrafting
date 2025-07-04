@@ -22,7 +22,7 @@ public class BlockEnderCrafter extends BlockBase {
 
 	public BlockEnderCrafter() {
 		super(Material.IRON);
-		setHardness(15F);
+		setHardness(10F);
 		setResistance(25F);
 		setSoundType(SoundType.METAL);
 		setTranslationKey("packagedexcrafting.ender_crafter");

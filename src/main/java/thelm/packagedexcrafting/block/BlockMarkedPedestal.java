@@ -31,7 +31,7 @@ public class BlockMarkedPedestal extends BlockBase {
 
 	public BlockMarkedPedestal() {
 		super(Material.IRON);
-		setHardness(15F);
+		setHardness(10F);
 		setResistance(25F);
 		setSoundType(SoundType.METAL);
 		setTranslationKey("packagedexcrafting.marked_pedestal");
