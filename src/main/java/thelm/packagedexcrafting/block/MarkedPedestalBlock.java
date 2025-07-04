@@ -27,7 +27,7 @@ public class MarkedPedestalBlock extends BaseBlock {
 	public static final VoxelShape SHAPE = VoxelShapes.or(box(1, 0, 1, 15, 2, 15), box(3, 2, 3, 13, 14, 13), box(2, 14, 2, 14, 16, 14));
 
 	public MarkedPedestalBlock() {
-		super(AbstractBlock.Properties.of(Material.METAL).strength(15F, 25F).noOcclusion().sound(SoundType.METAL));
+		super(AbstractBlock.Properties.of(Material.METAL).strength(10F, 15F).noOcclusion().sound(SoundType.METAL));
 		setRegistryName("packagedexcrafting:marked_pedestal");
 	}
 

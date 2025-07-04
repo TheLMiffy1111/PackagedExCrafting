@@ -17,7 +17,7 @@ public class BasicCrafterBlock extends BaseBlock {
 	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().tab(PackagedExCrafting.ITEM_GROUP)).setRegistryName("packagedexcrafting:basic_crafter");
 
 	public BasicCrafterBlock() {
-		super(AbstractBlock.Properties.of(Material.METAL).strength(15F, 25F).sound(SoundType.METAL));
+		super(AbstractBlock.Properties.of(Material.METAL).strength(10F, 15F).sound(SoundType.METAL));
 		setRegistryName("packagedexcrafting:basic_crafter");
 	}
 
