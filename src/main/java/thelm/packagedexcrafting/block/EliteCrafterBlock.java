@@ -21,7 +21,7 @@ public class EliteCrafterBlock extends BaseBlock {
 	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties());
 
 	public EliteCrafterBlock() {
-		super(BlockBehaviour.Properties.of().strength(15F, 25F).mapColor(MapColor.METAL).sound(SoundType.METAL));
+		super(BlockBehaviour.Properties.of().strength(10F, 15F).mapColor(MapColor.METAL).sound(SoundType.METAL));
 	}
 
 	@Override
