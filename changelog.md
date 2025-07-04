@@ -1,1 +1,1 @@
-Fix Ender Crafter title rendering  
+Adjust block strength values  

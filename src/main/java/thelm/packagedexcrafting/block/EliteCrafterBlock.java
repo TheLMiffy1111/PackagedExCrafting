@@ -22,7 +22,7 @@ public class EliteCrafterBlock extends BaseBlock {
 	public static final Item ITEM_INSTANCE = new BlockItem(INSTANCE, new Item.Properties().tab(PackagedExCrafting.CREATIVE_TAB)).setRegistryName("packagedexcrafting:elite_crafter");
 
 	public EliteCrafterBlock() {
-		super(BlockBehaviour.Properties.of(Material.METAL).strength(15F, 25F).sound(SoundType.METAL));
+		super(BlockBehaviour.Properties.of(Material.METAL).strength(10F, 15F).sound(SoundType.METAL));
 		setRegistryName("packagedexcrafting:elite_crafter");
 	}
 
