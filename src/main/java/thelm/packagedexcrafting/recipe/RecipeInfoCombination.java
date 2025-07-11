@@ -182,7 +182,7 @@ public class RecipeInfoCombination implements IRecipeInfoCombination {
 	public Int2ObjectMap<ItemStack> getEncoderStacks() {
 		Int2ObjectMap<ItemStack> map = new Int2ObjectOpenHashMap<>();
 		int[] slotArray = RecipeTypeCombination.SLOTS.toIntArray();
-		ArrayUtils.remove(slotArray, 24);
+		slotArray = ArrayUtils.remove(slotArray, 24);
 		map.put(40, inputCore);
 		for(int i = 0; i < inputPedestal.size(); ++i) {
 			map.put(slotArray[i], inputPedestal.get(i));
