@@ -121,6 +121,7 @@ dependencies {
 	modImplementation "curse.maven:cucumber-272335:5587888"
 	modImplementation "curse.maven:extended-crafting-268387:6034128"
 	modImplementation("mezz.jei:jei-1.20.1-forge:15.20.0.112") {transitive = false}
+	modImplementation "org.appliedenergistics:guideme:20.1.9"
 	modImplementation "appeng:appliedenergistics2-forge:15.4.5"
 	modImplementation "vazkii.patchouli:Patchouli:1.20.1-84.1-FORGE"
 
