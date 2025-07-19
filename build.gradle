@@ -72,7 +72,7 @@ def specVersion = "4"
 def vendor = "thelm"
 
 group = "thelm.packagedexcrafting"
-version = "4.0.0.7"
+version = "4.0.0.8"
 
 archivesBaseName = "${modName}-${mcVersion}"
 
@@ -116,7 +116,7 @@ dependencies {
 	neoForge "net.neoforged:neoforge:21.1.180"
 
 	// Dependencies
-	implementation "thelm.packagedauto:PackagedAuto-1.21.1:4.0.4.12"
+	implementation "thelm.packagedauto:PackagedAuto-1.21.1:4.0.5.13"
 	implementation "curse.maven:cucumber-272335:6481512"
 	implementation "curse.maven:extended-crafting-268387:6481563"
 	implementation("mezz.jei:jei-1.21.1-neoforge:19.21.2.313") {transitive = false}

@@ -4,7 +4,9 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.item.ItemStack;
 import thelm.packagedauto.client.screen.BaseScreen;
+import thelm.packagedexcrafting.block.PackagedExCraftingBlocks;
 import thelm.packagedexcrafting.menu.EnderCrafterMenu;
 
 public class EnderCrafterScreen extends BaseScreen<EnderCrafterMenu> {
@@ -36,5 +38,12 @@ public class EnderCrafterScreen extends BaseScreen<EnderCrafterMenu> {
 		if(mouseX-leftPos >= 10 && mouseY-topPos >= 10 && mouseX-leftPos <= 21 && mouseY-topPos <= 49) {
 			graphics.renderTooltip(font, Component.literal(menu.blockEntity.getEnergyStorage().getEnergyStored()+" / "+menu.blockEntity.getEnergyStorage().getMaxEnergyStored()+" FE"), mouseX-leftPos, mouseY-topPos);
 		}
+		graphics.pose().pushPose();
+		graphics.pose().setIdentity();
+		graphics.pose().translate(0, 0, 200);
+		graphics.pose().scale(16, 16, 16);
+		graphics.fill(0, 0, 16, 16, 0xFFFFFFFF);
+		graphics.renderFakeItem(new ItemStack(PackagedExCraftingBlocks.ULTIMATE_CRAFTER), 0, 0);
+		graphics.pose().popPose();
 	}
 }
