@@ -24,5 +24,5 @@ issueTrackerURL = "https://github.com/TheLMiffy1111/PackagedExCrafting/issues"
 
 [[dependencies.packagedexcrafting]]
 	modId = "extendedcrafting"
-	versionRange = "[7,)"
+	versionRange = "*"
 	type = "required"
