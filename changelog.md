@@ -1,1 +1,1 @@
-Adjust textures  
+Fix flux crafter progress bar  
