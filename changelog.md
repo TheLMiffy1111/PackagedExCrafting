@@ -1,1 +1,1 @@
-Adjust textures  
+Remove logo drawing code  
