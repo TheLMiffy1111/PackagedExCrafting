@@ -257,10 +257,10 @@ public class FluxCrafterBlockEntity extends BaseBlockEntity implements IPackageC
 	}
 
 	public int getScaledProgress(int scale) {
-		if(remainingProgress <= 0 || energyReq <= 0) {
+		if(progress <= 0 || progressReq <= 0) {
 			return 0;
 		}
-		return scale * (energyReq-remainingProgress) / energyReq;
+		return scale * progress / progressReq;
 	}
 
 	@Override
