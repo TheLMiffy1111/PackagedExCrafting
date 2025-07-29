@@ -1,1 +1,1 @@
-Remove logo drawing code  
+Fix flux crafter progress bar  
