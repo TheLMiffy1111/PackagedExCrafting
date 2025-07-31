@@ -51,6 +51,7 @@ public class PackagedExCraftingConfig {
 	public static ForgeConfigSpec.IntValue combinationCrafterEnergyCapacity;
 	public static ForgeConfigSpec.BooleanValue combinationCrafterDrawMEEnergy;
 
+	@SuppressWarnings("removal")
 	public static void registerConfig() {
 		buildConfig();
 		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, serverSpec);
