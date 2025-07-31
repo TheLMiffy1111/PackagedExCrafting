@@ -114,7 +114,7 @@ dependencies {
 		officialMojangMappings()
 		parchment "org.parchmentmc.data:parchment-1.18.2:2022.11.06@zip"
 	}
-	forge "net.minecraftforge:forge:1.18.2-40.2.21"
+	forge "net.minecraftforge:forge:1.18.2-40.3.11"
 
 	// Dependencies
 	modImplementation "thelm.packagedauto:PackagedAuto-1.18.2:3.1.15.60"
