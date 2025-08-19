@@ -1,4 +1,4 @@
-package thelm.packagedexcrafting.proxy;
+package thelm.packagedexcrafting.event;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -33,7 +33,7 @@ import thelm.packagedexcrafting.tile.TileEnderCrafter;
 import thelm.packagedexcrafting.tile.TileMarkedPedestal;
 import thelm.packagedexcrafting.tile.TileUltimateCrafter;
 
-public class CommonProxy {
+public class CommonEventHandler {
 
 	public void registerBlock(Block block) {
 		ForgeRegistries.BLOCKS.register(block);
@@ -43,16 +43,15 @@ public class CommonProxy {
 		ForgeRegistries.ITEMS.register(item);
 	}
 
-	public void register(FMLPreInitializationEvent event) {
+	public void onPreInit(FMLPreInitializationEvent event) {
 		registerConfig(event);
 		registerBlocks();
 		registerItems();
-		registerModels();
 		registerTileEntities();
 		registerRecipeTypes();
 	}
 
-	public void register(FMLInitializationEvent event) {
+	public void onInit(FMLInitializationEvent event) {
 		MiscUtil.conditionalRunnable(()->Loader.isModLoaded("patchouli"), ()->()->{
 			PackagedExCraftingPatchouliHandler.init();
 		}, ()->()->{}).run();
@@ -105,8 +104,6 @@ public class CommonProxy {
 			registerItem(BlockMarkedPedestal.ITEM_INSTANCE);
 		}
 	}
-
-	protected void registerModels() {}
 
 	protected void registerTileEntities() {
 		if(TileBasicCrafter.enabled) {

@@ -15,7 +15,7 @@ import thelm.packagedexcrafting.block.BlockCombinationCrafter;
 import thelm.packagedexcrafting.block.BlockEliteCrafter;
 import thelm.packagedexcrafting.block.BlockEnderCrafter;
 import thelm.packagedexcrafting.block.BlockUltimateCrafter;
-import thelm.packagedexcrafting.proxy.CommonProxy;
+import thelm.packagedexcrafting.event.CommonEventHandler;
 import thelm.packagedexcrafting.tile.TileAdvancedCrafter;
 import thelm.packagedexcrafting.tile.TileBasicCrafter;
 import thelm.packagedexcrafting.tile.TileCombinationCrafter;
@@ -63,18 +63,18 @@ public class PackagedExCrafting {
 		}
 	};
 	@SidedProxy(
-			clientSide = "thelm.packagedexcrafting.proxy.ClientProxy",
-			serverSide = "thelm.packagedexcrafting.proxy.CommonProxy",
-			modId = PackagedExCrafting.MOD_ID)
-	public static CommonProxy proxy;
+			clientSide = "thelm.packagedexcrafting.client.event.ClientEventHandler",
+			serverSide = "thelm.packagedexcrafting.event.CommonEventHandler",
+			modId = MOD_ID)
+	public static CommonEventHandler proxy;
 
 	@EventHandler
-	public void firstMovement(FMLPreInitializationEvent event) {
-		proxy.register(event);
+	public void onPreInit(FMLPreInitializationEvent event) {
+		proxy.onPreInit(event);
 	}
 
 	@EventHandler
-	public void secondMovement(FMLInitializationEvent event) {
-		proxy.register(event);
+	public void onInit(FMLInitializationEvent event) {
+		proxy.onInit(event);
 	}
 }

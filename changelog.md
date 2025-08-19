@@ -1,1 +1,1 @@
-Adjust textures  
+Refactor lifecycle event handler names  
