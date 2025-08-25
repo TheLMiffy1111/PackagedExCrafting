@@ -56,7 +56,7 @@ public class PackagedExCraftingConfig {
 		TileEnderCrafter.enabled = config.get(category, "enabled", TileEnderCrafter.enabled, "Should the Ender Package Crafter be enabled.").setRequiresMcRestart(true).getBoolean();
 		TileEnderCrafter.energyCapacity = config.get(category, "energy_capacity", TileEnderCrafter.energyCapacity, "How much FE the Ender Package Crafter should hold.", 0, Integer.MAX_VALUE).getInt();
 		TileEnderCrafter.progressReq = config.get(category, "progress_req", TileEnderCrafter.progressReq, "How many ticks should the Ender Package Crafter wait before using energy.", 0, Integer.MAX_VALUE).getInt();
-		TileEnderCrafter.alternatorEff = config.get(category, "alternator_eff", TileEnderCrafter.alternatorEff, "How much each alternator should reduce the waiting time of the Ender Package Crafter.", 0, Double.MAX_VALUE).getDouble();
+		TileEnderCrafter.alternatorEff = config.get(category, "alternator_eff", TileEnderCrafter.alternatorEff, "How much each alternator should reduce the waiting time of the Ender Package Crafter.", 0, 1).getDouble();
 		TileEnderCrafter.energyReq = config.get(category, "energy_req", TileEnderCrafter.energyReq, "How much FE the Ender Package Crafter should use.", 0, Integer.MAX_VALUE).getInt();
 		TileEnderCrafter.energyUsage = config.get(category, "energy_usage", TileEnderCrafter.energyUsage, "How much FE/t maximum the Ender Package Crafter should use.", 0, Integer.MAX_VALUE).getInt();
 		TileEnderCrafter.drawMEEnergy = config.get(category, "draw_me_energy", TileEnderCrafter.drawMEEnergy, "Should the Ender Packager Crafter draw energy from ME systems.").getBoolean();
