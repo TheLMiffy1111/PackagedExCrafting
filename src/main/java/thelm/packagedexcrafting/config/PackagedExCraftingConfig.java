@@ -107,7 +107,7 @@ public class PackagedExCraftingConfig {
 		builder.comment("How much FE the Ender Package Crafter should hold.");
 		enderCrafterEnergyCapacity = builder.defineInRange("energy_capacity", 5000, 0, Integer.MAX_VALUE);
 		builder.comment("How much each alternator should reduce the waiting time of the Ender Package Crafter. This is a percentage of the time required.");
-		enderCrafterAlternatorEff = builder.defineInRange("alternator_eff", 0.02, 0, Double.MAX_VALUE);
+		enderCrafterAlternatorEff = builder.defineInRange("alternator_eff", 0.02, 0, 1);
 		builder.comment("How much total FE the Ender Package Crafter should use per operation.");
 		enderCrafterEnergyReq = builder.defineInRange("energy_req", 500, 0, Integer.MAX_VALUE);
 		builder.comment("How much FE/t maximum the Ender Package Crafter can use.");
