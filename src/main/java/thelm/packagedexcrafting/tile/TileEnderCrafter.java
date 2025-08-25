@@ -135,6 +135,9 @@ public class TileEnderCrafter extends TileBase implements ITickable, IPackageCra
 			progress++;
 			actualProgressReq = (int)Math.max(progressReq*(1-alternatorEff*alternatorCount), 0);
 		}
+		else {
+			actualProgressReq = progressReq;
+		}
 		if(progress >= actualProgressReq) {
 			progress = actualProgressReq;
 			int energy = energyStorage.extractEnergy(Math.min(energyUsage, remainingProgress), false);
