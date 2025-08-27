@@ -124,7 +124,7 @@ dependencies {
 	forge "net.minecraftforge:forge:1.16.5-36.2.42"
 
 	// Dependencies
-	modImplementation "thelm.packagedauto:PackagedAuto-1.16.5:2.0.14.57"
+	modImplementation "thelm.packagedauto:PackagedAuto-1.16.5:2.0.15.59"
 	modImplementation "curse.maven:cucumber-272335:3507886"
 	modImplementation "curse.maven:extended-crafting-268387:4430385"
 	modImplementation "mezz.jei:jei-1.16.5:7.8.0.1013"
