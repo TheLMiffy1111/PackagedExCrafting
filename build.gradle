@@ -100,7 +100,6 @@ loom {
 	runs {
 		configureEach {
 			property "fabric.log.console.level", "debug"
-			environmentVariable "MC_VERSION", mcVersion
 		}
 		client {
 			programArg "--username=Dev"
