@@ -4,7 +4,7 @@ plugins {
 	id "idea"
 	id "maven-publish"
 	id "com.crystaelix.blossom" version "1.3.2"
-	id "me.modmuss50.mod-publish-plugin" version "1.0.0"
+	id "me.modmuss50.mod-publish-plugin" version "1.1.0"
 }
 
 repositories {
@@ -120,7 +120,7 @@ dependencies {
 	forge "net.minecraftforge:forge:1.16.5-36.2.42"
 
 	// Dependencies
-	modImplementation "thelm.packagedauto:PackagedAuto-1.16.5:2.0.15.59"
+	modImplementation "thelm.packagedauto:PackagedAuto-1.16.5:2.0.15.60"
 	modImplementation "curse.maven:cucumber-272335:3507886"
 	modImplementation "curse.maven:extended-crafting-268387:4430385"
 	modImplementation "mezz.jei:jei-1.16.5:7.8.0.1013"
