@@ -125,7 +125,7 @@ public class PackagedExCraftingConfig {
 		builder.comment("How much FE/t maximum the Flux Package Crafter can use.");
 		fluxCrafterEnergyUsage = builder.defineInRange("energy_usage", 100, 0, Integer.MAX_VALUE);
 		builder.comment("Should the Flux Package Crafter draw energy from ME systems.");
-		fluxCrafterDrawMEEnergy = builder.define("draw_me_energy", false);
+		fluxCrafterDrawMEEnergy = builder.define("draw_me_energy", true);
 
 		builder.push("combination_crafter");
 		builder.comment("How much FE the Combination Package Crafter should hold.");

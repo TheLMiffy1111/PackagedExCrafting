@@ -1,1 +1,1 @@
-Fix flux crafter progress bar  
+Fix fluxCrafterDrawMEEnergy default value  
