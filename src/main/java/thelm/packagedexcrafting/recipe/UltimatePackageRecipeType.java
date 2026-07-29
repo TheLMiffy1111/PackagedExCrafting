@@ -19,6 +19,7 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import thelm.packagedauto.api.IPackageRecipeInfo;
 import thelm.packagedauto.api.IPackageRecipeType;
@@ -94,7 +95,11 @@ public class UltimatePackageRecipeType implements IPackageRecipeType {
 	public Int2ObjectMap<ItemStack> getRecipeTransferMap(IRecipeSlotsViewWrapper recipeLayoutWrapper) {
 		Int2ObjectMap<ItemStack> map = new Int2ObjectOpenHashMap<>();
 		List<IRecipeSlotViewWrapper> slotViews = recipeLayoutWrapper.getRecipeSlotViews();
-		int tier = recipeLayoutWrapper.getRecipe() instanceof ShapelessTableRecipe shapelessRecipe ? shapelessRecipe.getTier() : 0;
+		int tier = switch(recipeLayoutWrapper.getRecipe()) {
+		case RecipeHolder<?> recipeHolder -> recipeHolder.value() instanceof ShapelessTableRecipe shapelessRecipe ? shapelessRecipe.getTier() : 0;
+		case ShapelessTableRecipe shapelessRecipe -> shapelessRecipe.getTier();
+		case null, default -> 0;
+		};
 		if(tier == 0 && slotViews.size() == 82 || tier == 4) {
 			int index = 0;
 			int[] slotArray = SLOTS.toIntArray();

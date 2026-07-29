@@ -1,1 +1,2 @@
-Fix flux crafter progress bar  
+Fix shapeless recipes  
+Fix fluxCrafterDrawMEEnergy default value  
