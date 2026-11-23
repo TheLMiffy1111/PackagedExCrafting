@@ -84,6 +84,11 @@ public class EnderPackageRecipeType implements IPackageRecipeType {
 	}
 
 	@Override
+	public boolean hasCraftingRemainingItem() {
+		return false;
+	}
+
+	@Override
 	public List<ResourceLocation> getJEICategories() {
 		return CATEGORIES;
 	}

@@ -156,11 +156,6 @@ public class FluxPackageRecipeInfo implements IFluxPackageRecipeInfo {
 	}
 
 	@Override
-	public List<ItemStack> getRemainingItems() {
-		return recipe.getRemainingItems(matrix);
-	}
-
-	@Override
 	public Int2ObjectMap<ItemStack> getEncoderStacks() {
 		Int2ObjectMap<ItemStack> map = new Int2ObjectOpenHashMap<>();
 		int[] slotArray = FluxPackageRecipeType.SLOTS.toIntArray();

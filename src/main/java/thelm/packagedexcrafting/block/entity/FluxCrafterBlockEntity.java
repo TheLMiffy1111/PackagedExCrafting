@@ -9,7 +9,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.particles.DustParticleOptions;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
@@ -20,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.items.IItemHandler;
@@ -113,8 +113,9 @@ public class FluxCrafterBlockEntity extends BaseBlockEntity implements IPackageC
 			for(FluxAlternatorTileEntity alternator : alternators) {
 				alternator.getEnergy().extractEnergy(alternatorUsage, false);
 				BlockPos alternatorPos = alternator.getBlockPos();
-				if(level.isEmptyBlock(alternatorPos.above())) {
-					spawnParticles(DustParticleOptions.REDSTONE, alternatorPos, 1, 1);
+				Direction direction = alternator.getBlockState().getOptionalValue(BlockStateProperties.FACING).orElse(Direction.UP);
+				if(level.isEmptyBlock(alternatorPos.relative(direction))) {
+					sendAlternatorParticles(alternatorPos, direction);
 				}
 			}
 		}
@@ -136,11 +137,10 @@ public class FluxCrafterBlockEntity extends BaseBlockEntity implements IPackageC
 		else {
 			itemHandler.getStackInSlot(9).grow(currentRecipe.getOutput().getCount());
 		}
-		List<ItemStack> remainingItems = currentRecipe.getRemainingItems();
 		CraftingInput matrix = currentRecipe.getMatrix();
 		for(int i = 0; i < matrix.height(); ++i) {
 			for(int j = 0; j < matrix.width(); ++j) {
-				itemHandler.setStackInSlot(i*3+j, remainingItems.get(i*matrix.width()+j));
+				itemHandler.setStackInSlot(i*3+j, ItemStack.EMPTY);
 			}
 		}
 		endProcess();
@@ -196,15 +196,15 @@ public class FluxCrafterBlockEntity extends BaseBlockEntity implements IPackageC
 		}
 	}
 
-	protected <T extends ParticleOptions> void spawnParticles(T particle, BlockPos pos, double yOffset, int count) {
+	protected void sendAlternatorParticles(BlockPos pos, Direction direction) {
 		if(level == null || level.isClientSide()) {
 			return;
 		}
 		ServerLevel level = (ServerLevel)this.level;
-		double x = pos.getX()+0.5;
-		double y = pos.getY()+yOffset;
-		double z = pos.getZ()+0.5;
-		level.sendParticles(particle, x, y, z, count, 0, 0, 0, 0.1);
+		double x = pos.getX()+direction.getStepX()*0.5+0.5;
+		double y = pos.getY()+direction.getStepY()*0.625+0.375;
+		double z = pos.getZ()+direction.getStepZ()*0.5+0.5;
+		level.sendParticles(DustParticleOptions.REDSTONE, x, y, z, 1, 0, 0, 0, 0.1);
 	}
 
 	@Override

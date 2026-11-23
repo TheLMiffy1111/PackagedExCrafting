@@ -20,8 +20,6 @@ public interface IFluxPackageRecipeInfo extends IPackageRecipeInfo {
 
 	int getEnergyUsage();
 
-	List<ItemStack> getRemainingItems();
-
 	@Override
 	default List<ItemStack> getOutputs() {
 		ItemStack output = getOutput();

@@ -151,11 +151,6 @@ public class EnderPackageRecipeInfo implements IEnderPackageRecipeInfo {
 	}
 
 	@Override
-	public List<ItemStack> getRemainingItems() {
-		return recipe.getRemainingItems(matrix);
-	}
-
-	@Override
 	public Int2ObjectMap<ItemStack> getEncoderStacks() {
 		Int2ObjectMap<ItemStack> map = new Int2ObjectOpenHashMap<>();
 		int[] slotArray = EnderPackageRecipeType.SLOTS.toIntArray();
