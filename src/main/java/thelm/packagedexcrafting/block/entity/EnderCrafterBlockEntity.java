@@ -145,9 +145,8 @@ public class EnderCrafterBlockEntity extends BaseBlockEntity implements IPackage
 		else {
 			itemHandler.getStackInSlot(9).grow(currentRecipe.getOutput().getCount());
 		}
-		List<ItemStack> remainingItems = currentRecipe.getRemainingItems();
 		for(int i = 0; i < 9; ++i) {
-			itemHandler.setStackInSlot(i, remainingItems.get(i));
+			itemHandler.setStackInSlot(i, ItemStack.EMPTY);
 		}
 		endProcess();
 	}

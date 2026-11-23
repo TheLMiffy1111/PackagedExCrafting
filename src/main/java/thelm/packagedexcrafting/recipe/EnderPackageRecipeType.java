@@ -64,6 +64,11 @@ public class EnderPackageRecipeType implements IPackageRecipeType {
 	}
 
 	@Override
+	public boolean hasContainerItem() {
+		return false;
+	}
+
+	@Override
 	public List<ResourceLocation> getJEICategories() {
 		return CATEGORIES;
 	}

@@ -1,1 +1,1 @@
-Adjust textures  
+Made ender crafters consume items completely  
