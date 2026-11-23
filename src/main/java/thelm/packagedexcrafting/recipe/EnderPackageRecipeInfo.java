@@ -106,11 +106,6 @@ public class EnderPackageRecipeInfo implements IEnderPackageRecipeInfo {
 	}
 
 	@Override
-	public List<ItemStack> getRemainingItems() {
-		return recipe.getRemainingItems(matrix);
-	}
-
-	@Override
 	public void generateFromStacks(List<ItemStack> input, List<ItemStack> output, World world) {
 		recipe = null;
 		this.input.clear();

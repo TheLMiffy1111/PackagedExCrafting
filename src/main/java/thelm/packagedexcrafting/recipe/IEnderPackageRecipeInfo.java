@@ -19,8 +19,6 @@ public interface IEnderPackageRecipeInfo extends IPackageRecipeInfo {
 
 	int getTimeRequired();
 
-	List<ItemStack> getRemainingItems();
-
 	@Override
 	default List<ItemStack> getOutputs() {
 		ItemStack output = getOutput();
