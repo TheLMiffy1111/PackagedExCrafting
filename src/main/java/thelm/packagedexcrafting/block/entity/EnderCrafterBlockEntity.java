@@ -3,10 +3,12 @@ package thelm.packagedexcrafting.block.entity;
 import java.util.List;
 
 import com.blakebr0.extendedcrafting.block.EnderAlternatorBlock;
+import com.blakebr0.extendedcrafting.util.AlternatorParticleOffsets;
 import com.google.common.base.Predicates;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -19,6 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.items.IItemHandler;
@@ -116,8 +119,10 @@ public class EnderCrafterBlockEntity extends BaseBlockEntity implements IPackage
 			progress++;
 			actualProgressReq = (int)Math.max(progressReq*(1-alternatorEff*alternatorCount), 0);
 			for(BlockPos alternatorPos : alternators) {
-				if(level.isEmptyBlock(alternatorPos.above())) {
-					spawnParticles(ParticleTypes.PORTAL, alternatorPos, 1, 1);
+				BlockState state = level.getBlockState(alternatorPos);
+				Direction direction = state.getOptionalValue(BlockStateProperties.FACING).orElse(Direction.UP);
+                if(level.isEmptyBlock(alternatorPos.relative(direction))) {
+					sendAlternatorParticles(alternatorPos, direction);
 				}
 			}
 		}
@@ -142,9 +147,8 @@ public class EnderCrafterBlockEntity extends BaseBlockEntity implements IPackage
 		else {
 			itemHandler.getStackInSlot(9).grow(currentRecipe.getOutput().getCount());
 		}
-		List<ItemStack> remainingItems = currentRecipe.getRemainingItems();
 		for(int i = 0; i < 9; ++i) {
-			itemHandler.setStackInSlot(i, remainingItems.get(i));
+			itemHandler.setStackInSlot(i, ItemStack.EMPTY);
 		}
 		endProcess();
 	}
@@ -196,15 +200,15 @@ public class EnderCrafterBlockEntity extends BaseBlockEntity implements IPackage
 		}
 	}
 
-	protected <T extends ParticleOptions> void spawnParticles(T particle, BlockPos pos, double yOffset, int count) {
+	protected void sendAlternatorParticles(BlockPos pos, Direction direction) {
 		if(level == null || level.isClientSide()) {
 			return;
 		}
 		ServerLevel level = (ServerLevel)this.level;
-		double x = pos.getX()+0.5;
-		double y = pos.getY()+yOffset;
-		double z = pos.getZ()+0.5;
-		level.sendParticles(particle, x, y, z, count, 0, 0, 0, 0.1);
+		double x = pos.getX()+direction.getStepX()*0.5+0.5;
+		double y = pos.getY()+direction.getStepY()*0.625+0.375;
+		double z = pos.getZ()+direction.getStepZ()*0.5+0.5;
+		level.sendParticles(ParticleTypes.PORTAL, x, y, z, 1, 0, 0, 0, 0.1);
 	}
 
 	@Override
