@@ -29,6 +29,7 @@ repositories {
 			}
 		}
 		filter {
+			includeGroup "net.mezzdev.config"
 			includeGroup "mezz.jei"
 			includeGroup "vazkii.patchouli"
 		}
@@ -72,7 +73,7 @@ def specVersion = "1"
 def vendor = "thelm"
 
 group = "thelm.packagedexcrafting"
-version = "1.0.3.33"
+version = "1.0.3.34"
 
 def archivesName = "${modName}-${mcVersion}"
 base.archivesName = archivesName
@@ -116,7 +117,7 @@ dependencies {
 	legacyForge "net.minecraftforge:forge:1.12.2-14.23.5.2864"
 
 	// Dependencies
-	modImplementation "thelm.packagedauto:PackagedAuto-1.12.2:1.0.24.73"
+	modImplementation "thelm.packagedauto:PackagedAuto-1.12.2:1.0.24.74"
 	modImplementation "curse.maven:cucumber-272335:2645867"
 	modImplementation "curse.maven:extended-crafting-268387:2777071"
 	modImplementation "mezz.jei:jei_1.12.2:4.16.1.1013"

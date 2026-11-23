@@ -157,7 +157,7 @@ public class TileEnderCrafter extends TileBase implements ITickable, IPackageCra
 			inventory.getStackInSlot(9).grow(currentRecipe.getOutput().getCount());
 		}
 		for(int i = 0; i < 9; ++i) {
-			inventory.setInventorySlotContents(i, MiscUtil.getContainerItem(inventory.getStackInSlot(i)));
+			inventory.setInventorySlotContents(i, ItemStack.EMPTY);
 		}
 		endProcess();
 	}
