@@ -110,11 +110,6 @@ public class FluxPackageRecipeInfo implements IFluxPackageRecipeInfo {
 	}
 
 	@Override
-	public List<ItemStack> getRemainingItems() {
-		return recipe.getRemainingItems(matrix);
-	}
-
-	@Override
 	public void generateFromStacks(List<ItemStack> input, List<ItemStack> output, Level level) {
 		recipe = null;
 		this.input.clear();
